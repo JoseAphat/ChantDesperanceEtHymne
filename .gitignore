@@ -33,11 +33,19 @@ yarn-error.*
 # local env files
 .env*.local
 
+# .gitignore
+node_modules
+.expo
+.expo-shared
+dist
+build
+android/app/build
+ios/build
+.idea
+.vscode
+.DS_Store
+
 # typescript
 *.tsbuildinfo
 
 app-example
-
-# generated native folders
-/ios
-/android

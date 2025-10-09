@@ -1,0 +1,48 @@
+# Ignorer les dépendances locales (seront réinstallées sur le serveur Expo)
+node_modules
+
+# Ignorer le cache de npm/yarn
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# Ignorer les fichiers système et d'IDE
+.DS_Store
+*.iml
+.idea/
+.vscode/
+
+# Ignorer les fichiers git
+.git
+.gitignore
+
+# Ignorer les images, vidéos, PSD ou médias lourds non essentiels
+*.psd
+*.xcf
+*.mp4
+*.mov
+*.avi
+*.mkv
+
+# Ignorer les archives
+*.zip
+*.rar
+
+# Ignorer les tests ou docs non requis
+__tests__/
+tests/
+docs/
+
+# Ignorer les fichiers de compilation locale
+*.apk
+*.aab
+dist/
+build/
+
+# Expo générés localement
+web-build/
+.expo/
+.expo-shared/
+/android
+/ios
+

@@ -1,35 +1,64 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
+import Ionicons from "@expo/vector-icons/build/Ionicons";
+import { Tabs } from "expo-router";
+import React from "react";
+import { StyleSheet, useColorScheme, View } from "react-native";
+import { TabBarIcon } from "../../components/navigation/TabBarIcon";
 
-import { HapticTab } from '@/components/haptic-tab';
-import { IconSymbol } from '@/components/ui/icon-symbol';
-import { Colors } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
 
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-        tabBarButton: HapticTab,
-      }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
-        }}
-      />
-    </Tabs>
+    <View style={styles.container}>
+      <Tabs
+        screenOptions={{
+          tabBarActiveTintColor: "light",
+          headerShown: true,
+          tabBarHideOnKeyboard: false,
+          tabBarStyle: { backgroundColor: "white" },
+          headerStyle: { backgroundColor: "white" }, 
+          headerTintColor: "#0A1E42", 
+        }}        
+      >
+        <Tabs.Screen
+          name="index"
+          options={{
+            title: "Chant d'esperance",
+            tabBarIcon: ({ color, focused }) => (
+              <Ionicons
+                name={focused ? "book" : "book-outline"}
+                size={24}
+                color={"#0A1E42"}
+              />
+            ),
+           tabBarLabelStyle:{ color:"#0A1E42", fontWeight:"bold"},
+          }}
+        />
+
+        <Tabs.Screen
+          name="SongSearch"
+          options={{
+            title: "Recherche par Index",
+            tabBarIcon: ({ color, focused }) => (
+              <TabBarIcon
+                name={focused ? "search-sharp" : "search-sharp"}
+                color={"#0A1E42"}
+              />
+            ),
+            tabBarLabelStyle:{ color:"#0A1E42", fontWeight:"bold"},
+          }}
+        />
+      </Tabs>
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingBottom: 3, 
+    backgroundColor: "#dfdedcf7",
+    height: 12
+  },
+  
+});

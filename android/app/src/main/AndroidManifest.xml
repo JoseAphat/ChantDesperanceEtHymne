@@ -1,0 +1,85 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+  <uses-permission android:name="android.permission.INTERNET"/>
+  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+  <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+  <uses-permission android:name="android.permission.VIBRATE"/>
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+  
+  <!-- Queries étendues pour supporter les apps externes -->
+  <queries>
+    <intent>
+      <action android:name="android.intent.action.VIEW"/>
+      <category android:name="android.intent.category.BROWSABLE"/>
+      <data android:scheme="https"/>
+    </intent>
+    <!-- Support pour Facebook -->
+    <intent>
+      <action android:name="android.intent.action.VIEW"/>
+      <data android:scheme="fb"/>
+    </intent>
+    <intent>
+      <action android:name="android.intent.action.VIEW"/>
+      <data android:scheme="facebook"/>
+    </intent>
+    <!-- Support pour d'autres apps sociales si nécessaire -->
+    <intent>
+      <action android:name="android.intent.action.VIEW"/>
+      <data android:scheme="instagram"/>
+    </intent>
+    <intent>
+      <action android:name="android.intent.action.VIEW"/>
+      <data android:scheme="twitter"/>
+    </intent>
+    <!-- Package queries pour apps spécifiques -->
+    <package android:name="com.facebook.katana"/>
+    <package android:name="com.facebook.lite"/>
+  </queries>
+  
+  <application 
+    android:name=".MainApplication" 
+    android:label="@string/app_name" 
+    android:icon="@mipmap/ic_launcher" 
+    android:roundIcon="@mipmap/ic_launcher_round" 
+    android:allowBackup="true" 
+    android:theme="@style/AppTheme" 
+    android:supportsRtl="true">
+    
+    <meta-data android:name="expo.modules.updates.ENABLED" android:value="true"/>
+    <meta-data android:name="expo.modules.updates.EXPO_RUNTIME_VERSION" android:value="@string/expo_runtime_version"/>
+    <meta-data android:name="expo.modules.updates.EXPO_UPDATES_CHECK_ON_LAUNCH" android:value="ALWAYS"/>
+    <meta-data android:name="expo.modules.updates.EXPO_UPDATES_LAUNCH_WAIT_MS" android:value="0"/>
+    <meta-data android:name="expo.modules.updates.EXPO_UPDATE_URL" android:value="https://u.expo.dev/9ae3d36e-5ae4-40ac-9248-732109eb33e3"/>
+    
+    <activity 
+      android:name=".MainActivity" 
+      android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|uiMode" 
+      android:launchMode="singleTask" 
+      android:windowSoftInputMode="adjustResize"
+      android:theme="@style/Theme.App.SplashScreen" 
+      android:exported="true" 
+      android:taskAffinity=""
+      android:excludeFromRecents="false">
+      
+      <!-- Intent filter principal -->
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+      
+      <!-- Deep link pour votre app -->
+      <intent-filter android:autoVerify="true">
+        <action android:name="android.intent.action.VIEW"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <category android:name="android.intent.category.BROWSABLE"/>
+        <data android:scheme="chantdesperance" android:host="expo-development-client" />
+      </intent-filter>
+      
+      <!-- Intent filter pour les retours d'apps externes -->
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+      </intent-filter>
+      
+    </activity>
+  </application>
+</manifest>
