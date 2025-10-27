@@ -2,16 +2,15 @@ import { ConfigContext, ExpoConfig } from "expo/config";
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
-  name: "Chant d’Espérance & Hymne",
+  name: "Chants d’Espérance & Hymne",
   slug: "ChantDesperance",
-
-  version: "1.1.3",
+  version: "1.1.6",
   orientation: "default",
   icon: "./assets/images/ic_launcher_foreground.png",
   scheme: "chantdesperance",
   userInterfaceStyle: "automatic",
   newArchEnabled: true,
-  runtimeVersion: "1.1.3",
+  runtimeVersion: "1.1.6",
 
   updates: {
     fallbackToCacheTimeout: 0,
@@ -21,7 +20,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   ios: {
     supportsTablet: true,
     bundleIdentifier: "com.berly.ChantDesperance",
-    buildNumber: "1.1.3",
+    buildNumber: "1.0.0",
     infoPlist: {
       NSCameraUsageDescription: "Cette application peut avoir besoin d'accéder à la caméra.",
       NSMicrophoneUsageDescription: "Cette application peut avoir besoin d'accéder au microphone.",
@@ -33,7 +32,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
 
   android: {
     package: "com.berly.ChantDesperance",
-    versionCode: 34, 
+    versionCode: 38, 
     jsEngine: "hermes",
     allowBackup: true,
     userInterfaceStyle: "automatic",
@@ -65,16 +64,36 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     "expo-web-browser",
     "expo-font",
     ["expo-screen-orientation", { initialOrientation: "DEFAULT" }],
-    [
-      "expo-build-properties",
-      {
-        android: {
-          minSdkVersion: 24,
-          targetSdkVersion: 34,
-          abiFilters: ["armeabi-v7a", "arm64-v8a", "x86", "x86_64"],
-        },
-      },
-    ],
+    ["expo-build-properties", {
+  android: {
+    minSdkVersion: 24,
+    targetSdkVersion: 35,
+    compileSdkVersion: 35,
+    abiFilters: ["armeabi-v7a", "arm64-v8a", "x86", "x86_64"],
+    enableProguardInReleaseBuilds: true,
+    extraProguardRules: `
+      -keep class com.facebook.hermes.** { *; }
+      -keep class com.facebook.jni.** { *; }
+      -keep class com.facebook.soloader.** { *; }
+      -keep class com.facebook.proguard.annotations.DoNotStrip
+      -keep @com.facebook.proguard.annotations.DoNotStrip class *
+      -keepclassmembers class * {
+        @com.facebook.proguard.annotations.DoNotStrip *;
+      }
+
+      -keep class com.facebook.react.** { *; }
+      -keep class com.facebook.react.turbomodule.** { *; }
+      -keep class com.swmansion.** { *; }
+      -keep class com.bumptech.glide.** { *; }
+      -keep class com.google.gson.** { *; }
+      -keep class okhttp3.** { *; }
+      -keep class okio.** { *; }
+
+      -keep class expo.modules.** { *; }
+    `
+  }
+}]
+
   ],
 
   experiments: { typedRoutes: true },

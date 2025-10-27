@@ -1,5 +1,3 @@
-// 📂 data/categoryMap.ts
-import newCreole from "@/app/ChantCreoleData";
 import chantsC from "@/app/ChantDC";
 import englishSongs from "@/app/ChantDE";
 import chantsF from "@/app/ChantDF";
@@ -17,6 +15,7 @@ import OmbreF from "@/app/OmbreReveil";
 import ReveNC from "@/app/ReveillonsCreole";
 import ReveNF from "@/app/ReveillonsFrancais";
 import RevNC from "@/app/ReveillonsNous";
+import VCreole from "@/app/VersionCreole";
 
 export const categoryMap: Record<string, any[]> = {
   "Chant d'Esperance Créole": chantsC,
@@ -32,7 +31,7 @@ export const categoryMap: Record<string, any[]> = {
   "Haïti Chante avec Radio Lumière": HaitiC,
   "Gloire à l'Agneau": GloA,
   "Écho des Élus": echo,
-  "Nouveaux Chants Créole": newCreole,
+  "C.E Francais V.Créole": VCreole,
   "Chœurs Créole": CreoleSongs,
   "Choeurs Anglais": englishSongs,
   "Choeurs Français": frenchSongs,

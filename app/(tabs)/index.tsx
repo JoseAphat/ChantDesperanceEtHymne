@@ -19,9 +19,9 @@ import "react-native-gesture-handler";
 // Importation des données des chants
 import MaterialCommunityIcons from "@expo/vector-icons/build/MaterialCommunityIcons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import { useLocalSearchParams } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { moderateScale, scale, verticalScale } from "react-native-size-matters";
-import newCreole from "../ChantCreoleData";
 import chantsC from "../ChantDC";
 import englishSongs from "../ChantDE";
 import chantsF from "../ChantDF";
@@ -39,6 +39,7 @@ import OmbreF from "../OmbreReveil";
 import ReveNC from "../ReveillonsCreole";
 import ReveNF from "../ReveillonsFrancais";
 import RevNC from "../ReveillonsNous";
+import VCreole from "../VersionCreole";
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
@@ -70,6 +71,8 @@ export default function App() {
   const [inputValue, setInputValue] = useState<string>("");
   const [menuVisible, setMenuVisible] = useState(false);
   const navigation = useNavigation();
+  const { fromNotes, section } = useLocalSearchParams();
+  const isFromNotes = fromNotes === "true";
   const openEmail = () => {
     const email = "gedelienjosaphat@gmail.com";
     const subject = "Demande depuis l'application Chant d'Espérance & Hymne";
@@ -86,55 +89,37 @@ export default function App() {
     });
   };
 const openFacebook = async () => {
-  const pageId = '61574869895472';
+  const pageId = "61574869895472";
   const fbWebUrl = `https://www.facebook.com/profile.php?id=${pageId}`;
-  
-  // URLs testées et fonctionnelles
-  const urlsToTry = [
-    // Pour iOS et Android - format universel
-    `fb://profile/${pageId}`,
-    `fb://page/${pageId}`,
-    // Format alternatif
-    `facebook://profile/${pageId}`,
-    // Modal intégré Facebook
-    `fb://facewebmodal/f?href=${encodeURIComponent(fbWebUrl)}`,
-    // Fallback web
-    fbWebUrl
-  ];
-  
-  const tryOpenUrl = async (url: string) => {
+
+  const deepLinks = Platform.select({
+    ios: [
+      `fb://profile/${pageId}`,
+      `fb://page/?id=${pageId}`,
+      `fb://facewebmodal/f?href=${encodeURIComponent(fbWebUrl)}`,
+    ],
+    android: [
+      `fb://profile/${pageId}`,
+      `fb://page/${pageId}`,
+      `fb://facewebmodal/f?href=${encodeURIComponent(fbWebUrl)}`,
+      // Variante intent (Android uniquement)
+      `intent://profile/${pageId}#Intent;scheme=fb;package=com.facebook.katana;end`,
+    ],
+  })!;
+
+  for (const url of deepLinks) {
     try {
-      const canOpen = await Linking.canOpenURL(url);
-      if (canOpen) {
-        await Linking.openURL(url);
-        return true;
-      }
-      return false;
-    } catch {
-      return false;
-    }
-  };
-  
+      // on tente directement; si l’app n’est pas visible, ça throw
+      await Linking.openURL(url);
+      return;
+    } catch {}
+  }
+
+  // Fallback web
   try {
-    // Essaie chaque URL dans l'ordre jusqu'à ce qu'une fonctionne
-    for (const url of urlsToTry) {
-      const success = await tryOpenUrl(url);
-      if (success) {
-        console.log(`Successfully opened Facebook with: ${url}`);
-        return;
-      }
-    }
-    
-    // Si aucune URL n'a fonctionné
-    throw new Error('Aucune URL Facebook n\'a pu être ouverte');
-    
-  } catch (error) {
-    console.error('openFacebook error:', error);
-    Alert.alert(
-      'Erreur', 
-      'Impossible d\'ouvrir Facebook. Vérifiez que l\'application est installée.',
-      [{ text: 'OK' }]
-    );
+    await Linking.openURL(fbWebUrl);
+  } catch {
+    Alert.alert("Erreur", "Impossible d’ouvrir Facebook. Vérifiez que l’application est installée.");
   }
 };
   const handleUpdateApp = () => {
@@ -196,18 +181,21 @@ const openFacebook = async () => {
 
   const goToPolitique = () => {
     setMenuVisible(false);
-    router.push("/Politique");
+    router.push("./Politique");
   };
 
   const goToFoire = () => {
     setMenuVisible(false);
-    router.push("/Foire");
+    router.push("./Foire");
   };
   const goToAbout = () => {
   setMenuVisible(false);
   router.push("/About" as any);  
 };
-
+const goToSupport = () => {
+  setMenuVisible(false);
+  router.push("/Support" as any);  
+};
   const handleSearch = () => {
     const isNumber = !isNaN(Number(inputValue));
     let results: {
@@ -403,7 +391,7 @@ const openFacebook = async () => {
           category: "Écho des Élus",
         }))
       );
-      const CResults = newCreole.filter(
+      const CResults = VCreole.filter(
         (song) => song.id.toString() === inputValue
       );
       results.push(
@@ -711,7 +699,7 @@ const openFacebook = async () => {
         }))
       );
       //................................
-      const CResults = newCreole.filter((song) => {
+      const CResults = VCreole.filter((song) => {
         const songTitle = song.title ? normalizeText(song.title) : "";
         const songLyrics = song.lyrics ? normalizeText(song.lyrics) : "";
         return (
@@ -785,7 +773,7 @@ const openFacebook = async () => {
     }
     if (results.length > 0) {
       router.push({
-        pathname: "/SearchResults",
+        pathname: "./SearchResults",
         params: { results: JSON.stringify(results) },
       });
     } else {
@@ -797,29 +785,34 @@ const openFacebook = async () => {
   };
 
   const goToChantDesperance = () => {
-    router.push("/ChantDesperance");
+    router.push("./ChantDesperance");
   };
   const goToHymneEtLouange = () => {
-    router.push("/HymneEtLouange")
-  };
+  router.push({
+    pathname: "./HymneEtLouange",
+    params: { 
+      fromNotes: isFromNotes ? "true" : "false", 
+      section 
+    },
+  });
+};
+
   const goToEnglish = () => {
-    router.push("/English")
+    router.push("./English")
   };
   const goToChoeurFrancais = () => {
-    router.push("/ChoeurFrancais")
+    router.push("./ChoeurFrancais")
   };
   const goToChoeurCreole = () => {
-    router.push("/ChoeurCreole")
+    router.push("./ChoeurCreole")
   };
   const goToFavoris = () => {
-    router.push("/FavoritesScreen")
+    router.push("./FavoritesScreen")
   };
-  const goToNote = () => {
-    router.push("/Note")
-    //const goToChanKreyol = () => {
-   // router.push("/ChantCreole")
-    // };
+  const goToService = () => {
+    router.push("./Service")
   };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.searchContainer}>
@@ -897,13 +890,13 @@ const openFacebook = async () => {
 
         {/* Bouton "Mes Notes" centré séparément */}
         <View style={styles.notesButtonWrapper}>
-          <TouchableOpacity style={styles.notesButton} onPress={goToNote}>
+          <TouchableOpacity style={styles.notesButton} onPress={goToService}>
             <MaterialCommunityIcons
               name="notebook-plus"
               size={responsiveModerateScale(40)}
               color="#0A1E42"
             />
-            <Text style={styles.notesButtonText}>Mes Notes</Text>
+            <Text style={styles.notesButtonText}>Cultes & Notes</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -946,6 +939,12 @@ const openFacebook = async () => {
           >
             <Text style={styles.modalText}> À propos </Text>
           </TouchableOpacity>
+           <TouchableOpacity
+            style={styles.modalButton}
+            onPress={goToSupport}
+          >
+            <Text style={styles.modalText}> Nous supporter</Text>
+          </TouchableOpacity>
           <TouchableOpacity
             style={styles.modalButton}
             onPress={() => setMenuVisible(false)}
@@ -956,9 +955,9 @@ const openFacebook = async () => {
         </View>
       </TouchableWithoutFeedback>
     </View>
+    
   </TouchableWithoutFeedback>
 </Modal>
-
     </SafeAreaView>
   );
 }
@@ -1072,6 +1071,8 @@ const styles = StyleSheet.create({
     textAlign: "center",
     lineHeight: responsiveModerateScale(16),
     paddingHorizontal: responsiveScale(4),
+    bottom: responsiveVerticalScale(14),
+
   },
 
   // Wrapper pour centrer le bouton "Mes Notes"

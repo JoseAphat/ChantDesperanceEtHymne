@@ -2,14 +2,15 @@ export type Chant = {
   id: string;
   title: string;
   lyrics: string;
+  author: string;
 };
-const newCreole: Chant[] = [
+const VCreole: Chant[] = [
   {
     id: "1",
     title: "001- Mwen pa konn nan konbyen tan",
     lyrics: `1.
 Mwen pa konn nan konbyen tan
-Ma wè Wadèwa m nan
+M a wè Wadèwa m nan
 Sèlman m konn yon bagay
 L ap espere m laba
 Blakawout va kaba, Limyè va domine
@@ -22,26 +23,27 @@ Laglwa va anvayi nanm mwen
 Mwen pa konnen ki chan
 kretyen yo va chante
 Ki akò ki aksan zanj yo konn fredone
-Menm konnen lè m mele vwa pa m nan kantik yo
+Men m konnen lè m mele vwa pa m nan kantik yo
 M a va adore tankou yo (3fwa)
 Men m konnen lè m mele
 Vwa pa m nan kantik yo
 M a va adore tankou
 
 3.
-Mwen paka esplike jan palè syèl la ye
+Mwen pa ka esplike jan palè syèl la ye
 Men m konnen lè m rive
-Mwen pap yon etranje
+Mwen p ap yon etranje
 Ak yon souri Jezi va di mwen byenvini
 Pòt syèl la va louvri pou mwen (3fwa)
 Ak yon souri Jezi
 Va di mwen byen vini
 Pòt syèl la va louvri pou mwen
 `,
+  author: "J. Michel",
   },
   {
-    id: "8",
-    title: "008- Gad yon non",
+    id: "2",
+    title: "002- Gad yon non",
     lyrics: `1.
     Nan syèl yo tankou sou tè a
     Pa gen lòt ki pi dous
@@ -66,6 +68,7 @@ Pòt syèl la va louvri pou mwen
     Se li ki bay fòs ak kouraj
     Ak tout kè ki chifonnen
     `,
+      author: "J. Michel",
   },
 ];
-export default newCreole;
+export default VCreole;

@@ -54,7 +54,6 @@ const About = () => {
       console.error("Erreur lors de l'ouverture :", err)
     );
   };
-
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <View style={styles.header}>
@@ -68,7 +67,7 @@ const About = () => {
           </View>
         </View>
         <Text style={styles.appName}>Chant d'Esperance & Hymne</Text>
-        <Text style={styles.version}>Version 1.1.3</Text>
+        <Text style={styles.version}>Version 1.1.6</Text>
       </View>
 
       <View style={styles.content}>
@@ -143,6 +142,13 @@ const About = () => {
               </View>
               <Text style={styles.memberName}>Josué Rémy MONEXANT</Text>
               <Text style={styles.memberRole}>Assistance au développement</Text>
+            </View>
+            <View style={styles.teamMember}>
+              <View style={[styles.memberAvatar, { backgroundColor: '#0b065e53' }]}>
+                <Text style={styles.memberAvatarText}>GD</Text>
+              </View>
+              <Text style={styles.memberName}>Gloria R. DESVIEUX</Text>
+              <Text style={styles.memberRole}>Aide en plagiat</Text>
             </View>
           </View>
         </View>

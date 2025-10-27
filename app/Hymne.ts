@@ -9046,7 +9046,7 @@ En attendant son glorieux retour,
 Je suis gardé par lui, de jour en jour.
 
 Refrain:
-Jour après jour gardé par son amour,
+Jour après jour gardé par ton amour,
 Jour après jour à l'abri de ton aile,
 C'est le repos et la vie éternelle…
 Je t'appartiens, ô Sauveur, pour toujours!

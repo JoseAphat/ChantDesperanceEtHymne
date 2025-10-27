@@ -1343,7 +1343,7 @@ Saisis-la donc et sois vainqueur. (bis)
 Jamais, jamais
 Dieu qui fit la promesse
 Ne manquera de l'accomplir.
-Que ton enfant, sauvé de la détresse,
+Que son enfant, sauvé de la détresse,
 Ne manque pas de le bénir. (bis)      
 
       `,

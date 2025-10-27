@@ -54,7 +54,7 @@ const FavoritesScreen: React.FC = () => {
     paddingBottom: 40,  // Ajoute de l'espace en bas
   },
   headerStyle: {
-    height: 200 + (Platform.OS === "android" ? (StatusBar.currentHeight ?? 0) : 0),
+    height: 200 + (Platform.OS === "android" ? (StatusBar.currentHeight ?? 0) : 10),
     backgroundColor: "#0A1E42",
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
@@ -70,7 +70,11 @@ const FavoritesScreen: React.FC = () => {
     }}>
       <TouchableOpacity
         onPress={() => setIsSelectionMode(!isSelectionMode)}
-        style={{ padding: 4 }}
+        style={{ 
+          padding: 4,
+          bottom: 25
+        } 
+      }
       >
         <Ionicons 
           name={isSelectionMode ? "close" : "checkmark-circle-outline"} 
@@ -84,7 +88,7 @@ const FavoritesScreen: React.FC = () => {
     <View
       style={{
         marginLeft: 10,
-        marginTop: 20,  // Ajusté pour aligner avec le titre
+        marginTop: 0,  
       }}
     >
       <TouchableOpacity onPress={() => navigation.goBack()}>

@@ -4451,5 +4451,193 @@ Je ne peux plus y retourner
 _V.J. Baseya_
 `
 },
+{
+    id: "153",
+    title: "153- Si riche, si profond",
+    lyrics: `1.
+Si riche, si profond, insondable
+C’est l’amour divin
+L’amour rédempteur.
+
+Refrain:
+Pour moi, pour moi
+Indigne sauvé par grâce.
+Pour moi, pour moi
+L’amour rédempteur.
+
+2.
+Immuable, incomparable, inexprimable,
+C’est l’amour divin
+L’amour rédempteur.
+
+3.
+Comme c’est beau,
+Comme c’est doux
+De fredonner de l’amour divin,
+L’amour rédempteur.
+`
+},
+{
+    id: "154",
+    title: "154- Oh quel merveilleux amour",
+    lyrics: `1.
+Dieu dut aimer un pécheur comme moi
+Il a changé ma tristesse en joie
+J'étais sans repos, Il m'a remené
+Quel est ce merveilleux amour !
+
+Refrain:
+Oh quel merveilleux amour(2x)
+Que Dieu aima un pécheur tel que moi
+Quel est ce merveilleux amour
+
+2.
+Et Christ s'est donné librement pour moi
+Cela couta sa mort sur le calvaire
+La langue humaine n'a pas de noble thème
+Comme cet amour qui me sauva
+
+3.
+Pour un pécheur condamné comme moi
+Le Père pourvut et le Sauveur mourrut
+C'est le rachat pour un esclave indigne
+Qui longtemps méprisa la grâce
+
+4.
+Et maintenant Il m'a pris comme un fils
+Me dit que je ne suis pas serviteur
+Les cloches sonnent non loin du pays
+Ses bras sont largement ouverts
+    `
+},
+{
+    id: "155",
+    title: "155- Seul refuge de mon âme",
+    lyrics: `1.
+Seul refuge de mon âme
+Je veux m’appuyer sur toi;
+La paix que mon coeur réclame
+Est à tes pieds, divin Roi!
+
+Refrain:
+Jésus, Sauveur, que je t’aime,
+O toi qui mourus pour moi,
+Et qui veux, dans le ciel même,
+Qu’un jour je règne avec toi!
+
+2.
+Sur ta croix, victime sainte,
+Mon péché fut expié.
+Plus d’angoisse, plus de crainte :
+Ton sang m’a purifié.
+
+3.
+Il n’est aucune autre chose
+Qui puisse apaiser mon coeur;
+En toi seul je me repose,
+En toi, mon puissant Sauveur.
+
+4.
+À toi, Jésus, j’abandonne
+Mon coeur, mon âme et mes jours!
+Qu’en moi ton amour rayonne,
+Je veux te servir toujours.
+    `
+},
+{
+    id: "156",
+    title: "156- Un chrétien je croyais être",
+    lyrics: `1.
+Un chrétien je croyais être,
+Mais j'ignorais le bonheur,
+Que Jésus mon divin Maître
+Vient apporter dans un coeur.
+
+2.
+Oh! la paix que Jésus donne 
+Je ne la connaissais pas.
+Tout sur mon chemin rayonne 
+Depuis qu'Il conduit mes pas.
+
+3.
+Sa présence souveraine
+Maintenant règne sur moi,
+Du péché brise la chaîne,
+Me rend vainqueur par la foi.
+
+4.
+Et tranquillement j'avance
+M'appuyant sur mon Sauveur.
+Son adorable présence
+Me donne le vrai bonheur.
+    `
+},
+{
+    id: "157",
+    title: "157- Sur les traces de Jésus",
+    lyrics: `1.
+Sur les traces de Jésus:
+Un pas à la fois;
+Et je vis maintenant,
+Dans l’Amour divin.
+Sans souci du lendemain,
+A chaque jour sa peine;
+Sur les traces de Jésus:
+Chaque pas sur la route.
+
+Etroit est le sentier
+Mais II m’y conduit;
+A Son ombre je marche,
+Finies toutes mes peurs.
+Mon esprit devient fort,
+Chaque instant, chaque jour,
+Car Jésus dirige
+Chaque pas sur la route.
+    `
+},
+{
+    id: "158",
+    title: "158- Mes yeux ont vu la gloire",
+    lyrics: `1.
+Mes yeux ont vu la gloire 
+De la venue du Seigneur;
+Il est en train de fouler 
+La vendange de la colère;
+Il a lâché le fatal éclair de Sa terrible épée;
+Sa Vérité est en marche.
+
+Chœur:
+Gloire! gloire, alléluia!
+Gloire! gloire, alléluia!
+Gloire! gloire, alléluia!
+Sa Vérité est en marche
+
+2.
+Je L’ai vu entouré 
+D’une centaine de feux de bivouac;
+Ils ont bâti pour Lui 
+un autel dans la fraîcheur du soir;
+Je peux lire Sa juste sentence 
+Par le scintillement des lampes;
+Son jour est vraiment en marche.
+
+3.
+Il sonna la trompette 
+Qui jamais n’annonce la retraite;
+Et II sonde les cœurs des hommes 
+Devant Son trône de jugement;
+O mon âme, hâte-toi de Lui répondre! mes pieds, jubilez!
+Notre Dieu est bien en marche.
+
+4.
+Dans la beauté de lys, 
+Christ naquit par delà la mer,
+Avec dans Son sein une gloire 
+Qui nous transfigure, vous et moi;
+Comme Sa mort sanctifia les hommes, 
+Mourons pour les libérer
+Pendant que Dieu est en marche.
+    `
+},
 ];
 export default frenchSongs;

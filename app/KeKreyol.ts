@@ -4091,7 +4091,7 @@ _By Tom Karencini JECROIS_`,
     Sa pa anyen pou BonDye m nan
 
 
-    _By Joel Leon_
+    _Joel Leon_
     `,
   },
   {
@@ -4100,7 +4100,7 @@ _By Tom Karencini JECROIS_`,
     lyrics: `
     Senyè Ou merite tout glwa
     Pèsòn pa ka adore w nan plas mwen
-    Lè mwen gade tout sa pou mwen
+    Lè mwen gade tout sa ou fè pou mwen
     Pèsòn pa ka adore w nan plas mwen
     
     Kè:
@@ -4111,8 +4111,14 @@ _By Tom Karencini JECROIS_`,
     
     Bouch mwen p ap janm ret fèmen
     Adorasyon mwen se pou ou
-    Jouk tan mwen pa gen souf amkò
-    Adorasyon mwen se pou ou`,
+    Toutotan m ap respire
+    Adorasyon mwen se pou ou
+    
+    Bouch mwen p ap janm ret fèmen
+    Adorasyon mwen se pou ou
+    Jouk tan mwen pa gen souf ankò
+    Adorasyon mwen se pou ou
+    `,
   },
   {
     id: "147",
@@ -7154,7 +7160,7 @@ _Lochard Rémy_
 },
 {
   id: "255",
-  title: "255- Ayiti demilkat",
+  title: "255- M ap pwospere",
   lyrics: `1.
 Mwen nan mitan dezè a,
 M pa wè ki wout pou m pase.
@@ -7189,6 +7195,8 @@ Se pou ènmi m yo konfese
 Ke Bondye konn leve moun an dinyite!
 
 M ap Pwospere...
+
+_ASTHARMONIE FEAT DAVID_
 `
 },
 

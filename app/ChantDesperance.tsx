@@ -21,61 +21,66 @@ const options = [
   },
   {
     id: "2",
-    title: "Chant d'Espérance Créole",
+    title: "Chant d'Espérance Français (V.Créole)",
     image: require("../assets/images/CE.png"),
   },
   {
     id: "3",
+    title: "Chant d'Espérance Créole",
+    image: require("../assets/images/CE.png"),
+  },
+  {
+    id: "4",
     title: "Mélodies Joyeuses Français",
     image: require("../assets/images/Mjoyeuses.png"),
   },
   {
-    id: "4",
+    id: "5",
     title: "Mélodies Joyeuses Créole",
     image: require("../assets/images/Mjoyeuses.png"),
   },
   {
-    id: "5",
+    id: "6",
     title: "Réveillons-Nous Français",
     image: require("../assets/images/reveillons-nous.png"),
   },
   {
-    id: "6",
+    id: "7",
     title: "Réveillons-Nous Créole",
     image: require("../assets/images/reveillons-nous.png"),
   },
   {
-    id: "7",
+    id: "8",
     title: "La Voix du Réveil Français",
     image: require("../assets/images/VoixReve.png"),
   },
   {
-    id: "8",
+    id: "9",
     title: "La Voix du Réveil Créole",
     image: require("../assets/images/VoixReve.png"),
   },
   {
-    id: "9",
+    id: "10",
     title: "Réveillons-Nous Chrétiens",
     image: require("../assets/images/reveillons-nous-chretiens.png"),
   },
   {
-    id: "10",
+    id: "11",
     title: "L'Ombre du Réveil",
     image: require("../assets/images/ombre-du-reveil.png"),
   },
   {
-    id: "11",
+    id: "12",
     title: "Haïti Chante Avec Radio Lumière",
     image: require("../assets/images/haiti-chante.png"),
   },
   {
-    id: "12",
+    id: "13",
     title: "Gloire à l'Agneau",
     image: require("../assets/images/gloireAgneau.png"),
   },
   {
-    id: "13",
+    id: "14",
     title: "Écho des Élus",
     image: require("../assets/images/echo-des-elus.png"),
   },
@@ -87,6 +92,7 @@ type OptionTitle = (typeof options)[number]["title"];
 
 const optionRoutes: Record<OptionTitle, string> = {
   "Chant d'Espérance Français": "ChantDesperanceFrancais",
+  "Chant d'Espérance Français (V.Créole)": "NewCreole",
   "Chant d'Espérance Créole": "ChantDesperanceCreole",
   "Mélodies Joyeuses Français": "MelodieJoyeusesFrancais",
   "Mélodies Joyeuses Créole": "MelodieJoyeusesCreole",
@@ -217,7 +223,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#dfdedcf7",
     padding: verticalScale(0),
     borderRadius: 10,
-    width: "43%", // Permet d'afficher 2 éléments par ligne
+    width: "40%", // Permet d'afficher 2 éléments par ligne
     height: verticalScale(100),
     marginVertical: verticalScale(15),
     shadowColor: "#000",
@@ -238,11 +244,10 @@ const styles = StyleSheet.create({
     borderRadius: moderateScale(10),
   },
   chantTitle: {
-   fontSize: responsiveModerateScale(14),
-    fontWeight: "bold",
+   fontSize: responsiveModerateScale(12),
     color: "#0A1E42",
     textAlign: "center",
-    lineHeight: responsiveModerateScale(16),
+    lineHeight: responsiveModerateScale(17),
     paddingHorizontal: responsiveScale(4),
   },
 });

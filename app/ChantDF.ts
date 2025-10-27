@@ -3263,7 +3263,7 @@ Que nous vivions par la foi!
 Je connais un guide infaillible
 Qui, constamment, veille sur moi;
 Sur ses pas je poursuis, paisible
-La sainte couse de la foi
+La sainte course de la foi
 
 Refrain:
 Conduit par toi, céleste guide
@@ -6470,8 +6470,8 @@ En attendant son glorieux retour,
 Je suis gardé par Lui de jour en jour.
 
 Refrain:
-Jour après, gardé par son amour,
-Jour après jour à l'abri de son aile;
+Jour après, gardé par ton amour,
+Jour après jour à l'abri de ton aile;
 C'est le repos et la vie éternelle…
 Je t'appartiens, ô Sauveur, pour toujours!
 

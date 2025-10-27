@@ -1,11 +1,11 @@
 export type Chant = {
-  category: string;
+ // category: string;
   id: string;
   title: string;
   lyrics: string;
-  type: string;
+  //type: string;
 };
-const rawChants = [
+const chantsC = [
   {
     id: "1",
     title: "001- Redanmtè mwen mouri",
@@ -4548,6 +4548,13 @@ Malgre m genyen anpil pwoblèm,
 Ak chaj pou mwen pote;
 Mwen gen konfyans gras li kont menm,
 Mwen konnen Bondye la.
+
+Kè:
+BonDye la, pou fè m kontan,
+Pou chase tout krent nan kè mwen;
+Lè m tande vwa l, mwen pa pantan
+Bondye la, wi, Bondye la.
+
       `,
   },
   {
@@ -5071,29 +5078,6 @@ Plis n ap sèvi, plis n ap renmen.
       `,
   },
 ];
-// Fonction pour assigner un type dynamique
-const assignType = (id: string): string => {
-  const numericId = parseInt(id, 10);
-
-  if (numericId >= 1 && numericId <= 5) {
-    return "AdorationEtLouange";
-  } else {
-    return "Inconnu";
-  }
-};
-const chantsC: Chant[] = rawChants.map((chant) => ({
-  ...chant,
-  type: assignType(chant.id),
-}));
-// Ajout des types aux chants dans le tableau chantsC
 
 export default chantsC;
-// Fonction pour rechercher les chants par type
-const searchByType = (type: string): Chant[] => {
-  return chantsC.filter((chant) => chant.type === type);
-};
-const categoryMap = {
-  AdorationEtLouange: chantsC.filter(
-    (song) => song.type === "AdorationEtLouange"
-  ),
-};
+

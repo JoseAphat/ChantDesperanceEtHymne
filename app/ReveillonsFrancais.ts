@@ -750,22 +750,22 @@ C'est Lui seul qui peut me charmer
 Choeur:
 Avec ce Sauveur bien-aimé
 Je veux demeurer constamment
-Il change l’hiver an été
-L’autonne en un nouveau printemps
+Il change l’hiver en été
+L’automne en un nouveau printemps
 
 2.
 Son beau non fait vibrer mon Cœur
 Sa voie semble un écho des cieux
 C’est bien son regard sa faveur
 Qui bannit les pleurs de mes yeux
-Jésus ton amour me sufit
+Jésus ton amour me suffit
 Le monde est pour moi sans attrait
 Car je suis quand tu me souris
 Heureux en janvier comme en mai
 
 3.
 Heureux et fière de témoigner
-Le non de Jésus en tout lieux
+Le nom de Jésus en tout lieux
 Oh qu’il est doux de le louer
 Proclamons sa gloire en tout lieu
 Oh regardons cette humble croix
@@ -780,7 +780,7 @@ Jésus mouru pour nos péchés
     title: "024- Grand en fidélité O Dieu mon père",
     lyrics: `1.
 Grand en fidélité O Dieu mon père
-Chez nulle trâce de changement
+Chez Toi nulle trace de changement
 Tes compassions ne sont pas à leurs terme
 Tu restes fidèle éternellement
 
@@ -788,7 +788,7 @@ Choeur:
 Grand en fidélité (2×)
 Jour après jour tu me tiens par la foi
 Tu as pourvu chaque jour a mes besoins
-Grand en fidelite toi envers moi
+Grand en fidélité, toi envers moi
 
 2.
 L’été et l’hiver, les saisons fertiles
@@ -2245,7 +2245,7 @@ Saisis-la donc et sois vainqueur. (bis)
 4.
 Jamais, jamais, Dieu qui fit la promesse.
 Ne manquera de l’accomplir.
-Que ton enfant, sauve de la détresse,
+Que son enfant, sauve de la détresse,
 Ne manque pas de le bénir ! (bis)`,
   },
   {
