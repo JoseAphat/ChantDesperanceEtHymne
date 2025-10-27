@@ -207,12 +207,12 @@ const goToSupport = () => {
     }[] = [];
     const normalizeText = (text: string): string =>
       text
-        .toLowerCase()
-        .normalize("NFD") // Décompose les caractères accentués
-        .replace(/[\u0300-\u036f]/g, "") // Supprime les diacritiques
-        .replace(/[^a-z0-9\s]/g, "") // Supprime tout sauf lettres, chiffres et espaces
-        .replace(/\s+/g, " ") // Remplace plusieurs espaces par un seul
-        .trim();
+    .toLowerCase()                    
+    .normalize("NFD")                  
+    .replace(/[\u0300-\u036f]/g, "")  
+    .replace(/[^\p{L}\p{N}\s]/gu, "") 
+    .replace(/\s+/g, " ")
+    
     const normalizedInput = normalizeText(inputValue);
     if (isNumber) {
       const chantResults = chantsF.filter(

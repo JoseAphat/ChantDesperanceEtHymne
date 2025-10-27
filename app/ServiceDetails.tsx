@@ -4,15 +4,16 @@ import { useFocusEffect } from "@react-navigation/native";
 import { router, useLocalSearchParams, useNavigation } from "expo-router";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import {
-    Animated,
-    FlatList,
-    Modal,
-    Pressable,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View
+  Animated,
+  FlatList,
+  Modal,
+  Pressable,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View
 } from "react-native";
+import { moderateScale, scale, verticalScale } from "react-native-size-matters";
 
 type SectionKey = "introduction" | "partie1" | "partie2" | "partie3";
 interface Chant { id: string | number; title: string; lyrics: string; category: string }
@@ -349,63 +350,64 @@ const styles = StyleSheet.create({
 
   loadingContainer: {
     alignItems: 'center',
-    padding: 24,
+    padding: scale(24),
   },
 
   loadingText: {
-    marginTop: 12,
-    fontSize: 16,
+    marginTop: verticalScale(12),
+    fontSize: moderateScale(16),
     color: COLORS.textLight,
     fontWeight: '600',
   },
 
   errorContainer: {
     alignItems: 'center',
-    padding: 24,
-    maxWidth: 280,
+    padding: scale(24),
+    maxWidth: scale(280),
   },
 
   errorTitle: {
-    fontSize: 20,
+    fontSize: moderateScale(20),
     fontWeight: '700',
     color: COLORS.text,
-    marginTop: 16,
-    marginBottom: 8,
+    marginTop: verticalScale(16),
+    marginBottom: verticalScale(8),
   },
 
   errorText: {
-    fontSize: 14,
+    fontSize: moderateScale(14),
     color: COLORS.textLight,
     textAlign: 'center',
-    lineHeight: 20,
-    marginBottom: 24,
+    lineHeight: moderateScale(20),
+    marginBottom: verticalScale(24),
   },
 
   retryButton: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: COLORS.primary,
-    paddingHorizontal: 20,
-    paddingVertical: 12,
-    borderRadius: 12,
+    paddingHorizontal: scale(20),
+    paddingVertical: verticalScale(12),
+    borderRadius: scale(12),
     shadowColor: COLORS.primary,
-    shadowOffset: { width: 0, height: 4 },
+    shadowOffset: { width: 0, height: verticalScale(4) },
     shadowOpacity: 0.3,
-    shadowRadius: 8,
+    shadowRadius: scale(8),
     elevation: 4,
   },
 
   retryText: {
     color: '#FFFFFF',
     fontWeight: '600',
-    marginLeft: 8,
+    marginLeft: scale(8),
+    fontSize: moderateScale(14),
   },
 
   header: {
     backgroundColor: COLORS.primary,
-    paddingTop: 60,
-    paddingBottom: 20,
-    paddingHorizontal: 16,
+    paddingTop: verticalScale(60),
+    paddingBottom: verticalScale(20),
+    paddingHorizontal: scale(16),
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -416,8 +418,8 @@ const styles = StyleSheet.create({
   },
 
   backButton: {
-    padding: 8,
-    marginRight: 8,
+    padding: scale(8),
+    marginRight: scale(8),
   },
 
   headerContent: {
@@ -425,10 +427,10 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    fontSize: 24,
+    fontSize: moderateScale(24),
     fontWeight: '800',
     color: '#FFFFFF',
-    marginBottom: 4,
+    marginBottom: verticalScale(4),
   },
 
   headerMeta: {
@@ -439,36 +441,36 @@ const styles = StyleSheet.create({
   metaItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginRight: 16,
+    marginRight: scale(16),
   },
 
   metaText: {
-    fontSize: 12,
+    fontSize: moderateScale(12),
     color: '#FFFFFF',
     opacity: 0.9,
-    marginLeft: 4,
+    marginLeft: scale(4),
   },
 
   headerAddButton: {
-    padding: 8,
+    padding: scale(8),
     backgroundColor: 'rgba(255,255,255,0.2)',
-    borderRadius: 8,
+    borderRadius: scale(8),
   },
 
   listContent: {
-    padding: 16,
-    paddingBottom: 100,
+    padding: scale(16),
+    paddingBottom: verticalScale(100),
   },
 
   sectionCard: {
     backgroundColor: COLORS.card,
-    borderRadius: 16,
-    padding: 16,
-    marginBottom: 16,
+    borderRadius: scale(16),
+    padding: scale(16),
+    marginBottom: verticalScale(16),
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: { width: 0, height: verticalScale(2) },
     shadowOpacity: 0.1,
-    shadowRadius: 8,
+    shadowRadius: scale(8),
     elevation: 3,
     borderWidth: 1,
     borderColor: COLORS.border,
@@ -478,7 +480,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 12,
+    marginBottom: verticalScale(12),
   },
 
   sectionTitleContainer: {
@@ -488,16 +490,16 @@ const styles = StyleSheet.create({
   },
 
   sectionIcon: {
-    width: 28,
-    height: 28,
-    borderRadius: 14,
+    width: scale(28),
+    height: scale(28),
+    borderRadius: scale(14),
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 8,
+    marginRight: scale(8),
   },
 
   sectionTitle: {
-    fontSize: 16,
+    fontSize: moderateScale(16),
     fontWeight: '700',
     color: COLORS.text,
     flex: 1,
@@ -505,68 +507,68 @@ const styles = StyleSheet.create({
 
   chip: {
     backgroundColor: COLORS.background,
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 12,
-    marginLeft: 8,
+    paddingHorizontal: scale(8),
+    paddingVertical: verticalScale(4),
+    borderRadius: scale(12),
+    marginLeft: scale(8),
   },
 
   chipText: {
-    fontSize: 12,
+    fontSize: moderateScale(12),
     fontWeight: '600',
     color: COLORS.primary,
   },
 
   addSectionButton: {
-    padding: 4,
+    padding: scale(4),
   },
 
   emptySection: {
     alignItems: 'center',
-    padding: 24,
+    padding: scale(24),
     backgroundColor: `${COLORS.primary}08`,
-    borderRadius: 12,
+    borderRadius: scale(12),
     borderWidth: 1,
     borderColor: `${COLORS.primary}15`,
     borderStyle: 'dashed',
   },
 
   emptyText: {
-    fontSize: 14,
+    fontSize: moderateScale(14),
     color: COLORS.textLight,
-    marginTop: 8,
-    marginBottom: 12,
+    marginTop: verticalScale(8),
+    marginBottom: verticalScale(12),
   },
 
   emptyButton: {
     backgroundColor: COLORS.primary,
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 8,
+    paddingHorizontal: scale(16),
+    paddingVertical: verticalScale(8),
+    borderRadius: scale(8),
   },
 
   emptyButtonText: {
     color: '#FFFFFF',
-    fontSize: 12,
+    fontSize: moderateScale(12),
     fontWeight: '600',
   },
 
   chantsGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    marginHorizontal: -4,
+    marginHorizontal: scale(-4),
   },
 
   chantCard: {
     width: '48%',
     marginHorizontal: '1%',
-    marginBottom: 8,
+    marginBottom: verticalScale(8),
   },
 
   chantContent: {
     backgroundColor: COLORS.background,
-    borderRadius: 12,
-    padding: 12,
+    borderRadius: scale(12),
+    padding: scale(12),
     borderWidth: 1,
     borderColor: COLORS.border,
   },
@@ -575,59 +577,59 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
-    marginBottom: 8,
+    marginBottom: verticalScale(8),
   },
 
   chantBadge: {
-    paddingHorizontal: 6,
-    paddingVertical: 2,
-    borderRadius: 6,
+    paddingHorizontal: scale(6),
+    paddingVertical: verticalScale(2),
+    borderRadius: scale(6),
   },
 
   chantBadgeText: {
-    fontSize: 10,
+    fontSize: moderateScale(10),
     fontWeight: '700',
     color: '#FFFFFF',
   },
 
   removeBtn: {
-    padding: 4,
+    padding: scale(4),
   },
 
   chantTitle: {
-    fontSize: 14,
+    fontSize: moderateScale(14),
     fontWeight: '700',
     color: COLORS.text,
-    marginBottom: 2,
+    marginBottom: verticalScale(2),
   },
 
   chantCategory: {
-    fontSize: 11,
+    fontSize: moderateScale(11),
     color: COLORS.primary,
     fontWeight: '600',
-    marginBottom: 4,
+    marginBottom: verticalScale(4),
   },
 
   chantLyrics: {
-    fontSize: 11,
+    fontSize: moderateScale(11),
     color: COLORS.textLight,
-    lineHeight: 14,
+    lineHeight: moderateScale(14),
   },
 
   fab: {
     position: 'absolute',
-    right: 16,
-    bottom: 24,
+    right: scale(16),
+    bottom: verticalScale(24),
     backgroundColor: COLORS.primary,
-    width: 56,
-    height: 56,
-    borderRadius: 28,
+    width: scale(56),
+    height: scale(56),
+    borderRadius: scale(28),
     justifyContent: 'center',
     alignItems: 'center',
     shadowColor: COLORS.primary,
-    shadowOffset: { width: 0, height: 8 },
+    shadowOffset: { width: 0, height: verticalScale(8) },
     shadowOpacity: 0.3,
-    shadowRadius: 16,
+    shadowRadius: scale(16),
     elevation: 8,
   },
 
@@ -639,58 +641,58 @@ const styles = StyleSheet.create({
 
   sheet: {
     backgroundColor: COLORS.card,
-    borderTopLeftRadius: 24,
-    borderTopRightRadius: 24,
+    borderTopLeftRadius: scale(24),
+    borderTopRightRadius: scale(24),
     maxHeight: '80%',
   },
 
   sheetHeader: {
-    padding: 24,
-    paddingBottom: 16,
+    padding: scale(24),
+    paddingBottom: verticalScale(16),
     alignItems: 'center',
     borderBottomWidth: 1,
     borderBottomColor: COLORS.border,
   },
 
   sheetHandle: {
-    width: 40,
-    height: 4,
+    width: scale(40),
+    height: verticalScale(4),
     backgroundColor: COLORS.border,
-    borderRadius: 2,
-    marginBottom: 16,
+    borderRadius: scale(2),
+    marginBottom: verticalScale(16),
   },
 
   sheetTitle: {
-    fontSize: 20,
+    fontSize: moderateScale(20),
     fontWeight: '700',
     color: COLORS.text,
-    marginBottom: 4,
+    marginBottom: verticalScale(4),
   },
 
   sheetSubtitle: {
-    fontSize: 14,
+    fontSize: moderateScale(14),
     color: COLORS.textLight,
   },
 
   sheetContent: {
-    padding: 16,
+    padding: scale(16),
   },
 
   sheetItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 12,
+    paddingVertical: verticalScale(12),
     borderBottomWidth: 1,
     borderBottomColor: COLORS.border,
   },
 
   sheetItemIcon: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
+    width: scale(36),
+    height: scale(36),
+    borderRadius: scale(18),
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 12,
+    marginRight: scale(12),
   },
 
   sheetItemContent: {
@@ -698,14 +700,14 @@ const styles = StyleSheet.create({
   },
 
   sheetItemText: {
-    fontSize: 16,
+    fontSize: moderateScale(16),
     fontWeight: '600',
     color: COLORS.text,
-    marginBottom: 2,
+    marginBottom: verticalScale(2),
   },
 
   sheetItemCount: {
-    fontSize: 12,
+    fontSize: moderateScale(12),
     color: COLORS.textLight,
   },
 });

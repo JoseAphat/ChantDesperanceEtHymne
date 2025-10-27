@@ -67,7 +67,7 @@ const About = () => {
           </View>
         </View>
         <Text style={styles.appName}>Chant d'Esperance & Hymne</Text>
-        <Text style={styles.version}>Version 1.1.6</Text>
+        <Text style={styles.version}>Version 1.1.7</Text>
       </View>
 
       <View style={styles.content}>
@@ -133,7 +133,7 @@ const About = () => {
               <View style={[styles.memberAvatar, { backgroundColor: '#45B7D1' }]}>
                 <Text style={styles.memberAvatarText}>GZ</Text>
               </View>
-              <Text style={styles.memberName}>Zeroberto GERE</Text>
+              <Text style={styles.memberName}>Zéroberto GERE</Text>
               <Text style={styles.memberRole}>Aide au Design</Text>
             </View>
              <View style={styles.teamMember}>
@@ -144,11 +144,11 @@ const About = () => {
               <Text style={styles.memberRole}>Assistance au développement</Text>
             </View>
             <View style={styles.teamMember}>
-              <View style={[styles.memberAvatar, { backgroundColor: '#0b065e53' }]}>
+              <View style={[styles.memberAvatar, { backgroundColor: '#02141c53' }]}>
                 <Text style={styles.memberAvatarText}>GD</Text>
               </View>
               <Text style={styles.memberName}>Gloria R. DESVIEUX</Text>
-              <Text style={styles.memberRole}>Aide en plagiat</Text>
+              <Text style={styles.memberRole}>Assistance au développement</Text>
             </View>
           </View>
         </View>
@@ -281,7 +281,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   developerName: {
-    fontSize: scale(16),
+    fontSize: scale(14),
     fontWeight: "bold",
     color: "#0A1E42",
     marginBottom: verticalScale(2),

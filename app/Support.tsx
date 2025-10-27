@@ -2,14 +2,15 @@ import { Ionicons } from "@expo/vector-icons";
 import { router, useNavigation } from "expo-router";
 import React, { useEffect } from "react";
 import {
-    Image,
-    Linking,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View
+  Image,
+  Linking,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View
 } from "react-native";
+import { moderateScale, scale, verticalScale } from "react-native-size-matters";
 
 const Support: React.FC = () => {
   const contactEmail = "gedelienjosaphat@gmail.com";
@@ -158,11 +159,7 @@ const handleMonCashPress1 = () => {
             </View>
             <View style={styles.infoItem}>
               <Text style={styles.infoLabel}>Dernière mise à jour</Text>
-              <Text style={styles.infoValue}>A determiner</Text>
-            </View>
-            <View style={styles.infoItem}>
-              <Text style={styles.infoLabel}>Support disponible</Text>
-              <Text style={styles.infoValue}>24h/24 par email</Text>
+              <Text style={styles.infoValue}>02 Novembre 2025</Text>
             </View>
           </View>
         </View>
@@ -170,153 +167,177 @@ const handleMonCashPress1 = () => {
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#F8FAFC",
   },
+
   header: {
     backgroundColor: "#0A1E42",
-    paddingTop: 60,
-    paddingBottom: 20,
-    paddingHorizontal: 16,
+    paddingTop: verticalScale(60),
+    paddingBottom: verticalScale(20),
+    paddingHorizontal: scale(16),
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
   },
+
   backButton: {
-    padding: 8,
+    padding: scale(8),
   },
+
   headerTitle: {
-    fontSize: 18,
+    fontSize: moderateScale(18),
     fontWeight: "700",
     color: "#FFFFFF",
     flex: 1,
     textAlign: "center",
   },
+
   placeholder: {
-    width: 40,
+    width: scale(40),
   },
+
   content: {
     flex: 1,
-    padding: 16,
+    padding: scale(16),
   },
+
   section: {
-    marginBottom: 32,
+    marginBottom: verticalScale(32),
   },
+
   sectionTitle: {
-    fontSize: 20,
+    fontSize: moderateScale(20),
     fontWeight: "700",
     color: "#0A1E42",
-    marginBottom: 12,
+    marginBottom: verticalScale(12),
   },
+
   sectionDescription: {
-    fontSize: 14,
+    fontSize: moderateScale(14),
     color: "#64748B",
-    lineHeight: 20,
-    marginBottom: 16,
+    lineHeight: moderateScale(20),
+    marginBottom: verticalScale(16),
   },
+
   contactCard: {
     backgroundColor: "#FFFFFF",
-    borderRadius: 12,
-    padding: 16,
-    marginBottom: 12,
+    borderRadius: scale(12),
+    padding: scale(16),
+    marginBottom: verticalScale(12),
     flexDirection: "row",
     alignItems: "center",
     borderWidth: 1,
     borderColor: "#E2E8F0",
   },
+
   contactIcon: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
+    width: scale(48),
+    height: scale(48),
+    borderRadius: scale(24),
     backgroundColor: "#F1F5F9",
     alignItems: "center",
     justifyContent: "center",
-    marginRight: 12,
+    marginRight: scale(12),
   },
+
   contactInfo: {
     flex: 1,
   },
+
   contactTitle: {
-    fontSize: 16,
+    fontSize: moderateScale(16),
     fontWeight: "600",
     color: "#0A1E42",
-    marginBottom: 4,
+    marginBottom: verticalScale(4),
   },
+
   contactDetail: {
-    fontSize: 14,
+    fontSize: moderateScale(14),
     color: "#0A1E42",
-    marginBottom: 2,
+    marginBottom: verticalScale(2),
   },
+
   contactDescription: {
-    fontSize: 12,
+    fontSize: moderateScale(12),
     color: "#64748B",
   },
+
   resourceCard: {
     backgroundColor: "#FFFFFF",
-    borderRadius: 12,
-    padding: 16,
-    marginBottom: 12,
+    borderRadius: scale(12),
+    padding: scale(16),
+    marginBottom: verticalScale(12),
     flexDirection: "row",
     alignItems: "center",
     borderWidth: 1,
     borderColor: "#E2E8F0",
   },
+
   resourceIcon: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
+    width: scale(48),
+    height: scale(48),
+    borderRadius: scale(24),
     backgroundColor: "#F1F5F9",
     alignItems: "center",
     justifyContent: "center",
-    marginRight: 12,
+    marginRight: scale(12),
   },
+
   resourceInfo: {
     flex: 1,
   },
+
   resourceTitle: {
-    fontSize: 16,
+    fontSize: moderateScale(16),
     fontWeight: "600",
     color: "#0A1E42",
-    marginBottom: 4,
+    marginBottom: verticalScale(4),
   },
+
   resourceDescription: {
-    fontSize: 14,
+    fontSize: moderateScale(14),
     color: "#64748B",
   },
+
   infoCard: {
     backgroundColor: "#FFFFFF",
-    borderRadius: 12,
-    padding: 16,
+    borderRadius: scale(12),
+    padding: scale(16),
     borderWidth: 1,
     borderColor: "#E2E8F0",
   },
+
   infoItem: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingVertical: 8,
+    paddingVertical: verticalScale(8),
     borderBottomWidth: 1,
     borderBottomColor: "#F1F5F9",
   },
+
   infoLabel: {
-    fontSize: 14,
+    fontSize: moderateScale(14),
     color: "#64748B",
   },
+
   infoValue: {
-    fontSize: 14,
+    fontSize: moderateScale(14),
     fontWeight: "500",
     color: "#0A1E42",
   },
+
   monCashIcon: {
-    width: 50,
-    height: 50,
+    width: scale(50),
+    height: scale(50),
   },
-   natCashIcon: {
-    width: 50,
-    height: 50,
+
+  natCashIcon: {
+    width: scale(50),
+    height: scale(50),
   },
 });
 

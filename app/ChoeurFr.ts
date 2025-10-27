@@ -4639,5 +4639,35 @@ Mourons pour les libérer
 Pendant que Dieu est en marche.
     `
 },
+{
+    id: "159",
+    title: "159- Mon ancre et ma voile ",
+    lyrics: `1.
+    Dieu Tu es ma force, ma consolation,
+    Une lampe devant mes pas.
+    Ta voix a triomphé de l'ouragan,
+    Remporté le combat
+    
+    Refrain:
+    Tu m'offres chaque jour
+    Ton infaillible amour
+    Toi, qui a fixé le cours de étoiles,
+    Sois mon ancre, sois ma voile !
+
+    2.
+    Tu étends mes ailes pour toucher les cieux,
+    Protégé par ta main.
+    Ta grâce m'appelle à lever les yeux,
+    Et suivre ton chemin.
+
+    3.
+    Ta miséricorde coule de la croix,
+    Ton sang m'a racheté.
+    Tout ce que je suis me vient de toi.
+    Sans fin je te louerai.
+
+    _David Durham_
+    `
+}
 ];
 export default frenchSongs;
