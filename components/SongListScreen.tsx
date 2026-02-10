@@ -56,6 +56,10 @@ const SongListScreen: React.FC<Props> = ({
   const serviceId = (params?.serviceId as string) || undefined;
 
   const isNumericInput = /^\d+$/.test(searchInput.trim());
+  const DASHES_RE = /[\u002D\u2010\u2011\u2012\u2013\u2014\u2015\u2212\uFE58\uFE63\uFF0D]/g; // -, ‐, -, ‒, –, —, ―, −, ﹘, ﹣, －
+  const DIACRITICS_RE = /[\u0300-\u036f]/g;
+  const PUNCT_RE = /[.,/#!$%^&*;:{}=_`~()'"?«»]/g; // on laisse le tiret géré à part
+  const MULTISPACE_RE = /\s{2,}/g;
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -82,11 +86,14 @@ const SongListScreen: React.FC<Props> = ({
   const normalize = (text: string): string => {
     let t = (text || "")
       .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .replace(/[.,/#!$%^&*;:{}=\-_`~()'"?«»]/g, "")
-      .replace(/\s{2,}/g, " ")
-      .trim();
+    .replace(/œ/g, "oe")
+    .replace(/æ/g, "ae")
+    .normalize("NFD")
+    .replace(DIACRITICS_RE, "")       // ô -> o, naïf -> naif, etc.
+    .replace(DASHES_RE, " ")           // tous les tirets -> espace
+    .replace(PUNCT_RE, "")             // ponctuation (sans tirets)
+    .replace(/\s+/g, " ")              // compresse
+    .trim();
 
     if (normalizeMode === "creole") {
       t = t
@@ -179,22 +186,29 @@ const SongListScreen: React.FC<Props> = ({
         onSubmitEditing={() => filteredData.length && scrollToTop()}
       />
 
-      <FlatList
-        ref={flatListRef}
-        data={filteredData}
-        keyExtractor={(item) => String(item.id)}
-        renderItem={({ item }) => (
-          <TouchableOpacity style={styles.item} onPress={() => handlePress(item)}>
-            <Text style={styles.title}>{item.title}</Text>
-            {item.author && ( // ← Affiche l'auteur s'il existe
-              <Text style={styles.author}>Auteur: {item.author}</Text>
-            )}
-          </TouchableOpacity>
-        )}
-        getItemLayout={(_, index) => ({ length: 70, offset: 70 * index, index })}
-        onScroll={handleScroll}
-        scrollEventThrottle={16}
-      />
+  <FlatList
+  ref={flatListRef}
+  data={filteredData}
+  keyExtractor={(item) => String(item.id)}
+  renderItem={({ item }) => (
+    <TouchableOpacity style={styles.item} onPress={() => handlePress(item)}>
+      <Text style={styles.title} numberOfLines={1}>{item.title}</Text>
+      {!!item.author && (
+        <Text style={styles.author} numberOfLines={1}>Traduit par {item.author}</Text>
+      )}
+    </TouchableOpacity>
+  )}
+  // getItemLayout — supprimé
+  onScroll={handleScroll}
+  scrollEventThrottle={16}
+  removeClippedSubviews={true}         // perf Android
+  windowSize={10}
+  maxToRenderPerBatch={10}
+  initialNumToRender={12}
+  contentContainerStyle={{ paddingBottom: verticalScale(140) }} // pour ne pas cacher le dernier item
+  ItemSeparatorComponent={() => <View style={{ height: verticalScale(8) }} />}
+/>
+
 
       {showUpArrow && (
         <TouchableOpacity style={styles.upButton} onPress={scrollToTop}>

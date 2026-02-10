@@ -4,13 +4,13 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
   name: "Chants d’Espérance & Hymne",
   slug: "ChantDesperance",
-  version: "1.1.6",
+  version: "1.1.7",
   orientation: "default",
   icon: "./assets/images/ic_launcher_foreground.png",
   scheme: "chantdesperance",
   userInterfaceStyle: "automatic",
   newArchEnabled: true,
-  runtimeVersion: "1.1.6",
+  runtimeVersion: "1.1.7",
 
   updates: {
     fallbackToCacheTimeout: 0,
@@ -32,7 +32,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
 
   android: {
     package: "com.berly.ChantDesperance",
-    versionCode: 38, 
+    versionCode: 39, 
     jsEngine: "hermes",
     allowBackup: true,
     userInterfaceStyle: "automatic",

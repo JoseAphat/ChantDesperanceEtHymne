@@ -1514,7 +1514,7 @@ Ainsi, j'irai jusqu'au bout.
     id: "44",
     title: "044- De Canaan quand verrons-nous",
     lyrics: `1.
-De Canaan quand verrons-nous
+De Canaan, quand verrons-nous
 Le céleste rivage
 Vers le Jourdain entendez-vous
 Christ nous appelle tous.
@@ -1523,25 +1523,25 @@ A l'abrit de l'orage
 Nous pourrons chanter à jamais
 Le cantique de paix.
 
-Choeur:
-Oh! Quel parfait bonheur
-Quel bonheur! Quel bonheur
-Oh! Quel parfait bonheur
+Refrain:
+Oh! Quel parfait bonheur!
+Quel bonheur! Quel bonheur!
+Oh! Quel parfait bonheur!
 Après tant de labeur
 Pour toujours réunie
 L'Église en sa patrie
-Entonnera Alléluia
-Gloire à Toi Jéhova.
+Entonnera: Alléluia!
+Gloire à Toi Jéhova!
 
 2.
-«Vêtu» de blanc les rachetés
+Vêtus de blanc, les rachetés
 De Christ verront la gloire
-Par sa vertue ressuscité
-Ils diront ses bontés
-Célébrant sa victoire
-Son œuvre expiatoire
+Par sa vertu ressuscités,
+Ils diront ses bontés.
+Célébrant sa victoire,
+Son oeuvre expiatoire
 Autour de son trône avec eux
-Nous Lui rendrons nos vœux.
+Nous Lui rendrons nos voeux.
 
 3.
 Du grand jour de l'éternité
@@ -1549,7 +1549,9 @@ Quand brillera l'aurore
 Tous consommés dans l'unité
 Et dans la charité
 A Celui qu'on adore
-Nous redirons encore
+Nous redirons encore:
+Digne est l'Agneau
+De recevoir
 Force, empire et pouvoir.
 `,
   },

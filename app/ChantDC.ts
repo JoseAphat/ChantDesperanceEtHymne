@@ -3554,7 +3554,7 @@ Tout bwat li yo plen, nan richès li pi fò.
 	Kè:
 Mwen se pitit Wa a,
 Yon pitit Wa a;
-Jezi se Sovè mw,
+Jezi se Sovè m,
 Mwen se pitit Wa a.
 
 	2.

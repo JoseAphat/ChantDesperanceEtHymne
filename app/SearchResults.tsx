@@ -1,253 +1,277 @@
+// app/results.tsx (ou app/SearchResults.tsx selon ta route)
 import { categoryMap } from "@/components/data/categoryMap";
 import { Ionicons } from "@expo/vector-icons";
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useLocalSearchParams, useNavigation, useRouter } from "expo-router";
-import React, { useCallback, useEffect, useState } from "react";
-import { ActivityIndicator, FlatList, Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
-/*
-import newCreole from "./ChantCreoleData";
-import chantsC from "./ChantDC";
-import englishSongs from "./ChantDE";
-import chantsF from "./ChantDF";
-import frenchSongs from "./ChoeurFr";
-import echo from "./Echo";
-import GloA from "./Gloire";
-import HaitiC from "./Hait";
-import HymneEtLouangeSongs from "./Hymne";
-import CreoleSongs from "./KeKreyol";
-import VoixC from "./LaVoixCreole";
-import VoixF from "./LaVoixFrancais";
-import MelodieC from "./MelC";
-import MelodieF from "./MelF";
-import OmbreF from "./OmbreReveil";
-import ReveNC from "./ReveillonsCreole";
-import ReveNF from "./ReveillonsFrancais";
-import RevNC from "./ReveillonsNous";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { router, useLocalSearchParams, useNavigation } from "expo-router";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import {
+  ActivityIndicator,
+  FlatList,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View
+} from "react-native";
 
-// Types pour les catégories
-type CategoryKey =
-  | "Chant d'Esperance Créole"
-  | "Chant d'Esperance Francais"
-  | "Réveillons-Nous Français"
-  | "Mélodies Joyeuses Français"
-  | "Mélodies Joyeuses Créole"
-  | "Réveillons-Nous Chrétiens"
-  | "Réveillons-Nous Créole"
-  | "La Voix du Réveil Français"
-  | "La Voix du Réveil Créole"
-  | "L'ombre du Réveil"
-  | "Haïti Chante avec Radio Lumière"
-  | "Gloire à l'Agneau"
-  | "Écho des Élus"
-  | "Chœurs Créole"
-  | "Hymne Et Louange"
-  | "Choeurs Anglais"
-  | "Nouveaux Chants Créole"
-  | "Choeurs Français";
+import { Platform, StatusBar } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { moderateScale, scale, verticalScale } from "react-native-size-matters";
 
-// Définir la carte des catégories
-/*
-const categoryMap: Record<CategoryKey, any[]> = {
-  "Chant d'Esperance Créole": chantsC,
-  "Chant d'Esperance Francais": chantsF,
-  "Réveillons-Nous Français": ReveNF,
-  "Mélodies Joyeuses Français": MelodieF,
-  "Mélodies Joyeuses Créole": MelodieC,
-  "Réveillons-Nous Chrétiens": RevNC,
-  "Réveillons-Nous Créole": ReveNC,
-  "La Voix du Réveil Français": VoixF,
-  "La Voix du Réveil Créole": VoixC,
-  "L'ombre du Réveil": OmbreF,
-  "Haïti Chante avec Radio Lumière": HaitiC,
-  "Gloire à l'Agneau": GloA,
-  "Écho des Élus": echo,
-  "Chœurs Créole": CreoleSongs,
-  "Hymne Et Louange": HymneEtLouangeSongs,
-  "Nouveaux Chants Créole": newCreole,
-  "Choeurs Français": frenchSongs,
-  "Choeurs Anglais":englishSongs,
-};*/
+/* ========= Normalisation robuste (accents, tirets, apostrophes, ligatures) ========= */
+const DASHES_RE =
+  /[\u002D\u2010\u2011\u2012\u2013\u2014\u2015\u2212\uFE58\uFE63\uFF0D]/g; // -, ‐, -, ‒, –, —, ―, −, ﹘, ﹣, －
+const DIACRITICS_RE = /[\u0300-\u036f]/g;
+
+const normalizeText = (s: string) =>
+  (s || "")
+    .toLowerCase()
+    .replace(/œ/g, "oe")
+    .replace(/æ/g, "ae")
+    .normalize("NFD")
+    .replace(DIACRITICS_RE, "")
+    .replace(DASHES_RE, " ")
+    .replace(/[^\p{L}\p{N}\s]/gu, "")
+    .replace(/\s+/g, " ")
+    .trim();
+
+/* ========= Debounce simple ========= */
+function useDebouncedValue<T>(value: T, delay = 250) {
+  const [debounced, setDebounced] = useState(value);
+  useEffect(() => {
+    const t = setTimeout(() => setDebounced(value), delay);
+    return () => clearTimeout(t);
+  }, [value, delay]);
+  return debounced;
+}
+
+type ResultItem = {
+  id: number | string;
+  type: string;
+  title: string;
+  lyrics: string;
+  category: string;
+  author?: string;
+};
+
+const LONG_LYRICS_THRESHOLD = 4000; // au-delà => on passe par AsyncStorage
 
 const SearchResults: React.FC = () => {
-  const { id, previousTitle = "" } = useLocalSearchParams();
-  const router = useRouter();
-  const { results: resultsString, category = "" } = useLocalSearchParams();
-  const [searchTerm, setSearchTerm] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const navigation = useNavigation();
+  const params = useLocalSearchParams();
 
-  useEffect(() => {
-    const categoryTitle = categoryMap[category as CategoryKey] ? category : "Recherche";
-    navigation.setOptions({
-      headerTitle: () => (
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <Image
-            source={require("../assets/images/ic_launcher_foreground.png")}
-            style={{ width: 70, height: 70, marginRight: 10 }}
-          />
-          <Text style={{ color: "white", fontSize: 17 }}>
-            {categoryTitle}
-          </Text>
-        </View>
-      ),
-      headerStyle: { height: 100, backgroundColor: "#0A1E42" },
-      headerTitleAlign: "center",
-      headerLeft: () => (
-        <View style={{ marginLeft: 10 }}>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Ionicons name="arrow-back" size={24} color="white" />
+  // Récupération sûre du JSON une seule fois
+  const results: ResultItem[] = useMemo(() => {
+    try {
+      const raw = Array.isArray(params.results)
+        ? params.results[0]
+        : (params.results as string);
+      const parsed = JSON.parse(raw || "[]");
+      return Array.isArray(parsed)
+        ? parsed.map((r) => ({
+            id: r.id,
+            type: r.type ?? "",
+            title: r.title ?? "",
+            lyrics: r.lyrics ?? "",
+            category: r.category ?? "",
+            author: r.author ?? "",
+          }))
+        : [];
+    } catch (e) {
+      console.warn("results: JSON parse error", e);
+      return [];
+    }
+  }, [params.results]);
+
+  // Catégorie transmise (facultatif)
+  const category = useMemo(() => {
+    const c = Array.isArray(params.category)
+      ? params.category[0]
+      : (params.category as string) || "";
+    return c;
+  }, [params.category]);
+
+useEffect(() => {
+  const barTop = Platform.OS === "android" ? (StatusBar.currentHeight ?? 0) : 0;
+  const title =
+    (category && (category as string) in categoryMap ? category : "Recherche") ||
+    "Recherche";
+
+  navigation.setOptions({
+    header: () => (
+      <SafeAreaView style={{ backgroundColor: "#0A1E42" }}>
+        <View
+          style={{
+            paddingTop: barTop,          // évite chevauchement Android
+            paddingHorizontal: 20,       // >>> plus d'espace horizontal
+            paddingBottom: 16,
+            height: 80,                 // >>> plus haut (augmente si tu veux)
+            backgroundColor: "#0A1E42",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+            width: "100%",
+          }}
+        >
+          {/* Back */}
+          <TouchableOpacity onPress={() => navigation.goBack()} hitSlop={{top:10,left:10,bottom:10,right:10}}>
+            <Ionicons name="arrow-back" size={26} color="#fff" />
           </TouchableOpacity>
+
+          {/* Titre au centre, occupe la largeur */}
+          <View style={{ flex: 1, paddingHorizontal: 12 }}>
+            <Text
+              numberOfLines={2}                 // autorise 2 lignes si titre long
+              style={{
+                color: "white",
+                fontSize: 18,
+                fontWeight: "700",
+                textAlign: "center",
+              }}
+            >
+              {title}
+            </Text>
+          </View>
+
+          {/* Espace à droite pour équilibrer la flèche gauche */}
+          <View style={{ width: 26 }} />
         </View>
-      ),
+      </SafeAreaView>
+    ),
+  });
+}, [navigation, category]);
+
+
+  // Recherche locale (sur les résultats déjà calculés par l'écran précédent)
+  const [searchTerm, setSearchTerm] = useState("");
+  const debouncedTerm = useDebouncedValue(searchTerm, 250);
+  const [loading, setLoading] = useState(false);
+
+  const filteredItems = useMemo(() => {
+    const q = debouncedTerm.trim();
+    if (!q) return results;
+
+    const isNum = /^\d+$/.test(q);
+    if (isNum) {
+      return results.filter((it) => String(it.id).startsWith(q));
+    }
+
+    const nq = normalizeText(q);
+    return results.filter((it) => {
+      const t = normalizeText(it.title || "");
+      // on normalise un extrait des lyrics pour éviter un coût énorme
+      const ly = normalizeText((it.lyrics || "").slice(0, 800));
+      return t.includes(nq) || ly.includes(nq);
     });
-  }, [navigation, category]);
+  }, [debouncedTerm, results]);
 
-  // Désérialisation des résultats
-  let results = [];
-  try {
-    results = JSON.parse(resultsString as string);
-  } catch (error) {
-    console.error("Erreur lors du parsing JSON:", error);
-  }
+  // Navigation : use Storage automatiquement si gros texte
+  const goToDetails = useCallback(
+    async (item: ResultItem) => {
+      const idStr = String(item.id);
+      const isHuge = (item.lyrics || "").length > LONG_LYRICS_THRESHOLD;
 
-  // Vérification des résultats
-  const validatedResults = Array.isArray(results) ? results : [];
-
-  // Filtrer les résultats
-  const filteredItems = validatedResults.filter(
-    (chant) =>
-      chant.id.toString().startsWith(searchTerm) || // Recherche partielle par ID
-      chant.title.toLowerCase().includes(searchTerm.trim().toLowerCase()) // Recherche par titre
-  );
-
-  const handlePress = useCallback(
-  (id: number, title: string, lyrics: string, category: string) => {
-    try {
-      // ✅ Vérification des paramètres
-      if (!id || !title || !category) {
-        console.error("❌ Paramètres manquants :", { id, title, category });
-        return;
-      }
-
-      // ✅ Vérification que la catégorie existe bien
-      if (!categoryMap.hasOwnProperty(category)) {
-        console.error(`❌ Catégorie invalide pour la chanson avec ID : ${id}`);
-        return;
-      }
-
-      // ✅ Préparer les paramètres de navigation
-      const navigationParams = {
-        id: String(id), // toujours string pour éviter les bugs
-        title: title.substring(0, 500), // limite pour éviter crash
-        lyrics: lyrics?.substring(0, 10000) || "Paroles non disponibles", // fallback
-        category: category,
-        previousTitle: category,
-      };
-
-      // ✅ Navigation principale
-      router.push({
-        pathname: "ChantDetails",
-        params: navigationParams,
-      });
-    } catch (error) {
-      console.error("⚠️ Erreur lors de la navigation :", error);
-
-      // 🔄 Fallback : si jamais la navigation échoue
       try {
-        router.replace({
-          pathname: "ChantDetails",
-          params: {
-            id: String(id),
-            title: encodeURIComponent(title),
-            lyrics: encodeURIComponent(lyrics),
-            category: encodeURIComponent(category),
-            previousTitle: encodeURIComponent(category),
-          },
-        });
-      } catch (fallbackError) {
-        console.error("⚠️ Erreur dans la navigation fallback :", fallbackError);
+        if (isHuge) {
+          await AsyncStorage.setItem(
+            `temp_chant_${idStr}`,
+            JSON.stringify({
+              id: idStr,
+              title: item.title,
+              lyrics: item.lyrics,
+              author: item.author ?? "",
+              category: item.category,
+              previousTitle: item.type || item.category,
+              timestamp: Date.now(),
+            })
+          );
 
-        // 🚨 Dernier recours : navigation en query string basique
-        router.push(`/ChantDetails?id=${id}&category=${encodeURIComponent(category)}`);
-      }
-    }
-  },
-  [router]
-);
-  // 🆕 Alternative: Méthode avec stockage temporaire (si les paramètres sont trop volumineux)
-  const handlePressWithStorage = useCallback(async (id: number, title: string, lyrics: string, category: string) => {
-    try {
-      // Stocker les données temporairement
-      const tempData = {
-        id,
-        title,
-        lyrics,
-        category,
-        previousTitle: category,
-        timestamp: Date.now()
-      };
-
-      await AsyncStorage.setItem(`temp_chant_${id}`, JSON.stringify(tempData));
-
-      // Navigation avec seulement l'ID et la catégorie
-      router.push({
-        pathname: "ChantDetails",
-        params: {
-          id: String(id),
-          category: category,
-          useStorage: "true" // Flag pour indiquer d'utiliser le stockage
+          router.push({
+            pathname: "/ChantDetails",
+            params: {
+              id: idStr,
+              category: item.category,
+              useStorage: "true",
+            },
+          });
+        } else {
+          router.push({
+            pathname: "/ChantDetails",
+            params: {
+              id: idStr,
+              title: item.title.slice(0, 500),
+              lyrics: (item.lyrics || "").slice(0, 10000),
+              author: item.author ?? "",
+              category: item.category,
+              previousTitle: item.type || item.category,
+            },
+          });
         }
-      });
-
-    } catch (error) {
-      console.error("Erreur lors de la navigation avec stockage:", error);
-      // Fallback vers la méthode normale
-      handlePress(id, title, lyrics, category);
-    }
-  }, [handlePress, router]);
-
-  const renderItem = ({ item }: { item: { id: number; title: string; lyrics: string; category: string } }) => (
-    <TouchableOpacity
-      style={styles.itemContainer}
-      onPress={() => handlePress(item.id, item.title, item.lyrics, item.category)}
-      // 🆕 Ajout de activeOpacity pour améliorer la réactivité sur anciennes versions
-      activeOpacity={0.7}
-    >
-      <Text style={styles.itemTitle}>{item.title}</Text>
-      <Text style={styles.itemCategory}>
-        {item.category}
-      </Text>
-    </TouchableOpacity>
+      } catch (e) {
+        console.error("Navigation error:", e);
+        // dernier recours minimal
+        router.push(`/ChantDetails?id=${encodeURIComponent(idStr)}&category=${encodeURIComponent(item.category)}`);
+      }
+    },
+    []
   );
 
-  const handleSearch = async () => {
-    setIsLoading(true);
-    // Simuler une recherche longue
-    await new Promise((resolve) => setTimeout(resolve, 500));
-    setIsLoading(false);
-  };
+  // (Optionnel) si tu veux montrer un “chargement” lors du debounce
+  useEffect(() => {
+    if (!searchTerm) {
+      setLoading(false);
+      return;
+    }
+    setLoading(true);
+    const t = setTimeout(() => setLoading(false), 180);
+    return () => clearTimeout(t);
+  }, [debouncedTerm]);
+
+  const renderItem = useCallback(
+    ({ item }: { item: ResultItem }) => (
+      <TouchableOpacity
+        style={styles.itemContainer}
+        onPress={() => goToDetails(item)}
+        activeOpacity={0.7}
+      >
+        <Text style={styles.itemTitle} numberOfLines={1}>
+          {item.title}
+        </Text>
+        <Text style={styles.itemCategory} numberOfLines={1}>
+          {item.category}
+        </Text>
+      </TouchableOpacity>
+    ),
+    [goToDetails]
+  );
+
+  const keyExtractor = useCallback(
+    (it: ResultItem, idx: number) => `${it.type}|${it.category}|${it.id}|${idx}`,
+    []
+  );
 
   return (
     <View style={styles.container}>
       <TextInput
         value={searchTerm}
         onChangeText={setSearchTerm}
-        placeholder="Tapez des paroles pour une recherche plus rapide !"
+        placeholder="Rechercher dans ces résultats (n°, titre, paroles)…"
         placeholderTextColor={"gray"}
         style={styles.searchInput}
+        returnKeyType="search"
       />
-      {isLoading && <ActivityIndicator size="large" color="#1C1362" />}
+      {loading && <ActivityIndicator size="small" color="#1C1362" style={{ marginBottom: 8 }} />}
+
       <FlatList
         data={filteredItems}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id.toString()}
+        keyExtractor={keyExtractor}
         contentContainerStyle={styles.listContainer}
-        // 🆕 Optimisations pour meilleures performances sur anciennes versions
-        removeClippedSubviews={true}
-        maxToRenderPerBatch={10}
+        removeClippedSubviews
+        maxToRenderPerBatch={12}
         windowSize={10}
-        initialNumToRender={10}
+        initialNumToRender={12}
+        ItemSeparatorComponent={() => <View style={{ height: verticalScale(8) }} />}
         ListEmptyComponent={
           <View style={{ alignItems: "center", marginTop: 20 }}>
             <Text style={styles.emptyText}>Aucun résultat trouvé.</Text>
@@ -263,6 +287,10 @@ const SearchResults: React.FC = () => {
     </View>
   );
 };
+
+export default SearchResults;
+
+/* =================================== Styles =================================== */
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -273,7 +301,7 @@ const styles = StyleSheet.create({
     borderWidth: scale(1),
     borderColor: "#ccc",
     borderRadius: moderateScale(15),
-    marginBottom: verticalScale(15),
+    marginBottom: verticalScale(10),
     backgroundColor: "#fff",
     fontSize: moderateScale(12),
     padding: moderateScale(10),
@@ -300,7 +328,7 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(17),
     fontWeight: "bold",
     color: "#0A1E42",
-    bottom: verticalScale(5),
+    bottom: verticalScale(2),
   },
   emptyText: {
     textAlign: "center",
@@ -311,11 +339,10 @@ const styles = StyleSheet.create({
   itemCategory: {
     fontSize: moderateScale(14),
     color: "red",
-    marginTop: verticalScale(5),
-    marginLeft: scale(0),
+    marginTop: verticalScale(4),
     fontStyle: "italic",
     textAlign: "center",
-    top: verticalScale(5),
+    top: verticalScale(4),
   },
   resetButton: {
     marginTop: verticalScale(10),
@@ -325,5 +352,3 @@ const styles = StyleSheet.create({
     borderRadius: moderateScale(5),
   },
 });
-
-export default SearchResults;

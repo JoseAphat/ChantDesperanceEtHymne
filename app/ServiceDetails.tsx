@@ -427,8 +427,8 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    fontSize: moderateScale(24),
-    fontWeight: '800',
+    fontSize: moderateScale(20),
+    fontWeight: '500',
     color: '#FFFFFF',
     marginBottom: verticalScale(4),
   },

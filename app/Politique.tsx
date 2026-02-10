@@ -1,44 +1,63 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "expo-router";
 import React, { useLayoutEffect } from "react";
-import { Platform, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
+import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 
 
 const Politique = () => {
       const navigation = useNavigation();
     useLayoutEffect(() => {
-  navigation.setOptions({
-    headerTitle: () => (
-      <View style={{ flexDirection: "row", alignItems: "center" }}>
-        <Text style={{ color: "white", fontSize: 17, fontWeight: "bold" }}>
-          Politique de Confidentialité
-        </Text>
-      </View>
-    ),
-    headerStyle: {
-      height: 100,
-      backgroundColor: "#0A1E42",
-    },
-    headerTitleAlign: "center",
-    headerLeft: () => (
-      <View
-        style={{
-          marginLeft: 10,
-           marginTop:
-                          Platform.OS === "android"
-                            ? StatusBar.currentHeight ?? 24 : 0,
-                                    
-        }}
-      >
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Ionicons name="arrow-back" size={24} color="white" />
-        </TouchableOpacity>
-      </View>
-    ),
-  });
-}, [navigation]);
+      const HEADER_HEIGHT = 90; // ↑ augmente ici si tu veux + grand (ex: 124, 136)
+    
+      navigation.setOptions({
+        header: () => {
+          const insets = useSafeAreaInsets(); // gère l'encoche / status bar
+          return (
+            <SafeAreaView style={{ backgroundColor: "#0A1E42" }}>
+              <View
+                style={{
+                  paddingTop: insets.top,       // espace réel sous la barre d'état
+                  height: HEADER_HEIGHT,        // ← hauteur réelle du header (contrôlée)
+                  backgroundColor: "#0A1E42",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  paddingHorizontal: 16,
+                  width: "100%",
+                  // optionnel: petite ombre
+                  shadowColor: "#000", shadowOpacity: 0.15, shadowRadius: 6, elevation: 3
+                }}
+              >
+                {/* Back */}
+                <TouchableOpacity
+                  onPress={() => navigation.goBack()}
+                  hitSlop={{ top: 10, left: 10, right: 10, bottom: 10 }}
+                  style={{ width: 36, alignItems: "flex-start" }}
+                >
+                  <Ionicons name="arrow-back" size={24} color="#fff" />
+                </TouchableOpacity>
+    
+                {/* Titre centré */}
+                <View style={{ flex: 1, alignItems: "center" }}>
+                  <Text
+                    numberOfLines={1}
+                    style={{ color: "#fff", fontSize: 18, fontWeight: "bold" }}
+                  >
+                    Politique de confidentialité
+                  </Text>
+                </View>
+    
+                {/* Spacer pour équilibrer la flèche gauche */}
+                <View style={{ width: 36 }} />
+              </View>
+            </SafeAreaView>
+          );
+        },
+      });
+    }, [navigation]);
 
   return (
     <ScrollView style={styles.container}>

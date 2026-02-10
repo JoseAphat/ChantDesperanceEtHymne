@@ -4373,7 +4373,7 @@ M'attaquent en vain,
 Les flèches de l'ennemi 
 M'attaquent en vain.
 
-
+Aucune place pour la peur dans mon coeur
 Car Tu es mon bouclier, protecteur.  
 Ta puissance fait trembler l'univers.  
 Avec foi j'avance, je crie victoire.
@@ -4668,6 +4668,99 @@ Pendant que Dieu est en marche.
 
     _David Durham_
     `
-}
+},
+{
+    id: "160",
+    title: "160- Jamais",
+    lyrics: `1.
+Celui qui a fait la promesse, il est fidèle.
+Il est fidèle pour l’accomplir.
+Pour moi, il a les projets de paix.
+Même si ça tarde, je l’attendrai 
+
+Celui qui a fait la promesse, il est fidèle.
+Il est fidèle pour l’accomplir.
+Pour moi, il a les projets de paix.
+Même si ça tarde, je l’attendrai.
+
+Mon miracle est certain.
+
+Pendant que j’attends, je louerai.
+Mon Dieu ne m’abandonne jamais,
+plus de peur, plus de doute.
+Oui, mon Dieu n’échoue jamais.
+Jamais eu, jamais eu, jamais…
+
+Je marche par la foi et non par la vue.
+Mon Dieu conduit mes pas
+Dans la tempête et le froid.
+Je ne coulerai pas.
+J’ai pas eu le temps,
+J’ai pas eu le temps de te faire confiance.
+Tu m’emmènes de gloire en gloire.
+Ah, j’ai pas eu…
+J’ai pas eu le temps de te faire confiance.
+
+Tu m’as donné la victoire.
+Je ne doute jamais, jamais,
+Ne doute jamais, jamais de toi, jamais…
+
+La foi, oui, je triomphe,
+Ta faveur est sur moi.
+Moi, je ne dépends pas des circonstances.
+Pendant que j’attends, je louerai.
+
+Je déclare victoire, victoire,
+Victoire, maire de victoire.
+Je déclare la victoire, victoire, victoire.
+Moi, j’ai pas eu le temps,
+J’ai pas eu le temps de te faire confiance.
+Tu m’emmènes de gloire en gloire.
+Ah, j’ai pas eu,
+J’ai pas eu le temps de te faire confiance.
+
+Tu m’as donné la victoire.
+Jamais de toi, jamais,
+jamais de toi, jamais…
+ louerai.
+Mon Dieu ne m’abandonne jamais,
+Plus de peur, plus de doute.
+Oui, mon Dieu n’échoue jamais.
+Jamais eu, jamais eu, jamais…
+
+Je marche par la foi et non par la vue.
+Mon Dieu conduit mes pas
+dans la tempête et le froid.
+Je ne coulerai pas.
+J’ai pas eu le temps,
+j’ai pas eu le temps de te faire confiance.
+Tu m’emmènes de gloire en gloire.
+Ah, j’ai pas eu…
+j’ai pas eu le temps de te faire confiance.
+
+Tu m’as donné la victoire.
+Je ne doute jamais, jamais,
+ne doute jamais, jamais de toi, jamais…
+
+La foi, oui, je triomphe,
+ta faveur est sur moi.
+Moi, je ne dépends pas des circonstances.
+Pendant que j’attends, je louerai.
+
+Je déclare victoire, victoire,
+victoire, maire de victoire.
+Je déclare la victoire, victoire, victoire.
+Moi, j’ai pas eu le temps,
+j’ai pas eu le temps de te faire confiance.
+Tu m’emmènes de gloire en gloire.
+Ah, j’ai pas eu,
+j’ai pas eu le temps de te faire confiance.
+
+Tu m’as donné la victoire.
+Jamais de toi, jamais,
+jamais de toi, jamais
+_Déborah Lukalu_
+`
+},
 ];
 export default frenchSongs;

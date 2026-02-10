@@ -134,7 +134,7 @@ const ChantDetails: React.FC = () => {
     const loadChantData = async () => {
       let finalTitle = paramTitle || "Titre Inconnu";
       let finalLyrics = paramLyrics || "Aucune Parole Disponible";
-      let finalAuthor = paramAuthor || ""; // CORRECTION: Utilise paramAuthor au lieu de paramLyrics
+      let finalAuthor = paramAuthor || "";
 
       if (useStorage === "true" && id) {
         try {
@@ -145,7 +145,7 @@ const ChantDetails: React.FC = () => {
             if (now - tempData.timestamp < 5 * 60 * 1000) {
               finalTitle = tempData.title;
               finalLyrics = tempData.lyrics;
-              finalAuthor = tempData.author || ""; // CORRECTION: Récupère aussi l'auteur du stockage temporaire
+              finalAuthor = tempData.author || "";
             }
             await AsyncStorage.removeItem(`temp_chant_${id}`);
           }
@@ -337,47 +337,28 @@ const ChantDetails: React.FC = () => {
       <View style={styles.container}>
         <Text style={styles.title}>{title}</Text>
 
-        <View style={{ flex: 1 }}>
+        {/* CONTENEUR PRINCIPAL CORRIGÉ */}
+        <View style={styles.contentContainer}>
           <ScrollView
             ref={scrollViewRef}
-            contentContainerStyle={{
-              paddingHorizontal: 16,
-              paddingTop: 25,
-              paddingBottom: author ? 100 : 80,
-            }}
+            contentContainerStyle={styles.scrollContent}
             showsVerticalScrollIndicator={false}
           >
             <Text
               selectable
-              style={{
-                textAlign: "center",
-                color: theme === "dark" ? "#fff" : "#000",
-                fontSize: currentFontSize,
-                fontFamily: fontFamily === "System" ? undefined : fontFamily,
-                lineHeight: currentFontSize * 1.4,
-              }}
+              style={[
+                styles.lyricsText,
+                {
+                  fontSize: currentFontSize,
+                  fontFamily: fontFamily === "System" ? undefined : fontFamily,
+                  lineHeight: currentFontSize * 1.4
+                }
+              ]}
             >
               {lyrics}
-            </Text>
-
-            {/* Auteur intégré dans le contenu */}
-            {author && String(author).trim() !== "" && (
-              <View style={{ marginTop: 30, marginBottom: 20 }}>
-                <Text
-                  style={{
-                    color: theme === "dark" ? "#aaa" : "#444",
-                    fontStyle: "italic",
-                    fontSize: currentFontSize * 0.9,
-                    textAlign: "right",
-                  }}
-                >
-                  {author}
-                </Text>
-              </View>
-            )}
+            </Text>            
           </ScrollView>
         </View>
-
         {/* Prev/Next : visibles seulement si une liste existe */}
         {songs.length > 0 && (
           <View style={styles.fixedNavigationButtons}>
@@ -634,21 +615,31 @@ const createStyles = (dark: boolean) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      padding: moderateScale(10),
       backgroundColor: dark ? "black" : "#dfdedcf7",
+    },
+    // NOUVEAU: Conteneur pour le contenu principal
+    contentContainer: {
+      flex: 1,
+      marginTop: verticalScale(10),
+    },
+    // NOUVEAU: Style pour le contenu du ScrollView
+    scrollContent: {
+      paddingHorizontal: 16,
+      paddingTop: 25,
+      paddingBottom: verticalScale(130), // Plus d'espace en bas
+    },
+    // NOUVEAU: Style pour le texte des paroles
+    lyricsText: {
+      textAlign: "center",
+      color: dark ? "#fff" : "#000",
     },
     title: {
       fontSize: scale(15),
       fontWeight: "bold",
-      padding: moderateScale(10),
+      padding: moderateScale(1),
       textAlign: "center",
       color: dark ? "#fff" : "#0A1E42",
-      top: verticalScale(9),
-      position: "relative",
-      width: "100%",
-    },
-    scrollViewContent: {
-      paddingBottom: verticalScale(150),
+      marginTop: verticalScale(30),
     },
     fixedNavigationButtons: {
       position: "absolute",
@@ -720,7 +711,7 @@ const createStyles = (dark: boolean) =>
     },
     switchContainer: {
       position: "absolute",
-      top: verticalScale(-5),
+      top: verticalScale(-2),
       left: 0,
       right: 0,
       flexDirection: "row",
@@ -737,12 +728,6 @@ const createStyles = (dark: boolean) =>
       color: dark ? "white" : "black",
       fontWeight: "bold",
       fontSize: moderateScale(13),
-    },
-    author: {
-      fontStyle: "italic",
-      textAlign: "left",
-      color: "#750d0dff",
-      marginTop: 10,
     },
   });
 

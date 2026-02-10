@@ -19,11 +19,11 @@ const options = [
     title: "Chant d'Espérance Français",
     image: require("../assets/images/CE.png"),
   },
-  {
+  /*{
     id: "2",
     title: "Chant d'Espérance Français (V.Créole)",
     image: require("../assets/images/CE.png"),
-  },
+  },*/
   {
     id: "3",
     title: "Chant d'Espérance Créole",
@@ -92,7 +92,7 @@ type OptionTitle = (typeof options)[number]["title"];
 
 const optionRoutes: Record<OptionTitle, string> = {
   "Chant d'Espérance Français": "ChantDesperanceFrancais",
-  "Chant d'Espérance Français (V.Créole)": "NewCreole",
+ // "Chant d'Espérance Français (V.Créole)": "NewCreole",
   "Chant d'Espérance Créole": "ChantDesperanceCreole",
   "Mélodies Joyeuses Français": "MelodieJoyeusesFrancais",
   "Mélodies Joyeuses Créole": "MelodieJoyeusesCreole",
@@ -145,11 +145,6 @@ navigation.setOptions({
          ? StatusBar.currentHeight ?? 24 : 0,
       }}
     >
-      <Image
-        source={require("../assets/images/ic_launcher_foreground.png")}
-        style={{ width: 70, height: 70, marginRight: 8 }}
-        resizeMode="contain"
-      />
       <Text style={{ color: "#0A1E42", fontSize: 18, fontWeight: "bold" }}>
         Chant d&apos;Espérance
       </Text>

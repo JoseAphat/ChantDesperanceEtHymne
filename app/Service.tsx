@@ -317,14 +317,14 @@ const Culte: React.FC = () => {
                 <Ionicons name="musical-notes-outline" size={64} color={COLORS.border} />
                 <Text style={styles.emptyTitle}>Aucun culte</Text>
                 <Text style={styles.emptyText}>
-                  Créez votre premier programme, organisez les chants.
+                  Créez votre premier culte, organisez les chants.
                 </Text>
                 <TouchableOpacity 
                   style={styles.emptyButton}
                   onPress={() => setShowAdd(true)}
                 >
                   <Ionicons name="add" size={20} color="#FFFFFF" />
-                  <Text style={styles.emptyButtonText}>Créer un culte</Text>
+                  <Text style={styles.emptyButtonText}>Préparer un culte</Text>
                 </TouchableOpacity>
               </View>
             ) : null
@@ -384,7 +384,7 @@ const Culte: React.FC = () => {
           <View style={styles.notesIconContainer}>
             <Ionicons name="add" size={24} color="#FFFFFF" />
           </View>
-          <Text style={styles.notesButtonText}>Prendre une note</Text>
+          <Text style={styles.notesButtonText}>Mes Notes</Text>
         </View>
       </TouchableOpacity>
     </View>
@@ -426,7 +426,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.primary,
     paddingHorizontal: scale(20),
     paddingVertical: verticalScale(12),
-    borderRadius: scale(12),
+    borderRadius: scale(25),
     shadowColor: COLORS.primary,
     shadowOffset: { width: 0, height: verticalScale(4) },
     shadowOpacity: 0.3,
@@ -435,9 +435,9 @@ const styles = StyleSheet.create({
   },
   emptyButtonText: {
     color: "#FFFFFF",
-    fontWeight: "600",
+    fontWeight: "700",
     marginLeft: scale(8),
-    fontSize: moderateScale(14),
+    fontSize: moderateScale(13),
   },
   card: {
     backgroundColor: COLORS.card,
@@ -595,7 +595,7 @@ const styles = StyleSheet.create({
     bottom: verticalScale(50),
     right: scale(16),
     backgroundColor: COLORS.primary,
-    borderRadius: scale(16),
+    borderRadius: scale(30),
     paddingVertical: verticalScale(10),
     paddingHorizontal: scale(15),
     shadowColor: COLORS.primary,
@@ -620,8 +620,8 @@ const styles = StyleSheet.create({
   },
   notesButtonText: {
     color: "#FFFFFF",
-    fontSize: moderateScale(16),
-    fontWeight: "700",
+    fontSize: moderateScale(13),
+    fontWeight: "800",
   },
 });
 export default Culte;

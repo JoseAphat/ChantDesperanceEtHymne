@@ -40,7 +40,6 @@ import ReveNC from "../ReveillonsCreole";
 import ReveNF from "../ReveillonsFrancais";
 import RevNC from "../ReveillonsNous";
 import VCreole from "../VersionCreole";
-
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
 // Fonction pour déterminer si c'est un petit écran
@@ -73,6 +72,8 @@ export default function App() {
   const navigation = useNavigation();
   const { fromNotes, section } = useLocalSearchParams();
   const isFromNotes = fromNotes === "true";
+  const DASHES_RE = /[\u002D\u2010\u2011\u2012\u2013\u2014\u2015\u2212\uFE58\uFE63\uFF0D]/g; // tous les tirets
+  const DIACRITICS_RE = /[\u0300-\u036f]/g;
   const openEmail = () => {
     const email = "gedelienjosaphat@gmail.com";
     const subject = "Demande depuis l'application Chant d'Espérance & Hymne";
@@ -207,12 +208,14 @@ const goToSupport = () => {
     }[] = [];
     const normalizeText = (text: string): string =>
       text
-    .toLowerCase()                    
-    .normalize("NFD")                  
-    .replace(/[\u0300-\u036f]/g, "")  
-    .replace(/[^\p{L}\p{N}\s]/gu, "") 
+    .toLowerCase()
+    .replace(/œ/g, "oe").replace(/æ/g, "ae")
+    .normalize("NFD").replace(DIACRITICS_RE, "")
+    .replace(DASHES_RE, " ")          // tirets -> espace
+    .replace(/[^\p{L}\p{N}\s]/gu, "") // supprime ponctuation
     .replace(/\s+/g, " ")
-    
+    .trim();
+
     const normalizedInput = normalizeText(inputValue);
     if (isNumber) {
       const chantResults = chantsF.filter(
@@ -817,7 +820,7 @@ const goToSupport = () => {
     <SafeAreaView style={styles.container}>
       <View style={styles.searchContainer}>
         <TextInput
-          placeholder="Rechercher un chant..."
+          placeholder="Rechercher un chant"
           placeholderTextColor="gray"
           returnKeyType="search"
           autoCapitalize="sentences"
@@ -892,7 +895,7 @@ const goToSupport = () => {
         <View style={styles.notesButtonWrapper}>
           <TouchableOpacity style={styles.notesButton} onPress={goToService}>
             <MaterialCommunityIcons
-              name="notebook-plus"
+              name="church"
               size={responsiveModerateScale(40)}
               color="#0A1E42"
             />

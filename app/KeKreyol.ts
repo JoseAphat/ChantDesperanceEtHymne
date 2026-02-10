@@ -5428,27 +5428,41 @@ _Lionel Mentor_
   {
     id: "192",
     title: "192- Pa gen tankou w",
-    lyrics: `1.`,
+    lyrics: `1.
+    Ou tèlman gloriye 
+    Ou tèlman mèvèye
+    Pouvwa ou san limit 
+    Bondye, pa gen lòt tankou w
+    (2 fwa)
+
+    Senyè Jezi mwen renmen w
+    Senyè Jezi m adore w
+
+    Kè: 
+    Pa gen tankou w (x5)
+    Senyè, pa gen lòt tankou w
+
+    _James Smith Alcindor_`,
   },
   {
     id: "193",
     title: "193- Nan non Ou",
     lyrics: `1.
-    Nan non Ou, wayom BonDye briye
+    Nan non Ou, wayòm BonDye briye
     Man non ou puisans BonDye renye
     Nan non Ou, glwa BonDye eklate
     Nan non Ou Jezi, nan non Ou Jezi
    
     2.
-    Nan Non ou, Je aveg yo louvri
+    Nan Non ou, Je avèg yo louvri
     Nan non Ou, Bwate soude geri
-    Nan non Ou, menm mo resisite
+    Nan non Ou, menm mò resisite
 
-      Ke:
-      Nanm mwen beni non ou Redanmte mwen
-      Nanm mwen beni non ou Sove mwen
+      Kè:
+      Nanm mwen beni non ou Redanmtè mwen
+      Nanm mwen beni non ou Sovè mwen
       Nanm mwen beni non ou, Dye toupuisan
-      Ou se Senye tout letenite, Jezi
+      Ou se Senyè tout letènite, Jezi
       
      Nan non Ou, madichon yo kraze
      Nan non ou, kaptif yo delivre
@@ -5460,27 +5474,182 @@ _Lionel Mentor_
   {
     id: "194",
     title: "194- Ou sen",
-    lyrics: `1.`,
+    lyrics: `Kè:
+Ou sen wi ou sen Senyè
+Ou tou pisan
+Wi ou sen Senyè
+Nou adore w
+
+1.
+Ak tout kè nou n ape chante 
+Ak tout fòs nou n ap fè lwanj pou ou
+Ou te kreye tout bagay 
+Tout egziste paske w vle
+Pou sa w merite tout glwa 
+E nou kriye:
+
+2.
+Ak tout kè nou n ap di w mèsi
+Ak tout fòs nou n ap glorifye w
+Se ou menm sèl ki Bondye
+Ou se sen sovè a
+Pou sa w merite tout glwa 
+E nou kriye:
+
+_James Smith Alcindor_`,
   },
   {
     id: "195",
     title: "195- Ou fidèl Senyè",
-    lyrics: `1.`,
+    lyrics: `1.
+M p ap janm konnen 
+Tout sa ou fè pou mwen
+Men mwen konnen
+Se ou ki Papa mwen
+M reyalize mo m yo p ap janm ase
+Men m vle temwanye 
+Jan w fidèl pou mwen
+
+Kè:
+Ou fidèl Senyè
+Ou fidèl Senyè 
+Ou fidèl Senyè
+Ou fidèl Senyè 
+
+2.
+M p ap janm konnen 
+Tout pwoteksyon w ban mwen
+Men mwen konnen
+Nanm mwen kache nan ou
+M reyalize mo m yo p ap janm sifi
+Men m vle deklare 
+Jan w fidèl pou mwen
+
+
+Ou fidèl Senyè
+Ou fidèl Senyè
+Tout sa ou di
+Ou toujou fè l
+Ou pap janm chanje 
+(2 fwa)
+
+Mèsi Senyè
+Pou sajès ou
+Mèsi papa 
+Pou sajès ou 
+
+Tout sa ou di 
+Ou toujou fè l
+Ou pap janm chanje
+
+_James Smith Alcindor_`,
   },
   {
     id: "196",
-    title: "196- Gado mwen",
-    lyrics: `1.`,
+    title: "196- Gadò mwen",
+    lyrics: `1.
+Ou se Gadò mwen
+Ou pran swen nanm mwen
+Bèje mwen
+Mèsi pou bonte w
+Pou pwovizyon ou
+(2 fwa)
+
+M glorifye non ou (3fwa)
+Jezi mwen
+M glorifye non ou (3fwa)
+Sovè mwen
+
+Se ou ki bati lafwa mwen
+Je m fikse sou ou (2 fwa)
+Se ou ki bakòp lafwa mwen
+Je m fikse sou ou (2 fwa)
+Se ou ki bati lafwa mwen
+Je m fikse sou ou (2 fwa) 
+Ou pèfeksyone lafwa mwen
+Je m fikse sou ou(2 fwa)
+
+M glorifye non ou, 
+Senyè mwen
+
+M egzalte non ou
+Senyè mwen
+
+_James Smith Alcindor_`,
   },
   {
     id: "197",
     title: "197- Jezi mwen",
-    lyrics: `1.`,
+    lyrics: `1.
+Jezi mwen, ou se pawòl
+Pawòl lavi a 
+Pawòl mwen kwè a
+
+Jezi mwen, ou se lavi
+Lavi etènèl 
+Ki anndan mwen an
+
+Jezi mwen, ou se Alpha 
+E Omega 
+Ou san parèy
+
+Kè:
+Mwen ba ou tout glwa
+Wi tout glwa 
+Mwen renmen w 
+Ou se trezò mwen
+
+Mwen ba ou tout glwa
+Wi tout glwa 
+M remèsye w 
+Pou tout saw ye nan mwen
+
+2.
+Jezi, Jezi, Ou se Kris la
+Ou se Senyè a
+Jezi, Jezi, non ou pi wo
+Ke tout lòt yo
+
+_James Smith Alcindor_`,
   },
   {
     id: "198",
     title: "198- Mwen rekonesan",
-    lyrics: `1.`,
+    lyrics: `1.
+Mèsi pou lanmou w 
+Mèsi pou gras ou
+Mèsi pou prezans ou nan lavi m
+Mèsi pou jwa ou
+Mèsi pou lapè w 
+Mèsi pou bote ou nan lavi m
+
+Kè:
+Senyè mwen remèsye w
+Mwen remèsye ou
+Mwen rekonesan 
+Pou byenfè w yo
+
+Senyè mwen remèsye w
+Mwen remèsye ou
+Mwen rekonesan 
+Pou konpasyon w
+
+2.
+Mèsi pou limyè w
+Pou laverite
+Mèsi pou glwa ou nan lavi mwen
+Mèsi pou lavi w
+Pou volonte ou
+Mèsi pou prezans ou nan vi mwen 
+
+Pon:
+Lavi m pap janm sispann fin temwanye
+Lanmou w, m pap janm sispann fin temwanye 
+Gras ou, m pap janm sispann fin temwanye 
+Pisans ou, la glwa ou 
+(3 fwa)
+
+_James Smith Alcindor_`,
   },
   {
     id: "199",
@@ -5490,12 +5659,63 @@ _Lionel Mentor_
   {
     id: "200",
     title: "200- Anndan glwa ou",
-    lyrics: `1.`,
+    lyrics: `1.
+    O, o, o, o (x2)
+    O, o, o, o
+       (x2)
+
+    Senyè nanm mwen briye anndan glwa ou
+    M ap briye anndan glwa ou pou tout tan
+                (x2)
+    Ou gouvène lespri mwen, nanm mwen, kò mwen
+    Ou gouvène tout vi m
+    Ou gouvène lespri mwen, nanm mwen, kò mwen
+    Ou gouvène tout vi m
+
+    Alelouya (x2)
+    Glwa pou ou Jezi
+
+    _James Smith Alcindor_
+    `,
   },
   {
     id: "201",
     title: "201- Ou tande vwa kè m",
-    lyrics: `1.`,
+    lyrics: `1.
+    M pa ka kanpe
+    Mwen vle toujou ap chante
+    Paske m konnen
+    Ou pran plezi lè m chante
+    M p ap janm kanpe
+    M ape toujou ap chante
+    Paske m konnen
+    Zòrèy ou tande vwa kè m
+    
+    2.
+    Bouch mwen va toujou louwe non ou
+    Paske m konnen
+    Zòrèy ou tande vwa kè m
+    M pa ka kanpe
+    Mwen vle toujou ap chante
+    Paske m konnen
+    Ou pran plezi lè m chante
+    M p ap janm kanpe
+    M ape toujou ap chante
+    Paske m konnen
+    Zòrèy ou tande vwa kè m
+
+    Kè:
+    Ou tande vwa kè m (x2)
+    Senyè m louwe w
+    Mwen louwe ou (x2)
+    Mwen adore ou
+    Mwen adore ou (x3)
+
+    Mwen di ou mèsi 
+    Mèsi Senyè (x2)
+
+    _James Smith Alcindor_
+    `,
   },
   {
     id: "202",

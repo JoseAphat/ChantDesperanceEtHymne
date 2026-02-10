@@ -4258,7 +4258,7 @@ Joyeux dans la souffrance. (bis)
   },
   {
     id: "125",
-    title: "125- Es-tu lassé rempli de tristesse?",
+    title: "125- Es-tu lassé rempli de tristesse ?",
     lyrics: `1.
 Es-tu lassé, rempli de tristesse?…
 Dis tout à Jésus! (bis)
