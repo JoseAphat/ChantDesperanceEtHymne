@@ -1,0 +1,101 @@
+{
+  "expo": {
+    "name": "Chants d'Espérance & Hymne",
+    "slug": "ChantDesperance",
+    "version": "1.2.2",
+    "orientation": "default",
+    "icon": "./assets/images/ic_launcher_foreground.png",
+    "scheme": "chantdesperance",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "runtimeVersion": "1.2.2",
+    "updates": {
+      "fallbackToCacheTimeout": 0,
+      "url": "https://u.expo.dev/9ae3d36e-5ae4-40ac-9248-732109eb33e3"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.berly.ChantDesperance",
+      "buildNumber": "1.0.0",
+      "infoPlist": {
+        "NSCameraUsageDescription": "Cette application peut avoir besoin d'accéder à la caméra.",
+        "NSMicrophoneUsageDescription": "Cette application peut avoir besoin d'accéder au microphone.",
+        "NSPhotoLibraryUsageDescription": "Cette application peut avoir besoin d'accéder à votre bibliothèque de photos.",
+        "UIBackgroundModes": ["audio"]
+      },
+      "config": {
+        "usesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "package": "com.berly.ChantDesperance",
+      "versionCode": 43,
+      "jsEngine": "hermes",
+      "allowBackup": true,
+      "userInterfaceStyle": "automatic",
+      "softwareKeyboardLayoutMode": "pan",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/ic_launcher_foreground.png",
+        "backgroundColor": "#03008E"
+      },
+      "permissions": [
+  "INTERNET",
+  "WAKE_LOCK",
+  "FOREGROUND_SERVICE",
+  "com.google.android.gms.permission.AD_ID"
+]
+
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/images/ic_launcher_foreground.png"
+    },
+    "plugins": [
+      "expo-router",
+      "./app.plugin.js",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/images/ic_launcher_foreground.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#03008E"
+        }
+      ],
+      "expo-web-browser",
+      "expo-font",
+      [
+        "expo-screen-orientation",
+        {
+          "initialOrientation": "DEFAULT"
+        }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "minSdkVersion": 24,
+            "targetSdkVersion": 35,
+            "compileSdkVersion": 35,
+            "gradleProperties": {
+              "reactNativeArchitectures": "armeabi-v7a,arm64-v8a,x86_64"
+            },
+            "enableProguardInReleaseBuilds": true,
+            "extraProguardRules": 
+            "-keep class com.facebook.hermes.** { *; }\n-keep class com.facebook.jni.** { *; }\n-keep class com.facebook.soloader.** { *; }\n-keep class com.facebook.proguard.annotations.DoNotStrip\n-keep @com.facebook.proguard.annotations.DoNotStrip class *\n-keepclassmembers class * {\n  @com.facebook.proguard.annotations.DoNotStrip *;\n}\n\n-keep class com.facebook.react.** { *; }\n-keep class com.facebook.react.turbomodule.** { *; }\n-keep class com.swmansion.** { *; }\n-keep class com.bumptech.glide.** { *; }\n-keep class com.google.gson.** { *; }\n-keep class okhttp3.** { *; }\n-keep class okio.** { *; }\n\n-keep class expo.modules.** { *; }"
+          }
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "9ae3d36e-5ae4-40ac-9248-732109eb33e3"
+      }
+    }
+  }
+}

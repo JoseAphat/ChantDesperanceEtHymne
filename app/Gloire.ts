@@ -1326,20 +1326,20 @@ Mon bras puissant te sauvera
 C'est Dieu qui parle, oh! crois à sa promesse (bis)
 Bientôt ta voix l'exaltera.
 
-	2.
+2.
 Si tout est sombre
 Oh! Ne perd pas courage
 Ne doute pas du Dieu vivant
 Même au milieu des fureurs de l'orage
 Demeure en paix, crois seulement (bis)
 
-	3.
+3.
 Mais n'attends pas que le mal te domine
 Que l'ennemi parle à ton Coeur
 Elle est à toi, la puissance divine.
 Saisis-la donc et sois vainqueur. (bis)
 
-	4.
+4.
 Jamais, jamais
 Dieu qui fit la promesse
 Ne manquera de l'accomplir.
@@ -1357,23 +1357,23 @@ Tribilasyon nou Senyè, Senyè, Senyè,
 Pwoblèm nou yo ak kalamite
 Yo tout vle pote nou ale. (2 fwa)
 
-	1.
+1.
 Chak jou n' leve, se gnou sèl koze
 Nou pa ka manje, nou pa ka abiye;
 Pitit nou yo pa ka ale lekòl,
 N'ape mande ki kote sa prale, O Bondye!
 
-	Kè 2:
+Kè 2:
 Pwoblèm nou yo, taka nou yo,
 Yo tout vle pote nou ale.
 
-	2.
+2.
 Lè gwo pwoblèm vini pou l' trouble nou,
 Lè tout espwa sanble fini pou nou
 Lè n' pa konnen si pou n' monte, ni desann;
 Nou vin kote w, ou toujou delivre n', O Bondye!
 
-	3.
+3.
 Lè n' gen yon pwoblèm ki pa kapab rezoud,
 Lè n' pa konnen si pou n monte ni desann;
 Pwan telefòn syèl la epi telefone anwo,
@@ -1385,9 +1385,7 @@ Priyè va monte, delivrans va desann
   {
     id: "41",
     title: "041- Padone mwen",
-    lyrics: `
-	
-        1.
+    lyrics: `1.
 Padone mwen Senyè Jezi
 Padone mwen pou fot mwen yo
 Ou menm ki te desann sou tè ya 
@@ -1397,7 +1395,7 @@ Menm si eta m pa bon devan w
 Di yon mo pou mwen nan jijman sa
 Pou m ka sove.
 
-         Kè
+Kè
 Kisa ma fè nan gran jou sa
 Si Jezi pa resevwa mwen 
 Lan pòt syèl la g on santinèl
@@ -1407,7 +1405,7 @@ Si w pa sove lap di w ale
 Di yon mo pou mwen Segnè Jezi
 Pou m ka sove 
 
-	2.
+2.
 Gen yon jijman ki gen pou vini
 Gen yon balans ki pral balanse
 Gen anpil pay ki pral boule, nan dife sa a
@@ -1417,7 +1415,7 @@ Fanmim yo, ak tout frè mwen yo
 Pou m pa yon pay, pou n p al boule
 Nan dife sa a.
 
-	3.
+3.
 Gen anpil moun ki kwè se jwèt
 Pa gen yon jijman kap vini
 Nou menm kretyen nou asire
@@ -1442,7 +1440,7 @@ Pou l fè apèl mechan yo;
 Jezi pral jije kriminèl yo
 E yap kondane.
 
-	1.
+1.
 Lè n rete n ap gade sa k ap pase;
 Nou paka pa pale.
 Mechan yo ap touye, y ap maltrete
@@ -1452,7 +1450,7 @@ Sa se mechanste eee,
 Letènèl pral vanje san inosan
 Yo te sakifye.
 
-	2.
+2.
 Lè nou wè sa k ap pase pitit Bondye yo,
 Dlo koule nan je nou.
 Y arete yo, maspinen yo, kraze zo yo
@@ -1462,7 +1460,7 @@ Sa se mechanste;
 Gen yon jou ki pral rive
 Yo p ap kenbe yo, fòk yo libere.
 
-	3.
+3.
 Te gen yon nonm lontan ki te awogan
 Yo te rele l Golyat, pa t gen moun
 Ki te gen dwa pou l te ka kanpe
@@ -1472,7 +1470,7 @@ Pitit izrayèl yo;
 Letènèl voye David vin atake li
 Golyat te tonbe, se vre.
 
-	4.
+4.
 Lè w rete ou wè yon nonm kenbe yon nonm,
 Li met kouto nan kou l;
 Li pran vè l li pare l l ape pran san,
@@ -1482,7 +1480,7 @@ Sa se mechanste
 Letènèl pral pale, li pral di, arete!
 Jou pa m nan rive.
 
-	5.
+5.
 Letènèl ap pare bèt sovaj yo,
 E l ap antere yo;
 Jou festen an tou rive pou li vanje
@@ -1528,32 +1526,32 @@ Byen pre pa lakay, menm si w wè vil la devan ou
 Byen pre pa lakay, menm si pwoblèm yo rezoud
 Byen pre pa lakay, ou pa bezwen trionfe
 
-	 1.
+1.
 Gen anpil gwo kretyen, ki la lontan nan legliz
 Yo tèlman ansyen menm limon leve sou yo
 Yo chita, chita yo, yo pa janm vle fè pwogrè
 Lè yo ekzòte yo, yo di yo deja sove 
 
-	2.
+2.
 Gen kèk gwo kretyen, ki gen senkantan legliz
 Se yo k fè lasèn kote misyon ye yo la
 Lè yo vin legliz, yo toujou pran plas devan
 Men kan yon frè pile yo, ou wè yo jouk nan baryè, yo prale
  
 
-	3.
+3.
 Gen kèk gwo levit, ki vin tou cho nan legliz
 Yo zanmi pastè, yo zanmi predikatè
 Yo bay gwo lajan, yo nan tout aktivite
 Men yo pa janm chanje, yo konprann yo fin rive
 
-        4.
+4.
 Sonje lè Moyz te fin delivre pèp la
 Li ta pe mache men nan men ak Letènèl
 Li rive sou wout, li te fè yon ti kòlè
 Moiz wè kanaran, men li pat antre ladan
 
-        5.
+5.
 Gen anpil kretyen, ki ranpli ak ògèy
 Yo toujou panse, yo pi bon pase tout moun
 Lè yo jwenn avèk ou, yo di ti frè kòman ou ye
@@ -1571,20 +1569,20 @@ Pou tout bagay ke nou pa kab konprann;
 Si n ap viv chak jou pou n atenn bi a,
 Se pou n veye pou n touche ke wòb le Senyè.
 
-	Kè:
+Kè:
 Lòt pa nou kapab mennen nou ala pèfeksyon
 Lòt Revèy Bondye va pi gran ke tout sa avan
 Pase tout lòt yo.
 E lè vwa sa pale se vwa Jezi
 An nou veye pou n touche ke wòb le Senyè.
 
-	2.
+2.
 Pouki bat kò ou pou yon mariaj fòse?
 Pouki ou pa tann Senyè fè chwa pou ou?
 Eske marye vle di sove pou sa?
 Se pou n veye pou n touche ke wòb le Senyè.
 
-	3.
+3.
 Fòk nou fò, fòk nou kriye an avan;
 Fò n pa fache lè bagay yo mache mal.
 Jezi konnen bezwen chak pitit li
@@ -1602,25 +1600,25 @@ Yon zanmi sove mwen.
 Mwen gen yon zanmi toutan m lajan,
 Lè m pa gen lajan mwen pa anyen.
 
-	Kè:
+Kè:
 Jezi sove m, Li delivre m,
 Jezi sove nan m mwen.
 O mwen vle chante istwa li, glorifye non Li
 Jezi ou se mèt mwen.
 
-	2.
+2.
 Mwen rankontre Jezi nan yon chemen,
 Li mande mwen kote m prale;
 Mwen di le Senyè se ou m ap chache,
 M ap swiv ou jiska lafen.
 
-	3.
+3.
 Mwen te kondane pou m te mouri,
 Paske peche m te gwo;
 Jezi rele mwen sou mòn Golgota
 Pou l ban mwen lavi Etènel.
 
-	4.
+4.
 Yon zanmi ban mwen karès, lanmou
 Toutan m pa nan tonbo.
 Mwen gen yon zanmi toutan m gen lajan,
@@ -1639,9 +1637,9 @@ Anyen p ap moleste, ni detounen mwen.
 Menm si tenèb la fè mwen pa wè ditou,
 Pi devan la jounen selès ap klere m.
 
-	Kè:
+Kè:
 Mwen p ap kite ou, ni bliye ou,
-Nan men mwen map kenbe ou,
+Nan men mwen m ap kenbe ou,
 Nan bwa mwen m antoure ou;
 Mwen p ap kite ou, ni bliye ou,
 Mwen se redanmtè ou, m ap okipe ou.

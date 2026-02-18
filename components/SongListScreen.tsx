@@ -134,7 +134,7 @@ const SongListScreen: React.FC<Props> = ({
         id: chant.id,
         title: chant.title,
         lyrics: chant.lyrics,
-        author: chant.author || "", 
+       // author: chant.author || "", 
         category, 
       });
       if (!res.ok) {
@@ -175,16 +175,29 @@ const SongListScreen: React.FC<Props> = ({
 
   return (
     <View style={styles.container}>
-      <TextInput
-        placeholder="Numéro ou paroles"
-        placeholderTextColor="#555"
-        keyboardType={isNumericInput ? "numeric" : "default"}
-        value={searchInput}
-        onChangeText={setSearchInput}
-        style={styles.search}
-        returnKeyType="search"
-        onSubmitEditing={() => filteredData.length && scrollToTop()}
-      />
+     <View style={styles.searchWrapper}>
+  <Ionicons
+    name="search"
+    size={20}
+    color="#666"
+    style={styles.searchIcon}
+    onPress={() => filteredData.length && scrollToTop()}
+    accessible
+    accessibilityLabel="Rechercher"
+  />
+
+  <TextInput
+    placeholder="Numéro ou paroles"
+    placeholderTextColor="#555"
+    keyboardType={isNumericInput ? "numeric" : "default"}
+    value={searchInput}
+    onChangeText={setSearchInput}
+    style={styles.searchInput}
+    returnKeyType="search"
+    onSubmitEditing={() => filteredData.length && scrollToTop()}
+  />
+</View>
+
 
   <FlatList
   ref={flatListRef}
@@ -279,5 +292,23 @@ const styles = StyleSheet.create({
     borderRadius: scale(25),
     padding: scale(10),
     elevation: 10,
+  },
+  searchWrapper: {
+    position: "relative",
+    justifyContent: "center",
+  },
+  searchIcon: {
+    position: "absolute",
+    left: 12,
+    zIndex: 1,
+  },
+  searchInput: {
+    paddingLeft: 40,     // espace pour l'icône
+    paddingVertical: 10,
+    borderWidth: 1,
+    borderColor: "#ddd",
+    borderRadius: 12,
+    backgroundColor: "#fff",
+    color: "#111",
   },
 });

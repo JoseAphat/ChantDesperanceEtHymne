@@ -1,37 +1,41 @@
-import Ionicons from "@expo/vector-icons/build/Ionicons";
+import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
-import React from "react";
-import { StyleSheet, useColorScheme, View } from "react-native";
-import { TabBarIcon } from "../../components/navigation/TabBarIcon";
-
+import React, { useEffect } from "react";
+import { StyleSheet, View } from "react-native";
+import mobileAds from 'react-native-google-mobile-ads';
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
+  useEffect(() => {
+    mobileAds()
+      .initialize()
+      .then(adapterStatuses => {
+        console.log('AdMob initialisé avec succès');
+      })
+      .catch(error => {
+        console.error('Erreur initialisation AdMob:', error);
+      });
+  }, []);
 
   return (
     <View style={styles.container}>
       <Tabs
         screenOptions={{
-          tabBarActiveTintColor: "light",
           headerShown: true,
-          tabBarHideOnKeyboard: false,
-          tabBarStyle: { backgroundColor: "white" },
-          headerStyle: { backgroundColor: "white" }, 
-          headerTintColor: "#0A1E42", 
-        }}        
+          tabBarStyle: { backgroundColor: "#FFFFFF" },
+          headerStyle: { backgroundColor: "#FFFFFF" },
+          headerTintColor: "#0A1E42",
+          tabBarActiveTintColor: "#0A1E42",
+          tabBarInactiveTintColor: "#8FA1B8",
+          tabBarLabelStyle: { fontWeight: "bold" },
+        }}
       >
         <Tabs.Screen
           name="index"
           options={{
             title: "Chant d'esperance",
             tabBarIcon: ({ color, focused }) => (
-              <Ionicons
-                name={focused ? "book" : "book-outline"}
-                size={24}
-                color={"#0A1E42"}
-              />
+              <Ionicons name={focused ? "book" : "book-outline"} size={24} color={color} />
             ),
-           tabBarLabelStyle:{ color:"#0A1E42", fontWeight:"bold"},
           }}
         />
 
@@ -39,13 +43,9 @@ export default function TabLayout() {
           name="SongSearch"
           options={{
             title: "Recherche par Index",
-            tabBarIcon: ({ color, focused }) => (
-              <TabBarIcon
-                name={focused ? "search-sharp" : "search-sharp"}
-                color={"#0A1E42"}
-              />
+            tabBarIcon: ({ color }) => (
+              <Ionicons name="search-sharp" size={24} color={color} />
             ),
-            tabBarLabelStyle:{ color:"#0A1E42", fontWeight:"bold"},
           }}
         />
       </Tabs>
@@ -56,9 +56,7 @@ export default function TabLayout() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingBottom: 3, 
+    paddingBottom: 3,
     backgroundColor: "#dfdedcf7",
-    height: 12
   },
-  
 });

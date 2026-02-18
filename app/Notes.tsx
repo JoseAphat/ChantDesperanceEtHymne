@@ -1,21 +1,38 @@
 import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router, useNavigation } from "expo-router";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
-    Alert,
-    KeyboardAvoidingView,
-    Platform,
-    ScrollView,
-    Share,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View
+  Alert,
+  Dimensions,
+  KeyboardAvoidingView,
+  Keyboard,
+  Platform,
+  ScrollView,
+  Share,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View
 } from "react-native";
 import { moderateScale, scale, ScaledSheet, verticalScale } from "react-native-size-matters";
 
+// Import de react-native-pell-rich-editor
+let RichEditor: any;
+let RichToolbar: any;
+let actions: any;
+
+try {
+  const RNEditor = require("react-native-pell-rich-editor");
+  RichEditor = RNEditor.RichEditor;
+  RichToolbar = RNEditor.RichToolbar;
+  actions = RNEditor.actions;
+} catch (error) {
+  console.warn("react-native-pell-rich-editor not available");
+}
+
 const NOTES_STORAGE_KEY = "@user_notes";
+const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 interface Note {
   id: string;
@@ -31,12 +48,30 @@ const Notes: React.FC = () => {
   const [currentNote, setCurrentNote] = useState<Note | null>(null);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [htmlContent, setHtmlContent] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [isCreatingNew, setIsCreatingNew] = useState(false);
+  const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
   const navigation = useNavigation();
+  const richText = useRef<any>(null);
 
   useEffect(() => {
     loadNotes();
+
+    // Écouteurs du clavier
+    const keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      () => setIsKeyboardVisible(true)
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      () => setIsKeyboardVisible(false)
+    );
+
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
   }, []);
 
   useEffect(() => {
@@ -69,6 +104,10 @@ const Notes: React.FC = () => {
     setCurrentNote(null);
     setTitle("");
     setContent("");
+    setHtmlContent("");
+    if (richText.current && richText.current.setContentHTML) {
+      richText.current.setContentHTML("");
+    }
     setIsEditing(true);
     setIsCreatingNew(true);
   };
@@ -79,47 +118,61 @@ const Notes: React.FC = () => {
       return;
     }
 
-    if (!content.trim()) {
-      Alert.alert("Contenu requis", "Veuillez saisir le contenu de votre note.");
-      return;
+    try {
+      let finalContent = content;
+      
+      // Récupérer le contenu HTML de l'éditeur
+      if (richText.current && richText.current.getContentHtml) {
+        const html = await richText.current.getContentHtml();
+        if (html && html.trim() && html !== "<div><br></div>") {
+          finalContent = html;
+        }
+      }
+      
+      if (!finalContent.trim() || finalContent === "<div><br></div>") {
+        Alert.alert("Contenu requis", "Veuillez saisir le contenu de votre note.");
+        return;
+      }
+
+      const now = new Date().toISOString();
+      let updatedNotes: Note[];
+
+      if (currentNote) {
+        updatedNotes = notes.map(note =>
+          note.id === currentNote.id
+            ? { 
+                ...note, 
+                title: title.trim(), 
+                content: finalContent, 
+                updatedAt: now 
+              }
+            : note
+        );
+        Alert.alert("Succès", "Note modifiée avec succès");
+      } else {
+        const newNote: Note = {
+          id: Date.now().toString(),
+          title: title.trim(),
+          content: finalContent,
+          createdAt: now,
+          updatedAt: now,
+          pinned: false,
+        };
+        updatedNotes = [newNote, ...notes];
+        Alert.alert("Succès", "Note créée avec succès");
+      }
+
+      await saveNotes(updatedNotes);
+      setIsEditing(false);
+      setIsCreatingNew(false);
+      setCurrentNote(null);
+      setTitle("");
+      setContent("");
+      setHtmlContent("");
+    } catch (error) {
+      console.log("Error saving note:", error);
+      Alert.alert("Erreur", "Impossible de sauvegarder la note");
     }
-
-    const now = new Date().toISOString();
-    let updatedNotes: Note[];
-
-    if (currentNote) {
-      // Modifier une note existante
-      updatedNotes = notes.map(note =>
-        note.id === currentNote.id
-          ? { 
-              ...note, 
-              title: title.trim(), 
-              content: content.trim(), 
-              updatedAt: now 
-            }
-          : note
-      );
-      Alert.alert("Succès", "Note modifiée avec succès");
-    } else {
-      // Créer une nouvelle note
-      const newNote: Note = {
-        id: Date.now().toString(),
-        title: title.trim(),
-        content: content.trim(),
-        createdAt: now,
-        updatedAt: now,
-        pinned: false,
-      };
-      updatedNotes = [newNote, ...notes];
-      Alert.alert("Succès", "Note créée avec succès");
-    }
-
-    await saveNotes(updatedNotes);
-    setIsEditing(false);
-    setIsCreatingNew(false);
-    setCurrentNote(null);
-    setTitle("");
-    setContent("");
   };
 
   const togglePinNote = async (noteId: string) => {
@@ -129,7 +182,6 @@ const Notes: React.FC = () => {
         : note
     );
     
-    // Trier les notes : épinglées d'abord, puis par date de modification
     const sortedNotes = updatedNotes.sort((a, b) => {
       if (a.pinned && !b.pinned) return -1;
       if (!a.pinned && b.pinned) return 1;
@@ -143,6 +195,13 @@ const Notes: React.FC = () => {
     setCurrentNote(note);
     setTitle(note.title);
     setContent(note.content);
+    setHtmlContent(note.content);
+    if (richText.current && richText.current.setContentHTML) {
+      // Délai pour s'assurer que l'éditeur est monté
+      setTimeout(() => {
+        richText.current.setContentHTML(note.content);
+      }, 100);
+    }
     setIsEditing(true);
     setIsCreatingNew(false);
   };
@@ -164,6 +223,7 @@ const Notes: React.FC = () => {
               setCurrentNote(null);
               setTitle("");
               setContent("");
+              setHtmlContent("");
             }
           },
         },
@@ -172,12 +232,14 @@ const Notes: React.FC = () => {
   };
 
   const copyToClipboard = (text: string) => {
+    const plainText = text.replace(/<[^>]*>/g, '');
     Alert.alert("Copié", "Le contenu a été copié dans le presse-papiers");
   };
 
   const shareNote = async (note: Note) => {
     try {
-      const shareText = `📝 ${note.title}\n\n${note.content}\n\nCréé le: ${new Date(note.createdAt).toLocaleString('fr-FR')}`;
+      const plainText = note.content.replace(/<[^>]*>/g, '');
+      const shareText = `📝 ${note.title}\n\n${plainText}\n\nCréé le: ${new Date(note.createdAt).toLocaleString('fr-FR')}`;
       await Share.share({
         message: shareText,
         title: note.title,
@@ -188,11 +250,12 @@ const Notes: React.FC = () => {
   };
 
   const cancelEdit = () => {
-    if (isCreatingNew && (!title.trim() || !content.trim())) {
+    if (isCreatingNew && !title.trim()) {
       setIsEditing(false);
       setIsCreatingNew(false);
       setTitle("");
       setContent("");
+      setHtmlContent("");
     } else {
       Alert.alert(
         "Annuler les modifications",
@@ -208,6 +271,7 @@ const Notes: React.FC = () => {
               setCurrentNote(null);
               setTitle("");
               setContent("");
+              setHtmlContent("");
             },
           },
         ]
@@ -225,7 +289,10 @@ const Notes: React.FC = () => {
     });
   };
 
-  // Séparer les notes épinglées et non épinglées
+  const getPlainTextPreview = (html: string) => {
+    return html.replace(/<[^>]*>/g, '').substring(0, 150);
+  };
+
   const pinnedNotes = notes.filter(note => note.pinned);
   const unpinnedNotes = notes.filter(note => !note.pinned);
 
@@ -235,57 +302,117 @@ const Notes: React.FC = () => {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <View style={styles.container}>
-        {/* Header */}
-        <View style={styles.header}>
-          <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
-            <Ionicons name="arrow-back" size={24} color="#FFFFFF" />
-          </TouchableOpacity>
-          <Text style={styles.headerTitle}>
-            {isEditing ? (currentNote ? "Modifier la note" : "Nouvelle note") : "Mes Notes"}
-          </Text>
-          {!isEditing && (
-            <TouchableOpacity onPress={createNewNote} style={styles.newNoteButton}>
-              <Ionicons name="add" size={24} color="#FFFFFF" />
+        {/* Header - masqué quand le clavier est visible */}
+        {!isKeyboardVisible && (
+          <View style={styles.header}>
+            <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+              <Ionicons name="arrow-back" size={24} color="#FFFFFF" />
             </TouchableOpacity>
-          )}
-        </View>
+            <Text style={styles.headerTitle}>
+              {isEditing ? (currentNote ? "Modifier la note" : "Nouvelle note") : "Mes Notes"}
+            </Text>
+            {!isEditing && (
+              <TouchableOpacity onPress={createNewNote} style={styles.newNoteButton}>
+                <Ionicons name="add" size={24} color="#FFFFFF" />
+              </TouchableOpacity>
+            )}
+          </View>
+        )}
 
         {isEditing ? (
-          // Éditeur de note
           <View style={styles.editorWrapper}>
-            <ScrollView style={styles.editorContainer} showsVerticalScrollIndicator={false}>
-              <View style={styles.editorHeader}>
-                <Text style={styles.editorTitle}>
-                  {currentNote ? "Modifier votre note" : "Nouvelle note"}
-                </Text>
-                <View style={styles.charCountBadge}>
-                  <Text style={styles.charCountText}>{title.length}/100</Text>
-                </View>
+            <View style={styles.editorHeader}>
+              <Text style={styles.editorTitle}>
+                {currentNote ? "Modifier votre note" : "Nouvelle note"}
+              </Text>
+              <View style={styles.charCountBadge}>
+                <Text style={styles.charCountText}>{title.length}/100</Text>
               </View>
+            </View>
 
-              <View style={styles.inputContainer}>
-                <TextInput
-                  style={styles.titleInput}
-                  placeholder="Titre"
-                  placeholderTextColor="#94A3B8"
-                  value={title}
-                  onChangeText={setTitle}
-                  maxLength={100}
-                />
+            <View style={styles.inputContainer}>
+              <TextInput
+                style={styles.titleInput}
+                placeholder="Titre"
+                placeholderTextColor="#94A3B8"
+                value={title}
+                onChangeText={setTitle}
+                maxLength={100}
+              />
+              
+              <View style={styles.separator} />
+            </View>
+
+            {/* Éditeur de texte riche */}
+            {RichEditor ? (
+              <>
+                <ScrollView style={styles.richEditorContainer} showsVerticalScrollIndicator={false}>
+                  <RichEditor
+                    ref={richText}
+                    onChange={(text: string) => {
+                      // Extraire le texte brut du HTML pour la prévisualisation
+                      const plainText = text.replace(/<[^>]*>/g, '');
+                      setContent(plainText);
+                      setHtmlContent(text);
+                    }}
+                    placeholder="Commencez à écrire..."
+                    initialContentHTML={htmlContent}
+                    editorStyle={{
+                      backgroundColor: '#FFFFFF',
+                      color: '#334155',
+                      placeholderColor: '#94A3B8',
+                      contentCSSText: `
+                        font-size: 16px; 
+                        line-height: 24px; 
+                        padding: 0 24px;
+                        min-height: 300px;
+                        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                      `
+                    }}
+                    style={styles.richEditor}
+                    useContainer={true}
+                  />
+                </ScrollView>
                 
-                <View style={styles.separator} />
-                
+                {/* Barre d'outils en BAS */}
+                {RichToolbar && (
+                  <RichToolbar
+                    editor={richText}
+                    selectedIconTint="#0A1E42"
+                    iconTint="#64748B"
+                    iconSize={16}
+                    actions={[
+                      actions.setBold,
+                      actions.setItalic,
+                      actions.setUnderline,
+                      actions.setStrikethrough,
+                      actions.heading2,
+                      actions.heading3,
+                      actions.insertBulletsList,
+                      actions.insertOrderedList,
+                      actions.foreColor,
+                      actions.hiliteColor,
+                      actions.undo,
+                      actions.redo,
+                    ]}
+                    style={styles.richToolbar}
+                  />
+                )}
+              </>
+            ) : (
+              // Fallback si l'éditeur n'est pas disponible
+              <ScrollView style={styles.richEditorContainer} showsVerticalScrollIndicator={false}>
                 <TextInput
                   style={styles.contentInput}
-                  placeholder="Commencez à écrire "
+                  placeholder="Commencez à écrire..."
                   placeholderTextColor="#94A3B8"
                   value={content}
                   onChangeText={setContent}
                   multiline
                   textAlignVertical="top"
                 />
-              </View>
-            </ScrollView>
+              </ScrollView>
+            )}
             
             <View style={styles.editorFooter}>
               <TouchableOpacity 
@@ -299,7 +426,6 @@ const Notes: React.FC = () => {
               <TouchableOpacity 
                 style={[styles.footerButton, styles.saveButton]} 
                 onPress={saveNote}
-                disabled={!title.trim() || !content.trim()}
               >
                 <Ionicons name="checkmark-circle" size={20} color="#FFFFFF" />
                 <Text style={styles.saveButtonText}>
@@ -309,7 +435,6 @@ const Notes: React.FC = () => {
             </View>
           </View>
         ) : (
-          // Liste des notes avec épinglage
           <View style={styles.notesContainer}>
             {notes.length === 0 ? (
               <View style={styles.emptyState}>
@@ -325,7 +450,6 @@ const Notes: React.FC = () => {
               </View>
             ) : (
               <ScrollView style={styles.notesList} showsVerticalScrollIndicator={false}>
-                {/* Notes épinglées */}
                 {pinnedNotes.length > 0 && (
                   <View style={styles.section}>
                     <View style={styles.sectionHeader}>
@@ -342,12 +466,12 @@ const Notes: React.FC = () => {
                         onCopy={copyToClipboard}
                         onTogglePin={togglePinNote}
                         formatDate={formatDate}
+                        getPlainTextPreview={getPlainTextPreview}
                       />
                     ))}
                   </View>
                 )}
 
-                {/* Notes non épinglées */}
                 {unpinnedNotes.length > 0 && (
                   <View style={styles.section}>
                     {pinnedNotes.length > 0 && (
@@ -366,6 +490,7 @@ const Notes: React.FC = () => {
                         onCopy={copyToClipboard}
                         onTogglePin={togglePinNote}
                         formatDate={formatDate}
+                        getPlainTextPreview={getPlainTextPreview}
                       />
                     ))}
                   </View>
@@ -379,7 +504,7 @@ const Notes: React.FC = () => {
   );
 };
 
-// Composant de carte de note séparé
+// Composant de carte de note
 const NoteCard: React.FC<{
   note: Note;
   onEdit: (note: Note) => void;
@@ -388,7 +513,8 @@ const NoteCard: React.FC<{
   onCopy: (text: string) => void;
   onTogglePin: (id: string) => void;
   formatDate: (date: string) => string;
-}> = ({ note, onEdit, onDelete, onShare, onCopy, onTogglePin, formatDate }) => {
+  getPlainTextPreview: (html: string) => string;
+}> = ({ note, onEdit, onDelete, onShare, onCopy, onTogglePin, formatDate, getPlainTextPreview }) => {
   return (
     <View style={[styles.noteCard, note.pinned && styles.pinnedNoteCard]}>
       <View style={styles.noteContent}>
@@ -398,7 +524,7 @@ const NoteCard: React.FC<{
           </Text>
         </View>
         <Text style={styles.notePreview} numberOfLines={3}>
-          {note.content}
+          {getPlainTextPreview(note.content)}
         </Text>
         <View style={styles.noteFooter}>
           <Text style={styles.noteDate}>
@@ -407,7 +533,6 @@ const NoteCard: React.FC<{
         </View>
       </View>
       
-      {/* Toutes les icônes alignées verticalement à droite */}
       <View style={styles.iconsColumn}>
         <TouchableOpacity 
           style={styles.iconButton}
@@ -416,7 +541,7 @@ const NoteCard: React.FC<{
           <Ionicons 
             name={note.pinned ? "pin" : "pin-outline"} 
             size={20} 
-            color={note.pinned ? "#0A1E42" : "#64748B"} 
+            color={note.pinned ? "#fff" : "#64748B"} 
           />
         </TouchableOpacity>
         
@@ -424,21 +549,21 @@ const NoteCard: React.FC<{
           style={styles.iconButton}
           onPress={() => onEdit(note)}
         >
-          <Ionicons name="open-outline" size={20} color="#0A1E42" />
+          <Ionicons name="open-outline" size={20} color="#fff" />
         </TouchableOpacity>
         
         <TouchableOpacity 
           style={styles.iconButton}
           onPress={() => onCopy(note.content)}
         >
-          <Ionicons name="copy-outline" size={20} color="#0A1E42" />
+          <Ionicons name="copy-outline" size={20} color="#fff" />
         </TouchableOpacity>
         
         <TouchableOpacity 
           style={styles.iconButton}
           onPress={() => onShare(note)}
         >
-          <Ionicons name="share-social-outline" size={20} color="#0A1E42" />
+          <Ionicons name="share-social-outline" size={20} color="#fff" />
         </TouchableOpacity>
         
         <TouchableOpacity 
@@ -459,7 +584,7 @@ const styles = ScaledSheet.create({
   },
   header: {
     backgroundColor: "#0A1E42",
-    paddingTop: verticalScale(60),
+    paddingTop: verticalScale(Platform.OS === 'ios' ? 60 : 40),
     paddingBottom: verticalScale(20),
     paddingHorizontal: scale(16),
     flexDirection: "row",
@@ -483,16 +608,13 @@ const styles = ScaledSheet.create({
     flex: 1,
     backgroundColor: "#FFFFFF",
   },
-  editorContainer: {
-    flex: 1,
-  },
   editorHeader: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     paddingHorizontal: scale(24),
-    paddingTop: verticalScale(24),
-    paddingBottom: verticalScale(16),
+    paddingTop: verticalScale(16),
+    paddingBottom: verticalScale(12),
     backgroundColor: "#FFFFFF",
     borderBottomWidth: scale(1),
     borderBottomColor: "#F1F5F9",
@@ -514,24 +636,42 @@ const styles = ScaledSheet.create({
     color: "#64748B",
   },
   inputContainer: {
-    padding: scale(24),
+    paddingHorizontal: scale(24),
+    paddingTop: verticalScale(12),
   },
   titleInput: {
     fontSize: moderateScale(18),
     fontWeight: "700",
     color: "#0A1E42",
-    marginBottom: verticalScale(16),
+    marginBottom: verticalScale(12),
   },
   separator: {
     height: scale(1),
     backgroundColor: "#E2E8F0",
-    marginBottom: verticalScale(24),
+  },
+  richToolbar: {
+    backgroundColor: "#F8FAFC",
+    paddingHorizontal: scale(4),
+    paddingVertical: verticalScale(6),
+    borderTopWidth: scale(1),
+    borderTopColor: "#E2E8F0",
+    minHeight: verticalScale(90),
+  },
+  richEditorContainer: {
+    flex: 1,
+    backgroundColor: "#FFFFFF",
+  },
+  richEditor: {
+    flex: 1,
+    minHeight: verticalScale(300),
+    backgroundColor: "#FFFFFF",
   },
   contentInput: {
     fontSize: moderateScale(16),
     color: "#334155",
     lineHeight: moderateScale(24),
-    minHeight: verticalScale(400),
+    minHeight: verticalScale(300),
+    padding: scale(24),
     textAlignVertical: "top",
   },
   editorFooter: {
@@ -626,7 +766,7 @@ const styles = ScaledSheet.create({
   sectionTitle: {
     fontSize: moderateScale(14),
     fontWeight: "600",
-    color: "#0A1E42",
+    color: "#64748B",
     textTransform: "uppercase",
     letterSpacing: 0.5,
   },
@@ -685,8 +825,8 @@ const styles = ScaledSheet.create({
   iconButton: {
     padding: scale(8),
     borderRadius: scale(8),
-    backgroundColor: "#F8FAFC",
-    minWidth: scale(36),
+    backgroundColor: "#0b2a48",
+    minWidth: scale(20),
     alignItems: "center",
     justifyContent: "center",
   },

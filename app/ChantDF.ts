@@ -3361,9 +3361,9 @@ Le ciel vous est rendu`,
     id: "100",
     title: "100- Il va venir le Seigneur que j’adore",
     lyrics: `1.
-Il va venir, le Seigneur que j’adore;
-Bientôt sa voix retentira du ciel
-A mes regards l’horizon de se colore
+Il va venir, le Seigneur que j'adore,
+Bientôt sa voix retentira du ciel.
+À mes regards l'horizon se colore
 Des purs rayons du soleil éternel.
 
 Refrain:
@@ -3485,13 +3485,16 @@ Le revoir sera doux.
 Ouvrez, ouvrez vos cœurs
 Aux appels de la grâce;
 Aux délices du Ciel,
-Dieu vous incite tous.
+Dieu vous invite tous.
 Quel que soit le péché
 Le sang de Christ l'efface;
 Sous le regard de Dieu,
 Le pardon est bien doux.
 
-
+Refrain:
+Venez-tous avec nous
+Au divin rendez-vous?
+(bis)
 
 `,
   },
@@ -4615,18 +4618,18 @@ Difficile et ténébreux.
 Il faut quitter ceux qu'on aime,
 Savoir être mal jugé,
 Endurer l'injure même,
-Du monde être méprise.
+Du monde être méprisé.
 
 4.
 Oui, perdre sa propre vie,
 Consentir à n'être rien,
 N'avoir qu'une seule envie:
-Aimer Jésus, le seul bien!8
+Aimer Jésus, le seul bien!
 
 5.
 Jésus donne grâce et gloire
 Pour le suivre pas à pas,
-A2vec lui, joie et victoire,
+Avec lui, joie et victoire,
 Paix et bonheur ici-bas!
 
 `,
@@ -6052,14 +6055,14 @@ Chantant avec les fidèles
 Tes louanges immortelles.
 
 3.
-Mais quel chagrin te dévore?
+Mais quel chagrin te dévore ?
 Mon âme rassure-toi:
 Espère en Dieu, car encore
 Il sera loué de moi.
 C'est son regard seulement
 Qui guérira mon tourment:
 Mon Dieu, je sens que mon âme
-D'un ardent désir de pâme.
+D'un ardent désir se pâme.
 
 4.
 Tous les flots de ta colère
@@ -6500,17 +6503,17 @@ Puisque je sais qu'en toi j'ai mon Sauveur.
 2.
 Tu m'as aimé, moi, vile créature,
 Jusqu'à t'offrir en victime pour moi;
-Ton propre sans a lavé ma souillure,
+Ton propre sang a lavé ma souillure,
 Et par ta mort je suis vivant pour toi.
 
 3.
 Que puis-je donc désirer sur la terre,
 Puisque je suis l'objet de ton amour;
 Puisque ta grâce, ô Sauveur débonnaire,
-Dès le matin me prévient chaque jour?
+Dès le matin me prévient chaque jour ?
 
 4.
-Ah! Que mon âme, en parcourant sa voie,
+Ah ! Que mon âme, en parcourant sa voie,
 S'égaye, ô Dieu, dans ta communion,
 Et que mon coeur, plein de force en ta joie,
 De ton Esprit garde en paix l'onction!

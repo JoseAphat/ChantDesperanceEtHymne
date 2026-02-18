@@ -18,6 +18,7 @@ import {
 } from "react-native";
 import { moderateScale, scale, verticalScale } from "react-native-size-matters";
 import GloA from "./Gloire";
+import AdBanner from "@/components/AdBanner";
 
 // Typage pour les chants
 interface Chant {
@@ -194,6 +195,7 @@ const GloireAGneau: React.FC = () => {
 
   return (
     <View style={styles.container}>
+      <AdBanner />
       <TextInput
         placeholder="Numéro ou paroles..."
         placeholderTextColor="#555"

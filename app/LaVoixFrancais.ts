@@ -1519,7 +1519,7 @@ Le céleste rivage
 Vers le Jourdain entendez-vous
 Christ nous appelle tous.
 Près de Lui doux partage
-A l'abrit de l'orage
+A l'abri de l'orage
 Nous pourrons chanter à jamais
 Le cantique de paix.
 

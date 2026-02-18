@@ -8,8 +8,7 @@ const OmbreF: Chant[] = [
   {
     id: "1",
     title: "001- M ap louwe ou Senyè",
-    lyrics: `
-M ap louwe ou Senyè
+    lyrics: `M ap louwe ou Senyè
 Apre chak souf mwen pran
 M ap louwe ou Senyè
 Se pwomès sa m fè ou
@@ -21,8 +20,7 @@ M ap louwe ou Senyè.`,
   {
     id: "2",
     title: "002- Sa pou m bay Letènèl ",
-    lyrics: `
-Sa pou m bay Letènèl
+    lyrics: `Sa pou m bay Letènèl
 Pou tout byenfè l yo anvè mwen
 Sa pou m bay Letènèl
 Pou tout byenfè l yo anvè mwen
@@ -33,12 +31,20 @@ Pou tout byenfè l yo anvè mwen.`,
   },
   {
     id: "3",
-    title: "003- Nan yon moman konsa ",
-    lyrics: `Nan yon moman konsa
-M ap chante yon kantik
+    title: "003- Yon moman konsa ",
+    lyrics: `1.
+Yon moman konsa
+M ap chant on kantik
 Yon kantik damou pou Jezi (2 fwa)
+
+Kè:
 Kè m di: Alelouya! (3 fwa)
-Alelouya!`,
+Alelouya!
+
+2.
+Yon maten konsa
+M ap chant on kantik
+Yon kantik damou pou Jezi`,
   },
   {
     id: "4",
@@ -1935,7 +1941,7 @@ Mèsi Kris (2 fwa)
 Ou toujou panse ak mwen. (2 liy 2 fwa)
 Anpil benediksyon tonbe sou mwen
 Benediksyon kouvri m latètopye
-Senyè, map di w mèsi
+Senyè, m ap di w mèsi
 Pou lanmou w pou mwen
 Mèsi Kris, mèsi Kris (elatriye)`,
   },

@@ -1,3 +1,4 @@
+import AdBanner from "@/components/AdBanner";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "expo-router";
 import React, { useLayoutEffect } from "react";
@@ -61,6 +62,7 @@ const Politique = () => {
 
   return (
     <ScrollView style={styles.container}>
+      <AdBanner />
       <Text style={styles.text}>
       Cette politique de confidentialité décrit comment nous gérons les informations 
       des utilisateurs dans l&apos;application Chant d’Espérance. En utilisant cette application, 

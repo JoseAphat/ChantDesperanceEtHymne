@@ -1,122 +1,65 @@
 package com.berly.ChantDesperance
-
 import expo.modules.splashscreen.SplashScreenManager
-import android.content.Intent
+
 import android.os.Build
 import android.os.Bundle
-import android.view.WindowManager
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsControllerCompat
+
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.fabricEnabled
 import com.facebook.react.defaults.DefaultReactActivityDelegate
+
 import expo.modules.ReactActivityDelegateWrapper
 
 class MainActivity : ReactActivity() {
+  override fun onCreate(savedInstanceState: Bundle?) {
+    // Set the theme to AppTheme BEFORE onCreate to support
+    // coloring the background, status bar, and navigation bar.
+    // This is required for expo-splash-screen.
+    // setTheme(R.style.AppTheme);
+    // @generated begin expo-splashscreen - expo prebuild (DO NOT MODIFY) sync-f3ff59a738c56c9a6119210cb55f0b613eb8b6af
+    SplashScreenManager.registerOnActivity(this)
+    // @generated end expo-splashscreen
+    super.onCreate(null)
+  }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        // Configuration moderne pour edge-to-edge (Android 15+)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
-            WindowCompat.setDecorFitsSystemWindows(window, false)
-            val windowInsetsController = WindowCompat.getInsetsController(window, window.decorView)
-            windowInsetsController?.systemBarsBehavior =
-                WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-        } else {
-            // Comportement legacy pour les versions antérieures
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                window.setFlags(
-                    WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                    WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-                )
-            }
-        }
+  /**
+   * Returns the name of the main component registered from JavaScript. This is used to schedule
+   * rendering of the component.
+   */
+  override fun getMainComponentName(): String = "main"
 
-        // Expo SplashScreen
-        SplashScreenManager.registerOnActivity(this)
+  /**
+   * Returns the instance of the [ReactActivityDelegate]. We use [DefaultReactActivityDelegate]
+   * which allows you to enable New Architecture with a single boolean flags [fabricEnabled]
+   */
+  override fun createReactActivityDelegate(): ReactActivityDelegate {
+    return ReactActivityDelegateWrapper(
+          this,
+          BuildConfig.IS_NEW_ARCHITECTURE_ENABLED,
+          object : DefaultReactActivityDelegate(
+              this,
+              mainComponentName,
+              fabricEnabled
+          ){})
+  }
 
-        super.onCreate(null)
-    }
+  /**
+    * Align the back button behavior with Android S
+    * where moving root activities to background instead of finishing activities.
+    * @see <a href="https://developer.android.com/reference/android/app/Activity#onBackPressed()">onBackPressed</a>
+    */
+  override fun invokeDefaultOnBackPressed() {
+      if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.R) {
+          if (!moveTaskToBack(false)) {
+              // For non-root activities, use the default implementation to finish them.
+              super.invokeDefaultOnBackPressed()
+          }
+          return
+      }
 
-    /**
-     * Nom du composant principal pour React Native
-     */
-    override fun getMainComponentName(): String = "main"
-
-    /**
-     * Delegate pour React Native (avec Fabric si activé)
-     */
-    override fun createReactActivityDelegate(): ReactActivityDelegate =
-        ReactActivityDelegateWrapper(
-            this,
-            BuildConfig.IS_NEW_ARCHITECTURE_ENABLED,
-            object : DefaultReactActivityDelegate(
-                this,
-                mainComponentName,
-                fabricEnabled
-            ) {}
-        )
-
-    /**
-     * Protection NullPointerException lors du focus de la fenêtre
-     */
-    override fun onWindowFocusChanged(hasFocus: Boolean) {
-        try {
-            super.onWindowFocusChanged(hasFocus)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-    }
-
-    /**
-     * FIX CRITIQUE : Handle new intents pour éviter NullPointerException
-     * C'est la cause principale du crash en production
-     */
-    override fun onNewIntent(intent: Intent?) {
-        super.onNewIntent(intent)
-        // IMPORTANT : Définir l'intent AVANT de le passer au delegate
-        intent?.let { 
-            setIntent(it)
-            // Vérifier que le delegate existe avant de l'appeler
-            try {
-                reactActivityDelegate?.onNewIntent(it)
-            } catch (e: NullPointerException) {
-                // Log l'erreur mais ne crash pas l'app
-                e.printStackTrace()
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
-    }
-
-    /**
-     * Handle resume pour s'assurer du bon état
-     */
-    override fun onResume() {
-        try {
-            super.onResume()
-        } catch (e: Exception) {
-            e.printStackTrace()
-            // Ne pas recreate() automatiquement car cela peut causer une boucle
-            // Seulement logger l'erreur
-        }
-    }
-
-    /**
-     * Gestion du bouton retour pour Android S+
-     */
-    override fun invokeDefaultOnBackPressed() {
-        try {
-            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.R) {
-                if (!moveTaskToBack(false)) {
-                    super.invokeDefaultOnBackPressed()
-                }
-            } else {
-                super.invokeDefaultOnBackPressed()
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-            super.invokeDefaultOnBackPressed()
-        }
-    }
+      // Use the default back button implementation on Android S
+      // because it's doing more than [Activity.moveTaskToBack] in fact.
+      super.invokeDefaultOnBackPressed()
+  }
 }

@@ -14,14 +14,22 @@ import {
 } from "react-native";
 import { moderateScale, scale } from "react-native-size-matters";
 import useFavorites from "./useFavorites";
+import AdBanner from '@/components/AdBanner';
+interface FavoriteSong {
+  id: string;
+  title: string;
+  lyrics: string;
+  category: string;
+  type?: string;
+  originalId?: string;
+}
 
 const FavoritesScreen: React.FC = () => {
   const router = useRouter();
   const { id, title, lyrics, category, type } = useLocalSearchParams();
   const { getFavorites } = useFavorites();
-
-  const [favoritesFromChantsDetails, setFavoritesFromChantsDetails] = useState([]);
-  const [selectedSongs, setSelectedSongs] = useState([]);
+  const [favoritesFromChantsDetails, setFavoritesFromChantsDetails] = useState<FavoriteSong[]>([]);
+  const [selectedSongs, setSelectedSongs] = useState<string[]>([]);
   const [theme, setTheme] = useState<"light" | "dark">("light");
   const [searchText, setSearchText] = useState("");
   const [isSelectionMode, setIsSelectionMode] = useState(false);
@@ -45,78 +53,90 @@ const FavoritesScreen: React.FC = () => {
   // ✅ Configuration du header avec design amélioré
   useEffect(() => {
     navigation.setOptions({
-  title: "Mes favoris",
-  headerTitleStyle: {
-    color: "white",
-    fontSize: 18,
-    fontWeight: "bold",
-    paddingTop: 60,  // Remplace marginTop
-    paddingBottom: 40,  // Ajoute de l'espace en bas
-  },
-  headerStyle: {
-    height: 200 + (Platform.OS === "android" ? (StatusBar.currentHeight ?? 0) : 10),
-    backgroundColor: "#0A1E42",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
-  headerTitleAlign: "center",
-  headerRight: () => (
-    <View style={{
-      marginRight: 10,
-      marginTop: 60,  // Ajusté pour aligner avec le titre
-    }}>
-      <TouchableOpacity
-        onPress={() => setIsSelectionMode(!isSelectionMode)}
-        style={{ 
-          padding: 4,
-          bottom: 25
-        } 
-      }
-      >
-        <Ionicons 
-          name={isSelectionMode ? "close" : "checkmark-circle-outline"} 
-          size={24} 
-          color="white" 
-        />
-      </TouchableOpacity>
-    </View>
-  ),
-  headerLeft: () => (
-    <View
-      style={{
-        marginLeft: 10,
-        marginTop: 0,  
-      }}
-    >
-      <TouchableOpacity onPress={() => navigation.goBack()}>
-        <Ionicons name="arrow-back" size={24} color="white" />
-      </TouchableOpacity>
-    </View>
-  ),
-});
+      title: "Mes favoris",
+      headerTitleStyle: {
+        color: "white",
+        fontSize: 18,
+        fontWeight: "bold",
+        paddingTop: 60,
+        paddingBottom: 40,
+      },
+      headerStyle: {
+        height: 200 + (Platform.OS === "android" ? (StatusBar.currentHeight ?? 0) : 10),
+        backgroundColor: "#0A1E42",
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+      },
+      headerTitleAlign: "center",
+      headerRight: () => (
+        <View style={{
+          marginRight: 10,
+          marginTop: 60,
+        }}>
+          <TouchableOpacity
+            onPress={() => setIsSelectionMode(!isSelectionMode)}
+            style={{ 
+              padding: 4,
+              bottom: 25
+            }}
+          >
+            <Ionicons 
+              name={isSelectionMode ? "close" : "checkmark-circle-outline"} 
+              size={24} 
+              color="white" 
+            />
+          </TouchableOpacity>
+        </View>
+      ),
+      headerLeft: () => (
+        <View
+          style={{
+            marginLeft: 10,
+            marginTop: 0,  
+          }}
+        >
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Ionicons name="arrow-back" size={24} color="white" />
+          </TouchableOpacity>
+        </View>
+      ),
+    });
 
     if (id && title) {
       if (category) {
+        const songId = Array.isArray(id) ? id[0] : id;
+        const songTitle = Array.isArray(title) ? title[0] : title;
+        const songLyrics = Array.isArray(lyrics) ? lyrics[0] : lyrics || '';
+        const songCategory = Array.isArray(category) ? category[0] : category;
+        const songType = Array.isArray(type) ? type[0] : type || '';
+
         setFavoritesFromChantsDetails((prev) =>
-          prev.some((song) => song.id === id)
+          prev.some((song) => song.id === songId)
             ? prev
-            : [...prev, { id, title, lyrics, category }]
+            : [...prev, { 
+                id: songId, 
+                title: songTitle, 
+                lyrics: songLyrics, 
+                category: songCategory,
+                type: songType
+              }]
         );
       }
     }
-  }, [id, title, category, type, navigation, lyrics, isSelectionMode]);
+  }, [id, title, category, lyrics, type, navigation, isSelectionMode]);
 
+  // ✅ Fonction pour récupérer les favoris
   const fetchFavorites = async () => {
     try {
-      const existingFavorites = await getFavorites();
+      const existingFavorites: FavoriteSong[] = await getFavorites();
       if (existingFavorites) {
         const chantsDetails = existingFavorites.filter(
           (item) =>
             item.category &&
-            !existingFavorites.some((fav) => fav.id === item.id && fav.type)
+            !existingFavorites.some((fav) => fav.id === item.id && fav.type) 
         );
         setFavoritesFromChantsDetails(chantsDetails.reverse());
       }
@@ -125,7 +145,10 @@ const FavoritesScreen: React.FC = () => {
     }
   };
 
-  fetchFavorites();
+  // ✅ Appel initial de fetchFavorites
+  useEffect(() => {
+    fetchFavorites();
+  }, []);
 
   const handleRemoveSelected = async () => {
     try {
@@ -149,7 +172,7 @@ const FavoritesScreen: React.FC = () => {
     }
   };
 
-  const toggleSelection = (songId) => {
+  const toggleSelection = (songId: string) => {
     if (!isSelectionMode) {
       setIsSelectionMode(true);
     }
@@ -160,10 +183,10 @@ const FavoritesScreen: React.FC = () => {
     );
   };
 
-  const removeFavorite = async (id) => {
+  const removeFavorite = async (id: string) => {
     try {
       const favorites = await AsyncStorage.getItem("favorites");
-      const parsedFavorites = favorites ? JSON.parse(favorites) : [];
+      const parsedFavorites: FavoriteSong[] = favorites ? JSON.parse(favorites) : [];
       const updatedFavorites = parsedFavorites.filter((item) => item.id !== id);
 
       await AsyncStorage.setItem("favorites", JSON.stringify(updatedFavorites));
@@ -181,6 +204,7 @@ const FavoritesScreen: React.FC = () => {
   return (
     <View style={[staticStyles.container, { backgroundColor: theme === "dark" ? "#121212" : "#dfdedcf7" }]}>
       {/* ✅ Barre de recherche */}
+      <AdBanner />
       <View style={[
         staticStyles.searchContainer,
         { backgroundColor: theme === "dark" ? "#1e1e1e" : "#ffffff" }
@@ -251,9 +275,9 @@ const FavoritesScreen: React.FC = () => {
                     toggleSelection(song.id);
                   } else {
                     router.push({
-                      pathname: "ChantDetails",
+                      pathname: "/ChantDetails" as any,
                       params: {
-                        id: song.originalId,
+                        id: song.originalId || song.id,
                         category: song.category,
                         title: song.title,
                         lyrics: song.lyrics,
@@ -374,7 +398,6 @@ const FavoritesScreen: React.FC = () => {
     </View>
   );
 };
-  
   const staticStyles = StyleSheet.create({
     container: {
       flex: 1,

@@ -1200,7 +1200,7 @@ M a wè li anwo jou sa a.
     lyrics: `1.
 Bèje mwen se yon Wa damou
 Bonte li p ap janm fini.
-Si se li menm ki Sovè mwen,
+Paske se li ki Sovè mwen,
 Mwen p ap janm manke anyen.
 
 Kè:
@@ -2104,7 +2104,7 @@ Lave m, Jezi, san ou koule pou mwen. (2 fwa)
 
 3.
 Sere m pi prè ou, Senyè Jezi.
-Se pa pou monn sa a kè mwen gen dezi.
+Se pa pou mond sa a kè mwen gen dezi.
 Mwen lage peche ak tout lògèy.
 Ban m sèlman Jezi Senyè m krisifye. (2 fwa)
 
@@ -3875,7 +3875,7 @@ Tout moun yo k ap swiv ou,
 Kote w a ye nan Syèl la,
 Se la yo va ye tou.
 E Jezi, mwen te pwomèt
-Pou m swiv ou toutan,
+Pou m swiv ou pou toutan,
 O ban mwen gras ou anpil,
 Mèt mwen e zanmi mwen.
 

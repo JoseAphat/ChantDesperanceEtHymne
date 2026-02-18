@@ -4031,5 +4031,115 @@ From the river that never runs dry
 _FAITH CAPTAIN_
 `
 },
+ {
+    id: "117",
+    title: "117- Eze ebube",
+    lyrics: `1.
+More than my mouth can testify
+More than my mind can comprehend
+See I've seen the wonders of your grace
+I'm so sure that this is not the end
+
+Chorus:
+Eze ebube
+See how far you've brought me
+Eze ebube
+I'm so glad you found me worthy
+I can see, i can tell
+And I know it's your grace
+All my days I will sing your praise
+
+2.
+My heart is full of gratitude
+To you and no one else but you
+Lord I'm here only by your grace
+Thank you Jesus for not giving up on me
+
+Grace found me
+Grace saved me
+Grace made me who i am
+Grace redeemed me
+Grace sustains me
+Grace made me who i am
+`},
+{
+    id: "118",
+    title: "118- As the deer",
+    lyrics: `1.
+As the deer panteth for the water
+So my soul longeth after Thee
+You alone are my heart's desire
+And I long to worship Thee
+
+Chorus:
+You alone are my strength, my shield
+To You alone may my spirit yield
+You alone are my heart's desire
+And I long to worship You
+
+2.
+You're my friend
+And You are my brother
+Even though You are the King
+And I love You more than any other
+Even more than anything
+
+Chorus:
+Oh-oh, You alone are my strength, my shield
+To You alone may my spirit yield
+You alone are my heart's desire
+And I long to worship You
+Oh, I long to worship You
+    `
+},
+{
+    id: "119",
+    title: "119- Oh Be lifted",
+    lyrics: `1.
+Oh Be lifted
+Above all other gods
+We lay our Crowns
+And worship You
+
+All Glorious God
+We praise your name
+We lay our Crowns
+And worship You
+    `
+},
+{
+    id: "120",
+    title: "120- Nara",
+    lyrics: `1.
+He's done so much for me
+I can not tell it all
+Narakele Mo
+If I Had ten thousand tongues
+It won't still be enough
+Narakele Mo
+Chukwu na gwom o ria le
+When You heal You heal completely
+Nara elele mo
+Chukwu mara obim o
+Isi ikendu le
+Nara ekele mo
+
+
+Chorus:
+What shall I render to Jehovah?
+For he has done so very much for me
+What shall I render to Jehovah?
+For he has done so very much for me
+
+Naranara e, Narakele
+Narakele Mo
+Nara nara e, Narakele
+Narakele Mo
+Nara nara e, Narakele
+Narakele Mo
+
+_Tim Godfrey_
+`
+},
 ];
 export default englishSongs;

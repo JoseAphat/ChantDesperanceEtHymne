@@ -15,7 +15,7 @@ import OmbreF from "@/app/OmbreReveil";
 import ReveNC from "@/app/ReveillonsCreole";
 import ReveNF from "@/app/ReveillonsFrancais";
 import RevNC from "@/app/ReveillonsNous";
-import VCreole from "@/app/VersionCreole";
+//import VCreole from "@/app/VersionCreole";
 
 export const categoryMap: Record<string, any[]> = {
   "Chant d'Esperance Créole": chantsC,
@@ -31,7 +31,7 @@ export const categoryMap: Record<string, any[]> = {
   "Haïti Chante avec Radio Lumière": HaitiC,
   "Gloire à l'Agneau": GloA,
   "Écho des Élus": echo,
-  "C.E Francais V.Créole": VCreole,
+ // "C.E Francais V.Créole": VCreole,
   "Chœurs Créole": CreoleSongs,
   "Choeurs Anglais": englishSongs,
   "Choeurs Français": frenchSongs,

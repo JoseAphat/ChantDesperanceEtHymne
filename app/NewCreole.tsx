@@ -1,8 +1,8 @@
 import SongListScreen from "../components/SongListScreen";
-import Vcreole from "./VersionCreole";
+//import Vcreole from "./VersionCreole";
 
 export default function NewCreole() {
-  return (
+ /* return (
     <SongListScreen
       data={Vcreole}
       headerTitle="C.E Francais V. Créole"
@@ -11,4 +11,5 @@ export default function NewCreole() {
       normalizeMode="creole"
     />
   );
+  */
 }

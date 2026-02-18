@@ -19,10 +19,19 @@ import {
   View,
 } from "react-native";
 import { moderateScale, scale, verticalScale } from "react-native-size-matters";
+import AddRewarded from '../components/AddRewarded';
+import RewardedButton from '../components/RewardedButton';
+import RewardedCreateButton from '../components/RewardedCreateButton';
 
 // 🔹 Types
 type SectionKey = "introduction" | "partie1" | "partie2" | "partie3";
-interface Chant { id: string | number; title: string; lyrics: string; author: string}
+interface Chant { 
+  id: string | number; 
+  title: string; 
+  lyrics: string; 
+  category: string; 
+  author: string;
+}
 interface Service {
   id: string;
   name: string;
@@ -57,7 +66,14 @@ const Culte: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [showAdd, setShowAdd] = useState(false);
   const [newName, setNewName] = useState("");
+  const [editingService, setEditingService] = useState<Service | null>(null);
+  const [editName, setEditName] = useState("");
   const fadeAnim = useState(new Animated.Value(0))[0];
+
+  // Fonction pour ouvrir le modal de création après l'annonce
+  const handleOpenCreateModal = () => {
+    setShowAdd(true);
+  };
 
   // Configuration du header
   useLayoutEffect(() => {
@@ -99,17 +115,14 @@ const Culte: React.FC = () => {
       ),
       headerRight: () => (
         <View style={{ marginRight: 12, marginTop: 20 }}>
-          <TouchableOpacity
-            onPress={() => setShowAdd(true)}
+          <RewardedCreateButton
+            onAdWatched={handleOpenCreateModal}
             style={{
               padding: 8,
               borderRadius: 10,
               backgroundColor: "rgba(255,255,255,0.12)",
             }}
-            hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-          >
-            <Ionicons name="add-circle" size={24} color="#FFFFFF" />
-          </TouchableOpacity>
+          />
         </View>
       ),
       headerRightContainerStyle: { paddingRight: 4 },
@@ -175,6 +188,26 @@ const Culte: React.FC = () => {
     router.push({ pathname: "/ServiceDetails", params: { serviceId: id } });
   };
 
+  const editServiceName = async () => {
+    if (!editingService || !editName.trim()) {
+      Alert.alert("Nom requis", "Veuillez saisir un nom pour le culte.");
+      return;
+    }
+
+    const next = services.map((s) =>
+      s.id === editingService.id ? { ...s, name: editName.trim() } : s
+    );
+    
+    await save(next);
+    setEditingService(null);
+    setEditName("");
+  };
+
+  const startEditing = (service: Service) => {
+    setEditingService(service);
+    setEditName(service.name);
+  };
+
   const deleteService = (id: string) => {
     Alert.alert("Supprimer", "Voulez-vous vraiment supprimer ce culte ?", [
       { text: "Annuler", style: "cancel" },
@@ -198,8 +231,10 @@ const Culte: React.FC = () => {
 
   const shareService = async (service: Service) => {
     const fmt = (arr: Chant[]) =>
-      arr.length ? arr.map((c) => `#${c.id} — ${c.title}`).join("\n") : "—";
-
+      arr.length 
+        ? arr.map((c) => `# ${c.title.substring(0, 4)}  ${c.category} \n ${c.title.substring(4)}`).join("\n\n") 
+        : "—";
+    
     const text =
       `Service: ${service.name}\n` +
       `Créé le: ${new Date(service.createdAt).toLocaleString()}\n\n` +
@@ -271,17 +306,23 @@ const Culte: React.FC = () => {
           </View>
 
           <View style={styles.actionsColumn}>
-            <TouchableOpacity
-              onPress={() => router.push({ pathname: "/ServiceDetails", params: { serviceId: item.id } })}
+            {/* Bouton avec annonce pour ouvrir ServiceDetails */}
+            <AddRewarded
+              serviceId={item.id}
               style={[styles.actionBtn, styles.primaryAction]}
-            >
-              <Ionicons name="open-outline" size={18} color="#FFFFFF" />
-            </TouchableOpacity>
+            />
 
+            {/* Bouton partage */}
             <TouchableOpacity onPress={() => shareService(item)} style={styles.actionBtn}>
               <Ionicons name="share-social-outline" size={18} color="#0A1E42"/>
             </TouchableOpacity>
 
+            {/* Bouton d'édition */}
+            <TouchableOpacity onPress={() => startEditing(item)} style={styles.actionBtn}>
+              <Ionicons name="create-outline" size={18} color={COLORS.primary} />
+            </TouchableOpacity>
+
+            {/* Bouton épingler */}
             <TouchableOpacity onPress={() => togglePin(item.id)} style={styles.actionBtn}>
               <Ionicons 
                 name={item.pinned ? "bookmark" : "bookmark-outline"} 
@@ -290,6 +331,7 @@ const Culte: React.FC = () => {
               />
             </TouchableOpacity>
 
+            {/* Bouton supprimer */}
             <TouchableOpacity onPress={() => deleteService(item.id)} style={styles.actionBtn}>
               <Ionicons name="trash-outline" size={18} color={COLORS.error} />
             </TouchableOpacity>
@@ -297,11 +339,6 @@ const Culte: React.FC = () => {
         </View>
       </Animated.View>
     );
-  };
-
-  // Fonction pour naviguer vers la page de notes
-  const navigateToNotes = () => {
-    router.push("/Notes");
   };
 
   return (
@@ -319,13 +356,11 @@ const Culte: React.FC = () => {
                 <Text style={styles.emptyText}>
                   Créez votre premier culte, organisez les chants.
                 </Text>
-                <TouchableOpacity 
+                {/* Bouton avec annonce dans l'état vide */}
+                <RewardedCreateButton
+                  onAdWatched={handleOpenCreateModal}
                   style={styles.emptyButton}
-                  onPress={() => setShowAdd(true)}
-                >
-                  <Ionicons name="add" size={20} color="#FFFFFF" />
-                  <Text style={styles.emptyButtonText}>Préparer un culte</Text>
-                </TouchableOpacity>
+                />
               </View>
             ) : null
           }
@@ -373,23 +408,68 @@ const Culte: React.FC = () => {
             </Pressable>
           </Pressable>
         </Modal>
-      </Animated.View>
 
-      {/* Bouton Prendre une note en bas de l'écran */}
-      <TouchableOpacity 
-        style={styles.notesButton}
-        onPress={navigateToNotes}
-      >
-        <View style={styles.notesButtonContent}>
-          <View style={styles.notesIconContainer}>
-            <Ionicons name="add" size={24} color="#FFFFFF" />
+        {/* Modal édition nom du culte */}
+        <Modal visible={!!editingService} transparent animationType="fade" onRequestClose={() => setEditingService(null)}>
+          <Pressable style={styles.modalBackdrop} onPress={() => setEditingService(null)}>
+            <Pressable style={styles.modalCard}>
+              <View style={styles.modalHeader}>
+                <Text style={styles.modalTitle}>Modifier le nom</Text>
+                <View style={styles.modalIcon}>
+                  <Ionicons name="create-outline" size={24} color={COLORS.primary} />
+                </View>
+              </View>
+              
+              <TextInput
+                placeholder="Nouveau nom du culte"
+                placeholderTextColor={COLORS.textLight}
+                value={editName}
+                onChangeText={setEditName}
+                style={styles.input}
+                autoFocus
+                returnKeyType="done"
+                onSubmitEditing={editServiceName}
+              />
+              
+              <View style={styles.modalRow}>
+                <TouchableOpacity 
+                  style={[styles.modalButton, styles.cancelButton]} 
+                  onPress={() => setEditingService(null)}
+                >
+                  <Text style={styles.cancelText}>Annuler</Text>
+                </TouchableOpacity>
+                
+                <TouchableOpacity 
+                  style={[styles.modalButton, styles.confirmButton]} 
+                  onPress={editServiceName}
+                >
+                  <Text style={styles.confirmText}>Enregistrer</Text>
+                </TouchableOpacity>
+              </View>
+            </Pressable>
+          </Pressable>
+        </Modal>
+      </Animated.View>
+      
+      {/* Bouton Mes Notes avec annonce rewarded */}
+      <View style={styles.notesFloatingWrapper}>
+        <RewardedButton 
+          targetRoute="/Notes"
+          style={styles.notesButton}
+          activeOpacity={0.85}
+        >
+          <View style={styles.notesButtonContent}>
+            <View style={styles.notesIconContainer}>
+              <Ionicons name="add" size={24} color="#FFFFFF" />
+            </View>
+            <Text style={styles.notesButtonText}>Mes Notes</Text>
           </View>
-          <Text style={styles.notesButtonText}>Mes Notes</Text>
-        </View>
-      </TouchableOpacity>
+        </RewardedButton>
+      </View>
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   container: { 
     flex: 1, 
@@ -590,10 +670,17 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     fontSize: moderateScale(14),
   },
-  notesButton: {
+  notesFloatingWrapper: {
     position: "absolute",
+    left: 0,
+    right: 0,
+    bottom: verticalScale(20),
+    alignItems: "center",    
+  },
+  notesButton: {
     bottom: verticalScale(50),
-    right: scale(16),
+    alignItems: "center",
+    justifyContent: "center",
     backgroundColor: COLORS.primary,
     borderRadius: scale(30),
     paddingVertical: verticalScale(10),
@@ -624,4 +711,5 @@ const styles = StyleSheet.create({
     fontWeight: "800",
   },
 });
+
 export default Culte;

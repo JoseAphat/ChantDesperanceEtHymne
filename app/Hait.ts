@@ -464,7 +464,7 @@ Kab wè limenm nan mwen tanpri,
 Mwen vle sanble ak Jezi.
 
 	2.
-Li sèvi lezòt san rete,
+Li sèvi lèzòt san rete,
 Mwen vle sanble ak Jezi,
 Li mache ak imilite,
 Mwen vle sanble ak Jezi.
@@ -484,9 +484,9 @@ Pou moun sa yo ki te lènmi,
 Mwen vle sanble ak Jezi.
 
 	4.
-Ala Kris viv yon vi pafèt!
+Ala Kris viv yon vi pafèt !
 Mwen vle sanble ak Jezi,
-Se rekonpans mwen va konplè
+E rekonpans mwen va konplè
 Lè mwen sanble ak Jezi.
 Plen nanm grangou mwen ak Lespri,
 Fòs Li dwe kontwole tout lavi,
@@ -692,7 +692,7 @@ Dousman sipòtan repwòch mechan yo
 Prèt pou soufri lèzòt pou sove.
 
 4.
-Mwen vle sanble Ou, men mwe chè Senyè
+Mwen vle sanble Ou, men mwen chè Senyè
 Ranpli kè mwen ak puisans anwo
 Tout sa m posede mwen pote ba ou,
 Mwen vle transfòme, ne de nouvo

@@ -1767,11 +1767,11 @@ Mwen te ba Li tout lavi m.`,
     id: "72",
     title: "072- M konfye m nan Dye",
     lyrics: `1.
-    M konfye m nan Dye
-    Nenpòt kote mwen ye
-    Ni sou latè, ni sou lanmè twouble;
-    Nan tout traka, nan lavi sa a
-    Papa m nan syèl la ape veye mwen.
+M konfye m nan Dye
+Nenpòt kote mwen ye
+Ni sou latè, ni sou lanmè twouble;
+Nan tout traka, nan lavi sa a
+Papa m nan syèl la ape veye mwen.
 
 Kè:
 M konfye m nan Dye,
@@ -1781,7 +1781,7 @@ Lanmè pouse m, Bondye kenbe m
 Papa m nan syèl la ape veye mwen.
 
 2.
-Li gade flè nan chan toupatou,
+Li gade flè yo nan chan toupatou,
 Li pran swen zwazo k ap chante pou nou,
 Jiska lafen, L ap sonje mwen,
 Papa m nan syèl la ape veye mwen.

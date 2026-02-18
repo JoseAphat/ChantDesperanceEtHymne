@@ -1,3 +1,4 @@
+import AdBanner from "@/components/AdBanner";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation, useRouter } from "expo-router";
 import React, { useLayoutEffect } from "react";
@@ -56,6 +57,7 @@ const About = () => {
   };
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+      <AdBanner />
       <View style={styles.header}>
         <View style={styles.logoContainer}>
           <View style={styles.logo}>
@@ -67,7 +69,7 @@ const About = () => {
           </View>
         </View>
         <Text style={styles.appName}>Chant d'Esperance & Hymne</Text>
-        <Text style={styles.version}>Version 1.1.7</Text>
+        <Text style={styles.version}>Version 1.1.9</Text>
       </View>
 
       <View style={styles.content}>

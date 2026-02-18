@@ -1,9 +1,13 @@
 import React from "react";
 import SongListScreen from "../components/SongListScreen";
 import VoixC from "./LaVoixCreole";
+import { View } from "react-native";
+import AdBanner from "@/components/AdBanner";
 
 export default function LaVoixDuReveilCreole() {
   return (
+    <View style={{ flex: 1 }}>
+          <AdBanner />
     <SongListScreen
       data={VoixC}
       headerTitle="La Voix du Réveil Créole"
@@ -11,5 +15,6 @@ export default function LaVoixDuReveilCreole() {
       previousTitle="La Voix du Réveil Créole"
       normalizeMode="creole"
     />
+    </View>
   );
 }

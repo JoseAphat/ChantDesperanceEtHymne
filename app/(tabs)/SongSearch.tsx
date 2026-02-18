@@ -1,4 +1,3 @@
-// app/SongSearch.tsx
 import { Ionicons } from "@expo/vector-icons";
 import { Picker } from "@react-native-picker/picker"; // utilisé uniquement sur Android
 import { useLocalSearchParams, useNavigation, useRouter } from "expo-router";
@@ -15,9 +14,11 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { moderateScale, verticalScale } from "react-native-size-matters";
+import AdBanner from '@/components/AdBanner';
 
 // --- Données ---
 import chantsF from "../ChantDF";
+
 
 // Harmonisation des champs (déduit type pour 1..33 sinon garde l’existant si présent)
 const updatedChantsF = chantsF.map((chant: any) => {
@@ -226,6 +227,7 @@ export default function SongSearch() {
 
   return (
     <View style={styles.container}>
+      <AdBanner />
       {/* Catégorie */}
       <View style={{ marginBottom: 10 }}>
         {Platform.OS === "ios" ? (
@@ -371,7 +373,7 @@ const styles = StyleSheet.create({
   },
   iosPickerOverlay: {
     flex: 1,
-    backgroundColor: "rgba(0,0,0,0.35)",
+    backgroundColor: "rgba(222, 214, 214, 0.35)",
     justifyContent: "flex-end",
   },
   iosPickerSheet: {

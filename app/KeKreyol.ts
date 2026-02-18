@@ -254,7 +254,7 @@ Ou fè m byen, ou fè m bèl, rete avè m Senyè
 Pon:
 Lè w pa bò kote m lavi mwen pa gen sans
 Lèw pa bò kote m mwen pa gen rezon
-Lè w pa bò kote m fènwa anvayi m
+Lè w pa bò kote m fènwa anvayi mwen
 Rete avè mwen Senyè
 
 
@@ -665,7 +665,7 @@ _By Abimael Constant_
     Mèt si ou vle
     Ou ka geri mwen
     Pa gen anyen ki depase Ou
-    Ou se Bondye ki fe mèvèy
+    Ou se Bondye ki fè mèvèy
     Si ou vle ou ka geri m
 
     Kè:
@@ -890,28 +890,28 @@ _Amiel Rosilien_
     id: "34",
     title: "034- Jezi o",
     lyrics: `Kè:
-        Jezi o o
-        Gade jis kote ou menmen m
-        Ou fè m sezi o
-        M pat panse se la w t ap mennen m
-        Pou kote m soti
-        Pou mizè m pase
-        Jan m te imilye
-        Pat genyen espwa
-        Ou leve tèt mwen
-        Mèsi Jezi, mèsi !
-                
-        1.
-        Pami tout pitit yo
-        Yo pa t ap janm panse
-        Pami tout fanmi m yo
-        Yo pa t ap janm chwazi m
-        Pou jan m te kòmanse
-        Mirak sa a pat sanble m
-        Lavi mwen konfime l
-        Se BonDye k konn leve moun
+Jezi o o
+Gade jis kote ou menmen m
+Ou fè m sezi o
+M pat panse se la w t ap mennen m
+Pou kote m soti
+Pou mizè m pase
+Jan m te imilye
+Pat genyen espwa
+Ou leve tèt mwen
+Mèsi Jezi, mèsi !
+        
+1.
+Pami tout pitit yo
+Yo pa t ap janm panse
+Pami tout fanmi m yo
+Yo pa t ap janm chwazi m
+Pou jan m te kòmanse
+Mirak sa a pat sanble m
+Lavi mwen konfime l
+Se BonDye k konn leve moun
 
-        _Neslin Destilhomme_
+_Neslin Destilhomme_
      `,
   },
   {
@@ -921,7 +921,7 @@ _Amiel Rosilien_
 M g on  papa 
 Ki p ap janm kite m òfelen
 O wi li toujou pran swen mwen 
-Non m p ap janm enkyete m pou amyen
+Non m p ap janm enkyete m pou anyen
 Li toujou la
 Ni nan bon, ni move jou yo
 Lè lavi vle ban m  vye kou yo
@@ -936,13 +936,13 @@ Paske m gen yon pwomès sou tèt mwen
 O o o o o o 
 Toutotan LI ap renye 
 Yon branch cheve m p ap rache
-Avè m LI apèn kòmanse eeeee
+Avè m Li apèn kòmanse
 
 Kè:
-Jan LI te di l la
-LI fè li konsa
+Jan Li te di l la
+Li fè li konsa
 Pèsonn pat kwè 
-LI fè yo wè l
+Li fè yo wè l
 M konprann poukisa 
 Wout la te long konsa
 Bondye fè l pou glwa l
@@ -1263,7 +1263,7 @@ Tanpri ede m
 Pon:
 M leve je m gade mòn yo
 Sekou m ap chèche
-Letenèl O m antrave
+Letènèl O m antrave
 Sekou m ap chèche
 M leve je m gade mòn yo
 Sekou m ap chèche
@@ -1298,21 +1298,21 @@ Pou sa Jezi fè pou mwen
 Viktwa sou tout fòs ki pa fòs Bondye
 Viktwa sou tout plan ki fet pou m echwe
 Viktwa mwen, Viktwa mwen soti nan Bondye
-Viktwa mwen, Viktwa mwen pandan map louwe
+Viktwa mwen, Viktwa mwen pandan m ap louwe
 
 2.
-Viktwa sou tout fòs ki pa vle m' avanse
+Viktwa sou tout fòs ki pa vle m avanse
 Viktwa sou peche ak dlo nan je
 Viktwa mwen, Viktwa mwen soti nan Bondye
-Viktwa Mwen, Viktwa mwen pandan map priye
+Viktwa Mwen, Viktwa mwen pandan m ap priye
 
-Rann mwen pwisan pou m' depase
-Obstak ki bare m' yo
-Banm plis onksyon pou m' vole
+Rann mwen pwisan pou m depase
+Obstak ki bare m yo
+Banm plis onksyon pou m vole
 Piwo pase pwoblèm yo
 
-Mwen pa gen anyen pou m' pè
-Paske w' avè m' kote m' pase
+Mwen pa gen anyen pou m pè
+Paske w avè m kote m pase
 
 Lyon sa pa janm pèdi batay
 Lè li pale latè tranble
@@ -3844,7 +3844,7 @@ Mwen koube m byen ba pou m adore W
     id: "138",
     title: "138- Kenbe m toujou okipe",
     lyrics: `1.
-    O kenbe m toujou okipe 
+    W a kenbe m toujou okipe 
     Nan prezan Ou Yahweh
     M pa vle gen tan, pou m tande yon lòt vwa
     Ke Ou, Yahweh
@@ -4590,7 +4590,8 @@ M adore w pèp ou a nan men w.
     Li genyen tout pouvwa
     Li domine syèl la ak tout tè a
     Pèsòn pa ka konpare Li
-    Alfa e lomega li se BonDye kòmansman e la fen
+    Alfa e lomega li se 
+    BonDye kòmansman e la fen
     Anyen pa enposib pou Li
     
     2.
@@ -4605,8 +4606,7 @@ M adore w pèp ou a nan men w.
     Si l te delivre Danyèl nan fòs lyon an
     Twa jèn ebre yo, nan mitan founèz la
 
-
-_Edner Dalcin_
+          _Edner Dalcin_
      `,
   },
   {
@@ -4955,8 +4955,7 @@ _Spencer Brutus_
   {
     title: "177- Tout sa ou di",
     id: "177",
-    lyrics: `
-Tout sa ou di Senyè
+    lyrics: `Tout sa ou di Senyè
 Pa genyen manti
 Pawòl ou se verite
 Tout sa ki te ekri 
@@ -4970,8 +4969,7 @@ Zafè w se bagay serye`,
   {
     title: "178- L ap renye",
     id: "178",
-    lyrics: `
-Amèn alelouya 
+    lyrics: `Amèn alelouya 
 Jezi mouri l resisite 
 Amèn alelouya 
 L ap renye pou letènite
@@ -5213,30 +5211,47 @@ Li gran, li si gran e li san parèy.
   },
   {
     id: "186",
-    title: "186- Senyè pa kite m monte tèt mwen",
-    lyrics: `1.
-Fòk mwen desann pou w ka monte
-Mwen dwe efase pou parèt
-Paske si m ap viv
-Se pa mwen k ap viv
-Se ou menm k ap viv nan mwen
+    title: "186- Ki sa k ka ranplase",
+    lyrics: `Kè:
+Ki sa k ka ranplase
+Prezans ou na lavi m Seyè.
+Ki sa k ka ranplase
+Prezans ou nan kè mwen
+O! anyen! O! anyen!
+Paka ranplase prezams ou nan lavi m
 
-	Kè:
-Senyè pa kite m monte tèt mwen 
-Senyè pa kite m panse m pi wo
-Fè m piti piti tou piti devan w
-Paske w di moun ki monte wa bese l
-Men moun ki bese byen ba w a leve l
+1.
+Lè mwen potko rankontre ou,
+Mwen pa t janm gen lapè di tou,
+Chagren, lapèn, dekourajman
+Te pran kè mwen pou fè depo
+Tout efò m fè pou m jwenn solisyon,
+Sitiyasyon pa t janm chanje
+Men lè m rankontre ak Jezi,
+Mwen ka di se pa menm bagay.
 
-	2.
-Kisa m t ap fè san prezans ou
-Anyen pa bon lè w pa la
-Vin abite nan mwen, kraze tout lògèy
-Ou se potye a fè mwen jan ou vle 
+2.
+Mwen t ap viv, lavi m pa t gen sans
+M t ap mache m pa t ge direksyon
+Malgre tout sa m t eseye,
+Mwen pa t janm rive satisfè,
+Depi menm jou ou pran plas nan kè m
+Lapè ak lajwa anvayi m, m pa gen mo
+Pou m esplike sa,
+Sèlman m konstate m chanje.
 
-Pon:
-Se gras ou fè m (3 fwa)
-Mwen pa anyen
+3.
+Pa gen anyen ki ka ranplase
+Lavi etènè ou ban mwen
+Pa gen anyen ki ka ranplase
+Tout pwomès ki nan pawòl la
+O! anyen paka ranplase
+Presans Sentespri nan lavi m
+Pa gen anyen ki ka ranplase
+Prezans ou Seyè nan lavi m.
+
+_Groupe les Gilbert_
+
     `,
   },
 
@@ -5653,8 +5668,49 @@ _James Smith Alcindor_`,
   },
   {
     id: "199",
-    title: "199- Se gras a Ou",
-    lyrics: `1.`,
+    title: "199- Lòt bò jouden sa a",
+    lyrics: `1.
+Lòt bò jouden sa a
+Gen yon lavi k ap pare
+Yon ti gout kè kontan epi
+Yon ti gout kè mare
+Anba solèy sa a
+Menm si n ape lite
+Nou gen konfyans
+Yon jou sa pral chanje
+Paske
+
+Kè:
+Gen yon je k ap gade
+Gen yon zòrèy k ap koute
+Gen yon limyè k ap klere
+Chimen lanmou gen tan monte
+Lè manman t ape priye
+lè papa t ape gide
+Lè Jezi t ape kriye.
+
+2.
+Lòt bò jouden sa a
+Nou ka byen separe
+Pou rantre ou byen pi fon lakay
+Oubyen nan peyi etranje
+Kote nou pase
+Fòk lavi nou klere
+Jouk tan lè a rive pou nou ale
+Kote
+
+3.
+Lòt bò solèy la
+Lòt bò zetwal yo
+Gen yon je k ape gade
+Gen yon zòrèy k ap koute
+Gen yon limyè k ap klere
+Chimen lanmou gen tan monte
+Lè manman t ape priye
+lè papa t ape gide
+Lè Jezi t ape kriye.
+
+_Groupe Alabanza_`,
   },
   {
     id: "200",
@@ -5913,39 +5969,57 @@ _James Smith Alcindor_
   },
   {
     id: "209",
-    title: "209- Se gras a ou",
+    title: "209- Deyò a pa gen anyen",
     lyrics: `1.
-M ap viv paske ou se lavi m
-M trankil paske ou se lapè mwen
-M kontan paske w se lajwa mwen
-Tout sa mwen ye se gras a ou
-M pale paske w se pawòl mwen
-M chante paske w se mizik mwen
-M grandi paske ou se gid mwen
-Tout sa mwen ye se gras a ou
+Lavi ou lanmò banm Jezi
+Pa gen anyen k pou fè m kite l,
+Se nan li k gen lavi
+Si nan lemonn te gen afè
+Se la n te ye nou tap jwenn li
+Kounye a m santi m byen, kite m la.
 
 Kè:
-Mwen la paske ou la
-M ap viv paske w ap viv nan mwen
-Mwen kanpe paske ou se fòs mwen
-Tout sa mwen ye se gras a ou
+Deyò a pa gen anyen,
+Se ladan l mwen te ye
+Eske w wè se menm bagay
+Lè w rankontre Jezi
+Yon bon zanmi tankou Jezi m pa wè
+Rezon pou m pa sèvi l,
+Fò n lage kò n nan men l je fèmen.
 
 2.
-Mwen byen paske ou fè mwen byen
-Mwen gran paske ou gran nan mwen
-Mwen rich paske w se richès mwen
-Tout sa mwen ye se gras a ou
-M konble paske ou renmen mwen
-M puisan paske Lespri w nan mwen
-M briye paske glwa ou nan mwen
-Tout sa men ye, se gras a ou
+Gen moun vrèman ki gen lajan,
+Men tèt yo cho tankou vè lanp
+Y ap tann jou regleman
+Lè se Jezi k ba ou richès,
+Li pa ba ou l ak regleman,
+Lè sa w santi w alèz, kè w anpè.
 
+3.
+Lè w nan lemon ou pran plezi w
+Lè sa w pa gen okenn limit,
+Ou vire kò w jan w vle
+Byen manje, byen bwè, byen mennen,
+Mezanmi se pa ti koze
+Lolo, Satan ap lolo w pou l manje w.
 
-Tout sa mwen ye, se gras a ou
-Tout sa mwen ye, se gras a ou 
+4.
+Gen lè w bliye kote w sòti,
+M wè ou gen lide pou tounen,
+Sanwont kita nan kò w
+Sa ou te konn pran nan lemonn,
+Jis kounye a w pa vle rayi l
+Ala ou gen mizè rekonesans.
 
+5.
+Si w wè jodia m ap chante
+Se gras Bondye k mete m sou moun,
+Se yon moun fini m te ye
+Lè m rankontre avèk Jezi
+Li kraze m epi li refè m
+Depi lè sa a m chanje, men mwen.
 
-_James Smith Alcindor_
+_Les Gilbert_
 `,
   },
   {
@@ -6291,10 +6365,10 @@ Nan sajès ou ke mwen konfye
 Kè:
 Senyè mwen vin adore w
 Avèk tout sa ki pa bon nan mwen
-Mwen vini pretante m devan twòn ou
+Mwen vini prezante m devan twòn ou
 Pran mwen Senyè, pran lavi m
 Tranfòme mwen nan jan ke ou vle
-Mwen vini pretante m devan twòn ou 
+Mwen vini prezante m devan twòn ou 
 
 2.
 Montre m sa m dwe fè
@@ -6346,7 +6420,7 @@ pou nou sèvi li
 Bay Jezi glwa, li te mouri
 Poul te kab ba nou lavi
 
- 	  1.
+1.
 Nou vle ba ou tout vi nou
 Pou peche n yo, ou te pran pou nou
 Ou gen anpil gras, pou n sa swiv ou
@@ -6354,7 +6428,7 @@ Ou se bon zanmi nou
 Pap janm gen yon lòt zanmi tankou w
 Ann viv ansanm 
 
-	  2.
+2.
 Kè nou ranpli ak jwa
 Paske Jezi te veye sou nou
 Se li sèl ki kab sonde tout kè
@@ -6375,7 +6449,7 @@ Ou ki retirem nan chenn mwen te ye
 E ou ban mwen libète
 Ou wete m anba pouvwa lanmò
 
-          Kè:
+Kè:
 Mwen adore w
 Resevwa adorasyon m
 Kòm ofrann ke mwen pote ba ou
@@ -6384,7 +6458,7 @@ Ou ki sen ki sèl Senyè
 Devan tout nasyon m vle pwoklame w
 Pa gen yon lòt tankou w
 
-          2. 
+2. 
 Ou chire tout rad ki te kondane m
 Inosan ou deklare m
 Pa fòs pa pouvwa ki sot nan wou
@@ -6405,7 +6479,7 @@ Tout sak respire
 Nenpòt lang ou pale
 Ou dwel aksyon de gras onore non li
 
-             Kè:
+Kè:
 Tout tan map viv
 Banm Kris a vi
 Viv Jezi (2 fwa)
@@ -6440,7 +6514,7 @@ Yon jou Bondye ap vini pou separe yo
 Tout sa ki anpeche semans lan pwogrese 
 Li va mete dife sou yo
 
-         Refren:
+Refren:
 Fè mwen gras Senyè
 Pou m pa yon livrè
 Edem poum toujou rete kote ou
@@ -6470,7 +6544,7 @@ Transfòme lavi m Senyè
 Netwaye m pou m mache pwòp
 Fèm pwodwi tout sa ki bon 
 
-           Refren:
+Refren:
 Sen sen sen
 Mwen koube devan pye ou papa
 Adonay ranpli mwen ak Sentespri ou
@@ -6486,20 +6560,20 @@ Kilès moun ki te soufri pou mwen?
 Sou yon kwa se la li te mouri
 Se pou sa map chante lwanj li
 
-            Kè:
+Kè:
 Non li se Jezi, redanmtè mwen 
 Mèt mwen, zanmim mwen, konseye mwen
 Avèk li lavi mwen pap fini
 Se pou sa map chante lwanj li
 
-             2.
+2.
 Kilès moun ki pi gwo filozòf?
 Kilès moun o ki pi gwo doktè?
-Ki geri sanl pa mande senkòb
+Ki geri san l pa mande senkòb
 Moun sa domine tout linivè
 
-             3.
-Kilès moun ki konnen bezwenm yo?
+3.
+Kilès moun ki konnen bezwen m yo?
 Kilès moun ki tande soupim yo?
 Lèm pale ki toujou reponn mwen
 Ki moun sa? Se ou Senyè Jezi
@@ -6515,20 +6589,20 @@ Anwo yon mòn, ki te fèt pou malfektè
 Se pi gwo sakrifis, ki pa janm ekziste
 Yo moun mouri, nan plas yon lòt (2 fwa)
 
-            Kè:
+Kè:
 Sakrifis sa
 Lave peche m
 Sakrifis sa
 Wete dlo nan je m
 Jezi mouri, pou l te sove m (2 fwa)
 
-             2.
+2.
 Yon jou solèy, te leve pou mwen
 Kote m te ye, meprize chaje lapenn
 Se pi gwo jou pou mwen, lè Kris te pran men mwen
 Li dim li pran, tout penn mwen yo (2 fwa)
 
-             3.
+3.
 Kounya lavi m chanje totalman
 Mwen jwenn nan Kris, tout sam pat janm espere
 Li pran pasyans avèm, li banm amitye li
@@ -6547,13 +6621,13 @@ Pou m ka viv yon lavi ou mande
 Pa kite mwen mache lwen prezans ou souple
 Vin nan mwen kontwole mwem souple
 
-              Kè:
+Kè:
 Se pou ou m vle chante
 Wi pou ou m vle pale
 Tout kote mwen pase
 Ke prezans ou nan mwen
 
-              2.
+2.
 Restore m abite m viv nan mwen o Bondye
 Pou m sèvi w ak tout sam posede
 Vin nan mwe repare m vin chanje mwen Senyè
@@ -6561,7 +6635,7 @@ Wete tout sak pa bon ou nan mwen
 Vin nan mwen fè prezans ou chase vye lide
 Kite gras ou kouvrim wi Senyè
 
-              3.
+3.
 Restore m abite m netwaye mwen Senyè
 Wete tout sak pa bon ou nan mwen
 Se pou ou m vle chante wi pou ou mwen vle viv
@@ -6613,7 +6687,7 @@ Ak tout fòs mwen m ap avanse
 Paske pwomès li yo reyèl
 Konfye m nan li viktwa mwen asire
         
-            2.          
+2.          
 Mwen gen espwa jou a pa lwen
 Konba m yo va fini
 M p ap vire je m gade dèyè
@@ -6667,74 +6741,86 @@ Jezi se solisyon`,
     id: "236",
     title: "236- Lè w pale",
     lyrics: `1.
-      Mwen beni non w Senyè
-      Mwen beni non w Papa
-      Tout sa w deklare
-      Men ou akonpli l
-      Pèsonn pa ka kanpe devan w
+Mwen beni non w Senyè
+Mwen beni non w Papa
+Tout sa w deklare
+Men ou akonpli l
+Pèsonn pa ka kanpe devan w
 
-      Mwen beni non w Senyè
-      Mwen beni non w Papa
-      Tout sa ki respire
-      Genyen respè pou ou
-      Pèsonn pa ka kanpe devan w
+Mwen beni non w Senyè
+Mwen beni non w Papa
+Tout sa ki respire
+Genyen respè pou ou
+Pèsonn pa ka kanpe devan w
 
-      Kè:
-      Lè w pale, tout latè pran tranble
-      Lè w pale, puisans Satan sekwe
-      Lè w pale lanati boulvèse
-      Pèsonn pa ka kanpe devan w
+Kè:
+Lè w pale, tout latè pran tranble
+Lè w pale, puisans Satan sekwe
+Lè w pale lanati boulvèse
+Pèsonn pa ka kanpe devan w
 
-      _Spencer Brutus_
+_Spencer Brutus_
       `,
   },
   {
     id: "237",
     title: "237- Leve  w pi wo ",
     lyrics: `1.
-     Sakrifis lakwa pou mwen
-     M p ap janm bliye
-     Sa w te vin konsanti pou mwen
-     M te nan plan sove
-    M vle leve w (2 fwa)
-    Pi wo sou tout sa m ta kapab imajine
-    Se beni m ap beni, chak fwa m plonje
-    Nan prezans ou Jezi
-    M vin trandfòme
-    Ou te vini pou w te soufri
-    Pou mwen w te vin mouri
-    Pou m te ka gen sali
-    M leve w pi wo (3 fwa)
+Sakrifis lakwa pou mwen
+M p ap janm bliye
+Sa w te vin konsanti pou mwen
+M te nan plan sove
+M vle leve w (2 fwa)
+Pi wo sou tout sa m ta kapab imajine
+Se beni m ap beni, chak fwa m plonje
+Nan prezans ou Jezi
+M vin trandfòme
+Ou te vini pou w te soufri
+Pou mwen w te vin mouri
+Pou m te ka gen sali
+M leve w pi wo (3 fwa)
 
-    Deborah HENRISTAL
+
+Deborah HENRISTAL
      `,
   },
   {
     id: "238",
     title: "238- Menm si tenèb",
     lyrics: `1.
-Menm si tenèb lannwit ta vle kouvri chemen mwen
-Se nan Bondye mwen kwè, L ap toujou soutni mwen
-Si loraj lavi sa ta vle fè kè mwen doute
-Li kenbe m nan pla men L, m pa pè anyen
+Menm si tenèb lannwit 
+Ta vle kouvri chemen mwen
+Se nan Bondye mwen kwè, 
+L ap toujou soutni mwen
+Si loraj lavi sa 
+Ta vle fè kè mwen doute
+Li kenbe m nan pla men L, 
+M pa pè anyen
 
 Kè:
 Se nan pla men Bondye kenbe m
-Li renmen m, Li pran swen m, Li soutni mwen
+Li renmen m, Li pran swen m, 
+Li soutni mwen
 Se chak jou nan lavi m 
 Lanmou L fè plan pou mwen
 Li kenbe m nan pla men L, m pa pè anyen
 
 2.
-Menm si mwen pa konnen kisa demen ap pote
-M ap tann Bondye paske tout sa l fè se pou byen m
-Mwen konnen mwen ka mete tout konfyans mwen nan Li
-Li kenbe m nan pla men, m pa pè anyen
+Menm si mwen pa konnen 
+Kisa demen ap pote
+M ap tann Bondye paske 
+Tout sa l fè se pou byen m
+Mwen konnen mwen ka mete 
+Tout konfyans mwen nan Li
+Li kenbe m nan pla men, 
+M pa pè anyen
 
 3.
-Mwen konnen lanmou L gen pou mwen an pap janm chanje 
-E Lap toujou akonpanye m jouk sa kaba
-Bondye m ap sèvi a, mwen renmen L e mwen adore L
+Mwen konnen lanmou L gen 
+Pou mwen an pap janm chanje 
+E L ap toujou akonpanye m jouk sa kaba
+Bondye m ap sèvi a, 
+Mwen renmen L e mwen adore L
 Li kenbe m nan pla men, m pa pè anyen
     
     `
@@ -6824,18 +6910,20 @@ Mwen pran otorite sou tout fòs ki bloke m
 Sa w mare sou tè a mare nan syèl la 
 
 Kè:
-Se nan tribinal la M pral jwenn jistis mwen 
+Se nan tribinal la 
+M pral jwenn jistis mwen 
 Jezi se avoka m M deja triyonfe 
-Li pa janm trò lwen 
+Li pa janm twò lwen 
 Pou l plede kòz mwen 
 Li di mwen, fè silans (Li di mwen fè silans) 
 L ap konbat pou mwen) (Mwen)
 
  2. 
 A midi, a minwi M sou de pye m map rele w
- Mwen konnen ak lafwa 
+Mwen konnen ak lafwa 
 Yon jou m ap delivre Ou te fè li déjà 
-W ap refè li ankò Mwen konnen pitit ou Pa janm pèdi batay 
+W ap refè li ankò 
+Mwen konnen pitit ou Pa janm pèdi batay 
 
 Kè:
 Se nan tribinal la M pral jwenn jistis mwen 
@@ -7280,8 +7368,7 @@ _Amiel Rosilien_
 {
   id: "253",
   title: "253- Ayiti manman libète",
-  lyrics: `
-Kè:
+  lyrics: `Kè:
 Ayiti manman libète,
 Gen yon jou w ap sispann kriye;
 Dlo nan je w yo gen pou seche;
@@ -7329,8 +7416,7 @@ _Lochard Rémy_
 {
   id: "254",
   title: "254- Ayiti demilkat",
-  lyrics: `
-  1.
+  lyrics: `1.
 Lè a rive pou nou panse
 Ak 2004 ki pral rive
 Nou vle fete, nou vle rejwi
@@ -7417,6 +7503,169 @@ Ke Bondye konn leve moun an dinyite!
 M ap Pwospere...
 
 _ASTHARMONIE FEAT DAVID_
+`
+},
+{
+    id: "256",
+    title: "256- Fòk mwen desann",
+    lyrics: `1.
+Fòk mwen desann pou m ka monte
+Mwen dwe efase pou m parèt
+Paske si m ap viv, 
+Se pa mwen k ap viv
+Men se ou menm k ap viv nan mwen
+
+Senyè pa kite m 
+Monte tèt mwen
+Senyè pa kite m 
+Panse pi wo
+Paske si m ap viv
+Se pa pa mwen k ap viv
+Men se ou menm k ap viv nan mwen 
+
+Se gras ou fè m 
+(Mwen pa anyen sa ou)
+Se gras ou fè m
+(M pa vo anyen san ou)
+Se gras ou fèm 
+Mwen pa anyen
+`
+},
+{
+  id: "257",
+  title: "257- Rete gade",
+  lyrics: `1.
+Si l fann lanmè, li kalme move tan
+Li se BonDye, sikonstans enposib yo
+Lè l ap aji, lanati obeyi 
+Paske li se Jehovah Sabbaoth
+
+Kè:
+Rete gade sa ki pral pase
+Rete gade sa ki pral rive
+Rete gade jan BonDye pral aji
+Rete gade sa ki pral pase
+Rete gade sa ki pral rive
+Rete gade mirak BonDye pral fè
+
+2.
+Si ou bloke, Ou pa wè sa pou w fè
+Konnen BonDye gen pou l aji pou ou
+Kit move tan, kit nan lanmè move
+Bondye pa m nan
+S on BonDye san limit
+
+Pon:
+Piga w panike
+Gade sa k pral pase
+Pwoblèm ki devan w lan
+Se dènye jou l, li pral disparèt (2 fwa)
+  `
+},
+{
+  id: "257",
+  title: "257- Eze Ebube",
+  lyrics: `1.
+  Plis ke sa bouch mwen ka pale
+  Plis ke sa lespri m ka konprann
+  Mwen wè jan gras ou mèvèye
+  Si m ap viv, toujou se gras ou
+
+  Ke:
+  BonDye Papa mwen sonje kote w te jwenn mwen
+  Bondye Papa, mwen kontan ou restore mwen
+  Mwen ka wè, Mwen ka di
+  Mwen dakò, Se gras ou
+  Tout lavi m, m ap chante lwanj ou
+
+  2.
+  Kè mwen, trè rekonesan
+  Pou ou, o wi sèlman pou ou
+  Gras ou ki fè m ap viv toujou
+  Mèsi Jezi, paske w pa abandone m
+
+  Pon:
+  Gras ou jwenn mwen
+  Gras ou sove m
+  Gras ou fè m ap viv toujou
+  Gras ou rachte m
+  Gras ou soutni m
+  Gras ou fè m ap viv toujou
+  `
+},
+{
+  id: "258",
+  title: "258- Sa k ta di se mwen",
+  lyrics: `
+(Sa k ta di se mwen Bondye leve atè a
+O wi se mwen) 2 fwa
+
+1.
+Plan monte, konplo mare 
+Se pa mwen ki ta sipoze la
+Malgré les vents et marées 
+I've got someone to watch over me
+
+M potko mouri m santi m fini
+Paske m pat wè pòt pou m te sòti
+Mais au milieu du désespoir 
+Li deklare m: "Se poko fini" 
+
+(Sa k ta di se mwen Bondye leve atè a
+O wi se mwen) 2 fwa
+
+2.
+E si sa ta rive pou w ap kesyone m
+Men kòman m fè fè l vre ? manti
+Je puis tout par celui...
+Se pat janm mwen menm vre 
+Se pat janm fòs pa m ni kapasite 
+Non non
+Par celui qui me fortifie 
+
+M potko mouri m santi m fini
+Paske m pat wè pòt pou m te sòti
+Mais au milieu du désespoir 
+Li deklare m: "Se poko fini" 
+
+(Sa k ta di se mwen Bondye leve atè a
+O wi se mwen) 4 fwa
+
+3.
+(Jezi, w kwè se mwen k ap jwenn tout favè sa? 
+Non m pat travay pou sa
+M pa merite l 
+Se gras ou fè m
+Paske w renmen m) 4 fwa
+
+(Sa k ta di se mwen Bondye leve atè a
+O wi se mwen) 4 fwa
+
+_Ruchama Poteau_
+`
+},
+{
+  id: "259",
+  title: "259- Kisa m ta ofri",
+  lyrics: `
+Ou Tèlman Fè Pou Mwen 
+M Paka Fin Rakonte Yo 
+(Non, Mwen Pa Gen Mo) 
+
+Lè Ènmi m Yo Sòti Pou Bare m
+Ou Toujou La 
+Pou w Pran Defans Mwen 
+(Non, Mwen Pa Gen Mo) 
+
+Kè:
+Non Mwen Pa Gen Mo 
+M Pa Gen Mo 
+Pou Mwen Di w Mèsi (x2) 
+
+Kisa m Ka Ofri 
+A Jewova 
+Pou Tout Mèvèy Li Yo 
+Nan Lavi Mwen (x2) 
 `
 },
 

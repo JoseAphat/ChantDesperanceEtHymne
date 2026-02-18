@@ -79,7 +79,7 @@ Dieu d’éternité, tu es saint
     La gloire la force à jamais
 
     Pont 1:
-    Hosanna au plus haut de cieux
+    Hosanna au plus haut des cieux
     Alléluia à Dieu soit la gloire
 
     Pont 2:
@@ -2516,7 +2516,7 @@ Fasse du bruit dans toutes les cités
 [Bigty]
 Le message on ne va pas le changer
 Quitte à ce qu’on vienne nous menacer
-Ils n’ont qu’à avoir le démon contre moi
+Ils n’ont qu'à envoyer le démon contre moi
 Mais je vais finir par le chasser
 
 La victoire est à nous, ils ont perdu d'avance
@@ -2530,7 +2530,6 @@ J’ai follow le Christ, j’ai dit non à lucifer
 Votre humble serviteur, Votre humble serviteur
 Tu peux pas m'arrêter
 Tant qu'le King m'a validé
-Publicité
 Le King m'a validé, Le King m'a validé
 Tu ne peux pas m'arrêter
 Tant qu'le King ma validé
@@ -2661,16 +2660,12 @@ Oh oh oh oh oh oh
 Je sais qui je suis
 (Je sais qui je suis)
 Oh oh oh
-
-
 `,
   },
   {
     id: "75",
     title: "075- Miséricorde ",
-    lyrics: `
-
-Ouh yeah, yeah yeah yeah
+    lyrics: `Ouh yeah, yeah yeah yeah
 Ouh yeah, yeah yeah yeah
 Ouh yeah, yeah yeah yeaaah
 
@@ -2809,8 +2804,6 @@ Dès le matin jusqu'au coucher
 À chaque pas veillant sur toi
 Dans les larmes et dans la joie
 Il est pour toi il est pour toi
-
-
 `,
   },
   {
@@ -2850,7 +2843,8 @@ Tu es Seigneur des seigneurs
   {
     id: "79",
     title: "079- Je veux chanter et louer ",
-    lyrics: `Je veux danser et le louer peu importe ce que je vis
+    lyrics: `Je veux danser et le louer 
+Peu importe ce que je vis
 Le Ressuscité vit en moi, 
 Son Nom est Jésus 
 
@@ -3410,8 +3404,7 @@ Car la coupe débordante c'est Jésus-Christ
   {
     id: "99",
     title: "099- Tu en es digne",
-    lyrics: `
-Mes Alléluia t'appartiennent
+    lyrics: `Mes Alléluia t'appartiennent
 Mes Alléluia te reviennent
 Tu en es digne
 Tu en es digne
@@ -3538,8 +3531,8 @@ _Delly Benson_
     lyrics: `1.
     Qui sur terre est comme Toi, Seigneur
     Amour, Beauté, infinie valeur
-    Içi si rien ne peut me satisfaire
-    Jésus, Ton amour me désaltere
+    Ici si rien ne peut me satisfaire
+    Jésus, Ton amour me désaltère
     
     Ta présence, c'est le ciel pour moi (x2)
 
@@ -4651,7 +4644,7 @@ Pendant que Dieu est en marche.
     Refrain:
     Tu m'offres chaque jour
     Ton infaillible amour
-    Toi, qui a fixé le cours de étoiles,
+    Toi, qui a fixé le cours des étoiles,
     Sois mon ancre, sois ma voile !
 
     2.
@@ -4674,9 +4667,9 @@ Pendant que Dieu est en marche.
     title: "160- Jamais",
     lyrics: `1.
 Celui qui a fait la promesse, il est fidèle.
-Il est fidèle pour l’accomplir.
+Il est fidèle pour l'accomplir.
 Pour moi, il a les projets de paix.
-Même si ça tarde, je l’attendrai 
+Même si ça tarde, je l'attendrai 
 
 Celui qui a fait la promesse, il est fidèle.
 Il est fidèle pour l’accomplir.
@@ -4762,5 +4755,154 @@ jamais de toi, jamais
 _Déborah Lukalu_
 `
 },
+{
+    id: "160",
+    title: "160- Jireh",
+    lyrics: `1.
+Rien ne pourra changer, Ton amour pour moi
+Tu m’as toujours aimé,
+sans relâche et Ton amour n’abandonne pas
+Bien que je sois imparfait, Tu es fier de moi
+Rien ne pourra changer, Ton amour pour moi
+
+Aucune tempête, ne m’arrêtera
+Au milieu des vents,
+Je reconnais le son de Ta voix m’appeler à Toi
+Tu traverserais les mers, si je me noyais
+Rien ne t’empêchera de me protéger
+
+Jireh, Je n’ai que Toi
+En toute circonstance
+Je serai comblé
+Jireh, Je n’ai que Toi
+
+Je n’oublierai jamais, ce que Tu as fait
+Maintenant je vois,
+du sommet des monts ce dont tu m’as sauvé
+Et même dans la vallée, Tu es avec moi
+Je ne n’oublierai jamais, ce que Tu as fait
+
+Jireh, Je n’ai que Toi
+En toute circonstance
+Je serai comblé
+Jireh, Je n’ai que Toi
+
+Je sais que Tu m’aimes
+Et que Tu m’as choisi
+Je sais qui Tu es
+Alors je sais qui je suis
+
+Je sais que Tu m’aimes
+Plus que je ne l’imagine
+Je n’ai que Toi
+
+Et si Dieu revêt ainsi
+Même l’herbe des champs
+Je ne manquerai de rien
+
+Et si Dieu nourrit ainsi
+Les oiseaux du ciel
+Je ne manquerai de rien
+
+Au-delà de tous mes rêves et mes pensés
+Par Ta main puissante
+Tu agis en moi
+Je ne veux que Toi
+
+Jireh, Je n’ai que Toi
+En toute circonstance
+Je serai comblé
+Jireh, Je n’ai que Toi
+    `
+},
+{
+    id: "161",
+    title: "161- Entends mon cœur",
+    lyrics: `1.
+Comment expliquer et comment décrire
+Un amour si grand, si puissant,
+Que rien ne peut le contenir ?
+Tu sais mes espoirs,
+Seigneur, tu sais mes craintes
+Et mes mots sont bien trop petits
+Pour dire tout l'amour que j'ai pour toi.
+
+Refrain:
+Alors entends mon cœur,
+Mon esprit qui te loue,
+Entends le chant d'amour
+D'un enfant racheté.
+Je prendrai mes faibles mots
+Pour te dire quel Dieu merveilleux tu es,
+Mais je ne pourrai pas
+Te dire combien je t'aime ;
+Alors entends mon cœur.
+
+2. 
+Si tout comme la pluie
+Les mots pouvaient couler
+Et si j'avais l'éternité,
+Je ne pourrais pas l'exprimer.
+Mais dans les battements de mon cœur
+Tu entendras toujours:
+« Merci pour la vie, pour la vérité
+Et pour le chemin ».
+
+Refrain:
+Alors entends mon cœur,
+Mon esprit qui te loue,
+Entends le chant d'amour
+D'un enfant racheté.
+Je prendrai mes faibles mots
+Pour te dire quel Dieu merveilleux tu es,
+Mais je ne pourrai pas
+Te dire combien je t'aime ;
+Alors entends mon cœur.
+
+3. 
+(Instrumental)
+Tu sais nos espoirs,
+Seigneur, tu sais nos craintes
+Et nos mots sont bien trop petits
+Pour dire tout l'amour que nous avons.
+
+Refrain 3
+Alors entends nos cœurs,
+Nos esprits qui te louent,
+Entends le chant d'amour
+De tous tes rachetés.
+Nous prendrons nos faibles mots
+Pour te dire quel Dieu merveilleux tu es,
+Non nous ne pourrons pas
+Te dire tout notre amour ;
+Alors entends nos cœurs.
+`
+},
+{
+    id: "162",
+    title: "162- Digne est l'Agneau",
+    lyrics: `1.
+Lui seul est sur le trône
+Jésus, Dieu saint
+Digne de nos louanges
+D'honneur, de gloire
+
+Digne est l'Agneau
+Immolé qui siège sur le trône
+Personne n'est comme lui
+Les anciens se prosternent
+Et les êtres vivants chantent encore
+Personne n'est comme lui
+
+Couronnons-le Roi de gloire
+Couronnons-le Roi de gloire
+Couronnons-le Roi de gloire
+Son nom est souverain
+
+Toi seul es digne de gloire
+Toi seul es digne de gloire
+Toi seul es digne de gloire
+Son nom est souverain
+`},
 ];
 export default frenchSongs;

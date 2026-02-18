@@ -452,8 +452,7 @@ Nous sommes tes soldats.
 
 Choeur:
 Arme nos bras, arme nos coeurs,
-Et nous seront
-Plus que vainqueurs (bis 2 lignes)
+Et nous seront plus que vainqueurs (bis 2 lignes)
 Arme nos bras, arme nos coeurs.
 
 2.

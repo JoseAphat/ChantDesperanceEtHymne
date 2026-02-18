@@ -973,6 +973,14 @@ La seule source de vie
 Porte-moi dans ma foi quand ton amour sera
 Oh! Seigneur guide-moi par ta main.
 
+Refrain:
+Oh, Jésus tendre ami
+Mon fidèle soutien
+Eternel infini roi divin
+Porte moi dans tes bras
+Quand ton amour sera
+Oh Seigneur guide-moi par la main
+
 2.
 Si parfois j'ai troublé, égaré et confus
 Des tourments et douleurs

@@ -1,3 +1,4 @@
+import AdBanner from "@/components/AdBanner";
 import { Ionicons } from "@expo/vector-icons";
 import { router, useNavigation } from "expo-router";
 import React, { useEffect } from "react";
@@ -54,6 +55,7 @@ const handleMonCashPress1 = () => {
 
   return (
     <View style={styles.container}>
+      <AdBanner />
       {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
@@ -155,11 +157,11 @@ const handleMonCashPress1 = () => {
           <View style={styles.infoCard}>
             <View style={styles.infoItem}>
               <Text style={styles.infoLabel}>Version de l'application</Text>
-              <Text style={styles.infoValue}>1.1.7</Text>
+              <Text style={styles.infoValue}>1.1.9</Text>
             </View>
             <View style={styles.infoItem}>
               <Text style={styles.infoLabel}>Dernière mise à jour</Text>
-              <Text style={styles.infoValue}>02 Novembre 2025</Text>
+              <Text style={styles.infoValue}>10 Février 2026</Text>
             </View>
           </View>
         </View>

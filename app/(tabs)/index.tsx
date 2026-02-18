@@ -1,6 +1,6 @@
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { router, useFocusEffect, useNavigation } from "expo-router";
-import React, { useLayoutEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import {
   Alert,
   Dimensions,
@@ -8,6 +8,8 @@ import {
   Linking,
   Modal,
   Platform,
+  ScrollView,
+  Share,
   StyleSheet,
   Text,
   TextInput,
@@ -39,7 +41,8 @@ import OmbreF from "../OmbreReveil";
 import ReveNC from "../ReveillonsCreole";
 import ReveNF from "../ReveillonsFrancais";
 import RevNC from "../ReveillonsNous";
-import VCreole from "../VersionCreole";
+import { Ionicons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
 // Fonction pour déterminer si c'est un petit écran
@@ -69,11 +72,68 @@ const responsiveModerateScale = (size: number) => {
 export default function App() {
   const [inputValue, setInputValue] = useState<string>("");
   const [menuVisible, setMenuVisible] = useState(false);
+  const [searchHistory, setSearchHistory] = useState<string[]>([]);
+  const [showHistory, setShowHistory] = useState<boolean>(false);
   const navigation = useNavigation();
   const { fromNotes, section } = useLocalSearchParams();
   const isFromNotes = fromNotes === "true";
-  const DASHES_RE = /[\u002D\u2010\u2011\u2012\u2013\u2014\u2015\u2212\uFE58\uFE63\uFF0D]/g; // tous les tirets
+  const DASHES_RE = /[\u002D\u2010\u2011\u2012\u2013\u2014\u2015\u2212\uFE58\uFE63\uFF0D]/g;
   const DIACRITICS_RE = /[\u0300-\u036f]/g;
+
+  const SEARCH_HISTORY_KEY = '@search_history_main';
+  const MAX_HISTORY_ITEMS = 10;
+
+  // Charger l'historique au montage du composant
+  useEffect(() => {
+    loadSearchHistory();
+  }, []);
+
+  const loadSearchHistory = async () => {
+    try {
+      const history = await AsyncStorage.getItem(SEARCH_HISTORY_KEY);
+      if (history) {
+        setSearchHistory(JSON.parse(history));
+      }
+    } catch (error) {
+      console.error('Erreur lors du chargement de l\'historique:', error);
+    }
+  };
+
+  const saveToHistory = async (searchTerm: string) => {
+    try {
+      const trimmedTerm = searchTerm.trim();
+      if (!trimmedTerm) return;
+
+      let updatedHistory = [trimmedTerm];
+      const filteredHistory = searchHistory.filter(item => item !== trimmedTerm);
+      updatedHistory = [...updatedHistory, ...filteredHistory].slice(0, MAX_HISTORY_ITEMS);
+
+      await AsyncStorage.setItem(SEARCH_HISTORY_KEY, JSON.stringify(updatedHistory));
+      setSearchHistory(updatedHistory);
+    } catch (error) {
+      console.error('Erreur lors de la sauvegarde de l\'historique:', error);
+    }
+  };
+
+  const clearHistory = async () => {
+    try {
+      await AsyncStorage.removeItem(SEARCH_HISTORY_KEY);
+      setSearchHistory([]);
+    } catch (error) {
+      console.error('Erreur lors de la suppression de l\'historique:', error);
+    }
+  };
+
+  const removeHistoryItem = async (itemToRemove: string) => {
+    try {
+      const updatedHistory = searchHistory.filter(item => item !== itemToRemove);
+      await AsyncStorage.setItem(SEARCH_HISTORY_KEY, JSON.stringify(updatedHistory));
+      setSearchHistory(updatedHistory);
+    } catch (error) {
+      console.error('Erreur lors de la suppression de l\'élément:', error);
+    }
+  };
+
   const openEmail = () => {
     const email = "gedelienjosaphat@gmail.com";
     const subject = "Demande depuis l'application Chant d'Espérance & Hymne";
@@ -89,94 +149,90 @@ export default function App() {
       );
     });
   };
-const openFacebook = async () => {
-  const pageId = "61574869895472";
-  const fbWebUrl = `https://www.facebook.com/profile.php?id=${pageId}`;
 
-  const deepLinks = Platform.select({
-    ios: [
-      `fb://profile/${pageId}`,
-      `fb://page/?id=${pageId}`,
-      `fb://facewebmodal/f?href=${encodeURIComponent(fbWebUrl)}`,
-    ],
-    android: [
-      `fb://profile/${pageId}`,
-      `fb://page/${pageId}`,
-      `fb://facewebmodal/f?href=${encodeURIComponent(fbWebUrl)}`,
-      // Variante intent (Android uniquement)
-      `intent://profile/${pageId}#Intent;scheme=fb;package=com.facebook.katana;end`,
-    ],
-  })!;
+  const openFacebook = async () => {
+    const pageId = "61574869895472";
+    const fbWebUrl = `https://www.facebook.com/profile.php?id=${pageId}`;
 
-  for (const url of deepLinks) {
+    const deepLinks = Platform.select({
+      ios: [
+        `fb://profile/${pageId}`,
+        `fb://page/?id=${pageId}`,
+        `fb://facewebmodal/f?href=${encodeURIComponent(fbWebUrl)}`,
+      ],
+      android: [
+        `fb://profile/${pageId}`,
+        `fb://page/${pageId}`,
+        `fb://facewebmodal/f?href=${encodeURIComponent(fbWebUrl)}`,
+        `intent://profile/${pageId}#Intent;scheme=fb;package=com.facebook.katana;end`,
+      ],
+    })!;
+
+    for (const url of deepLinks) {
+      try {
+        await Linking.openURL(url);
+        return;
+      } catch {}
+    }
+
     try {
-      // on tente directement; si l’app n’est pas visible, ça throw
-      await Linking.openURL(url);
-      return;
-    } catch {}
-  }
+      await Linking.openURL(fbWebUrl);
+    } catch {
+      Alert.alert("Erreur", "Impossible d'ouvrir Facebook. Vérifiez que l'application est installée.");
+    }
+  };
 
-  // Fallback web
-  try {
-    await Linking.openURL(fbWebUrl);
-  } catch {
-    Alert.alert("Erreur", "Impossible d’ouvrir Facebook. Vérifiez que l’application est installée.");
-  }
-};
   const handleUpdateApp = () => {
-  const updateUrl = "https://play.google.com/store/apps/details?id=com.berly.ChantDesperance"; // ⬅️ Remplace par ton vrai lien (App Store, GitHub, etc.)
-  Linking.openURL(updateUrl);
-};
+    const updateUrl = "https://play.google.com/store/apps/details?id=com.berly.ChantDesperance";
+    Linking.openURL(updateUrl);
+  };
 
   useLayoutEffect(() => {
-  navigation.setOptions({
-    headerTitle: "Chant d’Espérance & Hymne",
-    headerTitleStyle: {
-      color: "#0A1E42",
-      //fontWeight: "bold",
-      fontSize: moderateScale(16),
-    },
-    headerStyle: {
-      height: verticalScale(100),
-      backgroundColor: "#dfdedcf7",
-    },
-    headerLeft: () => (
-      <View
-        style={{
-          width: scale(40),
-          height: verticalScale(40),
-          justifyContent: "center",
-          alignItems: "center",
-          marginLeft: scale(20),
-        }}
-      >
-        <Image
-          source={require("../../assets/images/chant.png")}
+    navigation.setOptions({
+      headerTitle: "Chant d'Espérance & Hymne",
+      headerTitleStyle: {
+        color: "#0A1E42",
+        fontSize: moderateScale(16),
+      },
+      headerStyle: {
+        height: verticalScale(100),
+        backgroundColor: "#dfdedcf7",
+      },
+      headerLeft: () => (
+        <View
           style={{
             width: scale(40),
-            height: scale(40),
-            resizeMode: "contain",
+            height: verticalScale(40),
+            justifyContent: "center",
+            alignItems: "center",
+            marginLeft: scale(20),
           }}
-        />
-      </View>
-    ),
-    headerRight: () => (
-      <TouchableOpacity
-        onPress={() => setMenuVisible(true)}
-        style={{ marginRight: scale(15) }}
-      >
-        <AntDesign name="bars" size={moderateScale(24)} color="#001F5C" />
-      </TouchableOpacity>
-    ),
-    headerTitleAlign: "center",
-  });
-}, [navigation]);
+        >
+          <Image
+            source={require("../../assets/images/chant.png")}
+            style={{
+              width: scale(40),
+              height: scale(40),
+              resizeMode: "contain",
+            }}
+          />
+        </View>
+      ),
+      headerRight: () => (
+        <TouchableOpacity
+          onPress={() => setMenuVisible(true)}
+          style={{ marginRight: scale(15) }}
+        >
+          <AntDesign name="bars" size={moderateScale(24)} color="#001F5C" />
+        </TouchableOpacity>
+      ),
+      headerTitleAlign: "center",
+    });
+  }, [navigation]);
 
-
-  // Réinitialiser inputValue à chaque fois que la page devient active
   useFocusEffect(
     React.useCallback(() => {
-      setInputValue(""); // Réinitialisation du champ de recherche
+      setInputValue("");
     }, [])
   );
 
@@ -189,16 +245,32 @@ const openFacebook = async () => {
     setMenuVisible(false);
     router.push("./Foire");
   };
+
   const goToAbout = () => {
+    setMenuVisible(false);
+    router.push("./About");
+  };
+
+  const goToSupport = () => {
+    setMenuVisible(false);
+    router.push("./Support");
+  };
+  const shareApp = async () => {
   setMenuVisible(false);
-  router.push("/About" as any);  
+  
+  const playStoreUrl = 'https://play.google.com/store/apps/details?id=com.berly.ChantDesperance';
+  
+  try {
+    await Share.share({
+      message: `Découvrez l'application Chant d'Espérance & Hymne: ${playStoreUrl}`,
+    });
+  } catch (error) {
+    console.error('Erreur lors du partage:', error);
+  }
 };
-const goToSupport = () => {
-  setMenuVisible(false);
-  router.push("/Support" as any);  
-};
-  const handleSearch = () => {
-    const isNumber = !isNaN(Number(inputValue));
+
+  const performSearch = (searchTerm: string) => {
+    const isNumber = !isNaN(Number(searchTerm));
     let results: {
       id: string | number;
       type: string;
@@ -206,20 +278,22 @@ const goToSupport = () => {
       lyrics: string;
       category: string;
     }[] = [];
+
     const normalizeText = (text: string): string =>
       text
-    .toLowerCase()
-    .replace(/œ/g, "oe").replace(/æ/g, "ae")
-    .normalize("NFD").replace(DIACRITICS_RE, "")
-    .replace(DASHES_RE, " ")          // tirets -> espace
-    .replace(/[^\p{L}\p{N}\s]/gu, "") // supprime ponctuation
-    .replace(/\s+/g, " ")
-    .trim();
+        .toLowerCase()
+        .replace(/œ/g, "oe").replace(/æ/g, "ae")
+        .normalize("NFD").replace(DIACRITICS_RE, "")
+        .replace(DASHES_RE, " ")
+        .replace(/[^\p{L}\p{N}\s]/gu, "")
+        .replace(/\s+/g, " ")
+        .trim();
 
-    const normalizedInput = normalizeText(inputValue);
+    const normalizedInput = normalizeText(searchTerm);
+
     if (isNumber) {
       const chantResults = chantsF.filter(
-        (song) => song.id.toString() === inputValue
+        (song) => song.id.toString() === searchTerm
       );
       results.push(
         ...chantResults.map((song) => ({
@@ -231,7 +305,7 @@ const goToSupport = () => {
         }))
       );
       const hymnResults = HymneEtLouangeSongs.filter(
-        (song) => song.id.toString() === inputValue
+        (song) => song.id.toString() === searchTerm
       );
       results.push(
         ...hymnResults.map((song) => ({
@@ -243,7 +317,7 @@ const goToSupport = () => {
         }))
       );
       const chantCResults = chantsC.filter(
-        (song) => song.id.toString() === inputValue
+        (song) => song.id.toString() === searchTerm
       );
       results.push(
         ...chantCResults.map((song) => ({
@@ -254,9 +328,8 @@ const goToSupport = () => {
           category: "Chant d'Esperance Créole",
         }))
       );
-      //recherche par id pour les melodies joyeuses francais
       const melodieFResults = MelodieF.filter(
-        (song) => song.id.toString() === inputValue
+        (song) => song.id.toString() === searchTerm
       );
       results.push(
         ...melodieFResults.map((song) => ({
@@ -267,11 +340,9 @@ const goToSupport = () => {
           category: "Mélodies Joyeuses Français",
         }))
       );
-      //recherche par id pour les melodies joyeuses creole
       const melodieCResults = MelodieC.filter(
-        (song) => song.id.toString() === inputValue
+        (song) => song.id.toString() === searchTerm
       );
-
       results.push(
         ...melodieCResults.map((song) => ({
           id: song.id,
@@ -281,9 +352,8 @@ const goToSupport = () => {
           category: "Mélodies Joyeuses Créole",
         }))
       );
-      //recherche par id pour Reveillon-nous Chretiens
       const ReveCResults = RevNC.filter(
-        (song) => song.id.toString() === inputValue
+        (song) => song.id.toString() === searchTerm
       );
       results.push(
         ...ReveCResults.map((song) => ({
@@ -294,9 +364,8 @@ const goToSupport = () => {
           category: "Réveillons-Nous Chrétiens",
         }))
       );
-      //recherche par id pour Reveillon-nous Francais
       const ReveNFResults = ReveNF.filter(
-        (song) => song.id.toString() === inputValue
+        (song) => song.id.toString() === searchTerm
       );
       results.push(
         ...ReveNFResults.map((song) => ({
@@ -307,9 +376,8 @@ const goToSupport = () => {
           category: "Réveillons-Nous Français",
         }))
       );
-      //recherche par id pour Reveillon-nous Creole
       const ReveNCResults = ReveNC.filter(
-        (song) => song.id.toString() === inputValue
+        (song) => song.id.toString() === searchTerm
       );
       results.push(
         ...ReveNCResults.map((song) => ({
@@ -320,9 +388,8 @@ const goToSupport = () => {
           category: "Réveillons-Nous Créole",
         }))
       );
-      //recherche par id pour La voix du reveil francais
       const VoixFResults = VoixF.filter(
-        (song) => song.id.toString() === inputValue
+        (song) => song.id.toString() === searchTerm
       );
       results.push(
         ...VoixFResults.map((song) => ({
@@ -333,9 +400,8 @@ const goToSupport = () => {
           category: "La Voix du Réveil Français",
         }))
       );
-      //recherche par id pour La voix du reveil creole
       const VoixCResults = VoixC.filter(
-        (song) => song.id.toString() === inputValue
+        (song) => song.id.toString() === searchTerm
       );
       results.push(
         ...VoixCResults.map((song) => ({
@@ -346,9 +412,8 @@ const goToSupport = () => {
           category: "La Voix du Réveil Créole",
         }))
       );
-      //recherche par id pour ombre du reveil
       const ombreResults = OmbreF.filter(
-        (song) => song.id.toString() === inputValue
+        (song) => song.id.toString() === searchTerm
       );
       results.push(
         ...ombreResults.map((song) => ({
@@ -359,9 +424,8 @@ const goToSupport = () => {
           category: "L'ombre du Réveil",
         }))
       );
-      //recherche par id pour ombre du reveil
       const HaiResults = HaitiC.filter(
-        (song) => song.id.toString() === inputValue
+        (song) => song.id.toString() === searchTerm
       );
       results.push(
         ...HaiResults.map((song) => ({
@@ -372,8 +436,7 @@ const goToSupport = () => {
           category: "Haïti Chante avec Radio Lumière",
         }))
       );
-      //recherche par id pour gloire a l'Agneau
-      const GResults = GloA.filter((song) => song.id.toString() === inputValue);
+      const GResults = GloA.filter((song) => song.id.toString() === searchTerm);
       results.push(
         ...GResults.map((song) => ({
           id: song.id,
@@ -383,8 +446,7 @@ const goToSupport = () => {
           category: "Gloire à l'Agneau",
         }))
       );
-      //recherche par id pour Echo
-      const EResults = echo.filter((song) => song.id.toString() === inputValue);
+      const EResults = echo.filter((song) => song.id.toString() === searchTerm);
       results.push(
         ...EResults.map((song) => ({
           id: song.id,
@@ -394,21 +456,8 @@ const goToSupport = () => {
           category: "Écho des Élus",
         }))
       );
-      const CResults = VCreole.filter(
-        (song) => song.id.toString() === inputValue
-      );
-      results.push(
-        ...CResults.map((song) => ({
-          id: song.id,
-          type: "ChantCreole",
-          title: song.title,
-          lyrics: song.lyrics,
-          category: "Nouveaux Chants Créole",
-        }))
-      );
-      //recherche par id pour Echo
       const KResults = CreoleSongs.filter(
-        (song) => song.id.toString() === inputValue
+        (song) => song.id.toString() === searchTerm
       );
       results.push(
         ...KResults.map((song) => ({
@@ -419,9 +468,8 @@ const goToSupport = () => {
           category: "Chœurs Créole",
         }))
       );
-      //recherche par id pour Echo
       const AngResults = englishSongs.filter(
-        (song) => song.id.toString() === inputValue
+        (song) => song.id.toString() === searchTerm
       );
       results.push(
         ...AngResults.map((song) => ({
@@ -433,7 +481,7 @@ const goToSupport = () => {
         }))
       );
       const FranResults = frenchSongs.filter(
-        (song) => song.id.toString() === inputValue
+        (song) => song.id.toString() === searchTerm
       );
       results.push(
         ...FranResults.map((song) => ({
@@ -479,7 +527,6 @@ const goToSupport = () => {
           category: "Chant d'Esperance Francais",
         }))
       );
-      //commencement du traitement pour les chantdesperance creole pour la recherche par parole
       const chantCLyricsResults = chantsC.filter((song) => {
         const songTitle = song.title ? normalizeText(song.title) : "";
         const songLyrics = song.lyrics ? normalizeText(song.lyrics) : "";
@@ -497,8 +544,6 @@ const goToSupport = () => {
           category: "Chant d'Esperance Créole",
         }))
       );
-      //fin
-      //commencement du traitement pour les melodies joyeuses francais pour la recherche par parole
       const MelodieResults = MelodieF.filter((song) => {
         const songTitle = song.title ? normalizeText(song.title) : "";
         const songLyrics = song.lyrics ? normalizeText(song.lyrics) : "";
@@ -516,8 +561,6 @@ const goToSupport = () => {
           category: "Mélodies Joyeuses Français",
         }))
       );
-      //Fin
-      //commencement du traitement pour les melodies joyeuses creole pour la recherche par parole
       const MelodieCResults = MelodieC.filter((song) => {
         const songTitle = song.title ? normalizeText(song.title) : "";
         const songLyrics = song.lyrics ? normalizeText(song.lyrics) : "";
@@ -535,8 +578,6 @@ const goToSupport = () => {
           category: "Mélodies Joyeuses Créole",
         }))
       );
-      //Fin
-      //commencement du traitement pour Reveillons-Nous Chretiens pour la recherche par parole
       const RevResults = RevNC.filter((song) => {
         const songTitle = song.title ? normalizeText(song.title) : "";
         const songLyrics = song.lyrics ? normalizeText(song.lyrics) : "";
@@ -554,8 +595,6 @@ const goToSupport = () => {
           category: "Réveillons-Nous Chrétiens",
         }))
       );
-      //Fin
-      //commencement du traitement pour Reveillons-Nous Francais pour la recherche par parole
       const RevNFResults = ReveNF.filter((song) => {
         const songTitle = song.title ? normalizeText(song.title) : "";
         const songLyrics = song.lyrics ? normalizeText(song.lyrics) : "";
@@ -573,7 +612,6 @@ const goToSupport = () => {
           category: "Réveillons-Nous Français",
         }))
       );
-      //commencement du traitement pour Reveillons-Nous Creole pour la recherche par parole
       const RevNCResults = ReveNC.filter((song) => {
         const songTitle = song.title ? normalizeText(song.title) : "";
         const songLyrics = song.lyrics ? normalizeText(song.lyrics) : "";
@@ -591,8 +629,6 @@ const goToSupport = () => {
           category: "Réveillons-Nous Créole",
         }))
       );
-      //Fin
-      //commencement du traitement pour voix du rev francais pour la recherche par parole
       const VoiFResults = VoixF.filter((song) => {
         const songTitle = song.title ? normalizeText(song.title) : "";
         const songLyrics = song.lyrics ? normalizeText(song.lyrics) : "";
@@ -610,7 +646,6 @@ const goToSupport = () => {
           category: "La Voix du Réveil Français",
         }))
       );
-      //commencement du traitement pour voix du rev francais pour la recherche par parole
       const VoiCResults = VoixC.filter((song) => {
         const songTitle = song.title ? normalizeText(song.title) : "";
         const songLyrics = song.lyrics ? normalizeText(song.lyrics) : "";
@@ -628,8 +663,6 @@ const goToSupport = () => {
           category: "La Voix du Réveil Créole",
         }))
       );
-      //Fin
-      //commencement du traitement pour ombre du reveil pour la recherche par parole
       const OmbreResults = OmbreF.filter((song) => {
         const songTitle = song.title ? normalizeText(song.title) : "";
         const songLyrics = song.lyrics ? normalizeText(song.lyrics) : "";
@@ -647,7 +680,6 @@ const goToSupport = () => {
           category: "L'ombre du Réveil",
         }))
       );
-      //commencement du traitement pour ombre du reveil pour la recherche par parole
       const HaiResults = HaitiC.filter((song) => {
         const songTitle = song.title ? normalizeText(song.title) : "";
         const songLyrics = song.lyrics ? normalizeText(song.lyrics) : "";
@@ -665,7 +697,6 @@ const goToSupport = () => {
           category: "Haïti Chante avec Radio Lumière",
         }))
       );
-      //commencement du traitement pour ombre du reveil pour la recherche par parole
       const GloResults = GloA.filter((song) => {
         const songTitle = song.title ? normalizeText(song.title) : "";
         const songLyrics = song.lyrics ? normalizeText(song.lyrics) : "";
@@ -683,7 +714,6 @@ const goToSupport = () => {
           category: "Gloire à l'Agneau",
         }))
       );
-      //commencement du traitement pour ombre du reveil pour la recherche par parole
       const EcResults = echo.filter((song) => {
         const songTitle = song.title ? normalizeText(song.title) : "";
         const songLyrics = song.lyrics ? normalizeText(song.lyrics) : "";
@@ -701,25 +731,6 @@ const goToSupport = () => {
           category: "Écho des Élus",
         }))
       );
-      //................................
-      const CResults = VCreole.filter((song) => {
-        const songTitle = song.title ? normalizeText(song.title) : "";
-        const songLyrics = song.lyrics ? normalizeText(song.lyrics) : "";
-        return (
-          songTitle.includes(normalizedInput) ||
-          songLyrics.includes(normalizedInput)
-        );
-      });
-      results.push(
-        ...CResults.map((song) => ({
-          id: song.id,
-          type: "ChantCreole",
-          title: song.title,
-          lyrics: song.lyrics,
-          category: "Nouveaux Chants Créole",
-        }))
-      );
-      //...............................................
       const KcResults = CreoleSongs.filter((song) => {
         const songTitle = song.title ? normalizeText(song.title) : "";
         const songLyrics = song.lyrics ? normalizeText(song.lyrics) : "";
@@ -737,7 +748,6 @@ const goToSupport = () => {
           category: "Chœurs Créole",
         }))
       );
-      //.........................................
       const AngResults = englishSongs.filter((song) => {
         const songTitle = song.title ? normalizeText(song.title) : "";
         const songLyrics = song.lyrics ? normalizeText(song.lyrics) : "";
@@ -755,7 +765,6 @@ const goToSupport = () => {
           category: "Choeurs Anglais",
         }))
       );
-      //........................................
       const FranResults = frenchSongs.filter((song) => {
         const songTitle = song.title ? normalizeText(song.title) : "";
         const songLyrics = song.lyrics ? normalizeText(song.lyrics) : "";
@@ -774,7 +783,18 @@ const goToSupport = () => {
         }))
       );
     }
+
+    return results;
+  };
+
+  const handleSearch = async () => {
+    if (!inputValue.trim()) return;
+
+    const results = performSearch(inputValue);
+
     if (results.length > 0) {
+      await saveToHistory(inputValue);
+      setShowHistory(false);
       router.push({
         pathname: "./SearchResults",
         params: { results: JSON.stringify(results) },
@@ -783,6 +803,20 @@ const goToSupport = () => {
       alert("Aucun résultat trouvé");
     }
   };
+
+  const handleHistoryItemPress = (item: string) => {
+    setInputValue(item);
+    setShowHistory(false);
+    const results = performSearch(item);
+
+    if (results.length > 0) {
+      router.push({
+        pathname: "./SearchResults",
+        params: { results: JSON.stringify(results) },
+      });
+    }
+  };
+
   const handleInputChange = (text: string) => {
     setInputValue(text);
   };
@@ -790,53 +824,101 @@ const goToSupport = () => {
   const goToChantDesperance = () => {
     router.push("./ChantDesperance");
   };
+  
   const goToHymneEtLouange = () => {
-  router.push({
-    pathname: "./HymneEtLouange",
-    params: { 
-      fromNotes: isFromNotes ? "true" : "false", 
-      section 
-    },
-  });
-};
+    router.push({
+      pathname: "./HymneEtLouange",
+      params: {
+        fromNotes: isFromNotes ? "true" : "false",
+        section
+      },
+    });
+  };
 
   const goToEnglish = () => {
     router.push("./English")
   };
+  
   const goToChoeurFrancais = () => {
     router.push("./ChoeurFrancais")
   };
+  
   const goToChoeurCreole = () => {
     router.push("./ChoeurCreole")
   };
+  
   const goToFavoris = () => {
     router.push("./FavoritesScreen")
   };
+  
   const goToService = () => {
     router.push("./Service")
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.searchContainer}>
-        <TextInput
-          placeholder="Rechercher un chant"
-          placeholderTextColor="gray"
-          returnKeyType="search"
-          autoCapitalize="sentences"
-          style={styles.textInput}
-          value={inputValue}
-          onChangeText={handleInputChange}
-          onSubmitEditing={handleSearch}
-        />
+      <View style={styles.searchWrapper}>
+        <View style={styles.searchContainer}>
+          <TextInput
+            placeholder="Rechercher un chant (n°, titre, paroles)"
+            placeholderTextColor="gray"
+            returnKeyType="search"
+            autoCapitalize="sentences"
+            style={styles.textInput}
+            value={inputValue}
+            onChangeText={handleInputChange}
+            onSubmitEditing={handleSearch}
+            onFocus={() => setShowHistory(true)}
+          />
 
-        {inputValue.length > 0 && (
-          <TouchableOpacity
-            onPress={() => setInputValue("")}
-            style={styles.clearButton}
-          >
-            <MaterialIcons name="clear" size={responsiveModerateScale(20)} style={styles.clearIcon} />
-          </TouchableOpacity>
+          {inputValue.length > 0 && (
+            <TouchableOpacity
+              onPress={() => setInputValue("")}
+              style={styles.clearButton}
+            >
+              <MaterialIcons name="clear" size={responsiveModerateScale(20)} style={styles.clearIcon} />
+            </TouchableOpacity>
+          )}
+        </View>
+
+        {/* Historique de recherche */}
+        {showHistory && searchHistory.length > 0 && (
+          <View style={styles.historyContainer}>
+            <View style={styles.historyHeader}>
+              <Text style={styles.historyTitle}>Recherches récentes</Text>
+              <TouchableOpacity onPress={clearHistory}>
+                <Text style={styles.clearHistoryText}>Effacer tout</Text>
+              </TouchableOpacity>
+            </View>
+            <ScrollView style={styles.historyList} nestedScrollEnabled={true}>
+              {searchHistory.map((item, index) => (
+                <View key={index} style={styles.historyItem}>
+                  <TouchableOpacity
+                    style={styles.historyItemButton}
+                    onPress={() => handleHistoryItemPress(item)}
+                  >
+                    <Ionicons
+                      name="time-outline"
+                      size={responsiveModerateScale(18)}
+                      color="#dfdedcf7"
+                      style={styles.historyIcon}
+                    />
+                    <Text style={styles.historyItemText}>{item}</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => removeHistoryItem(item)}
+                    style={styles.removeButton}
+                  >
+                    <Ionicons
+                      name="close"
+                      size={responsiveModerateScale(18)}
+                      color="#dfdedcf7"
+                    />
+                  </TouchableOpacity>
+                </View>
+              ))}
+            </ScrollView>
+          </View>
         )}
       </View>
 
@@ -905,62 +987,72 @@ const goToSupport = () => {
       </View>
 
       <Modal
-  visible={menuVisible}
-  transparent
-  animationType="slide"
-  onRequestClose={() => setMenuVisible(false)}
->
-  <TouchableWithoutFeedback onPress={() => setMenuVisible(false)}>
-    <View style={styles.modalOverlay}>
-      <TouchableWithoutFeedback>
-        <View style={styles.modalContent}>
-          
-          <TouchableOpacity style={styles.modalButton} onPress={goToPolitique}>
-            <Text style={styles.modalText}>Politique de Confidentialité</Text>
-          </TouchableOpacity>
+        visible={menuVisible}
+        transparent
+        animationType="slide"
+        onRequestClose={() => setMenuVisible(false)}
+      >
+        <TouchableWithoutFeedback onPress={() => setMenuVisible(false)}>
+          <View style={styles.modalOverlay}>
+            <TouchableWithoutFeedback>
+              <View style={styles.modalContent}>
 
-          <TouchableOpacity style={styles.modalButton} onPress={goToFoire}>
-            <Text style={styles.modalText}>Foire aux Questions</Text>
-          </TouchableOpacity>
+                <TouchableOpacity style={styles.modalButton} onPress={goToPolitique}>
+                  <Text style={styles.modalText}>Politique de Confidentialité</Text>
+                </TouchableOpacity>
 
-          <TouchableOpacity style={styles.modalButton} onPress={openEmail}>
-            <Text style={styles.modalText}>Nous Contacter</Text>
-          </TouchableOpacity>
+                <TouchableOpacity style={styles.modalButton} onPress={goToFoire}>
+                  <Text style={styles.modalText}>Foire aux Questions</Text>
+                </TouchableOpacity>
 
-           <TouchableOpacity style={styles.modalButton} onPress={openFacebook}>
-                <Text style={styles.modalText}>Suivez-nous sur Facebook</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.modalButton}
-            onPress={handleUpdateApp}
-          >
-            <Text style={styles.modalText}>Mettre à jour</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.modalButton}
-            onPress={goToAbout}
-          >
-            <Text style={styles.modalText}> À propos </Text>
-          </TouchableOpacity>
-           <TouchableOpacity
-            style={styles.modalButton}
-            onPress={goToSupport}
-          >
-            <Text style={styles.modalText}> Nous supporter</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.modalButton}
-            onPress={() => setMenuVisible(false)}
-          >
-            <Text style={styles.modalText}>Fermer</Text>
-          </TouchableOpacity>
+                <TouchableOpacity style={styles.modalButton} onPress={openEmail}>
+                  <Text style={styles.modalText}>Nous Contacter</Text>
+                </TouchableOpacity>
 
-        </View>
-      </TouchableWithoutFeedback>
-    </View>
-    
-  </TouchableWithoutFeedback>
-</Modal>
+                <TouchableOpacity style={styles.modalButton} onPress={openFacebook}>
+                  <Text style={styles.modalText}>Suivez-nous sur Facebook</Text>
+                </TouchableOpacity>
+                
+                <TouchableOpacity
+                  style={styles.modalButton}
+                  onPress={handleUpdateApp}
+                >
+                  <Text style={styles.modalText}>Mettre à jour</Text>
+                </TouchableOpacity>
+                
+                <TouchableOpacity
+                  style={styles.modalButton}
+                  onPress={goToAbout}
+                >
+                  <Text style={styles.modalText}> À propos </Text>
+                </TouchableOpacity>
+                
+                <TouchableOpacity
+                  style={styles.modalButton}
+                  onPress={goToSupport}
+                >
+                  <Text style={styles.modalText}> Nous supporter</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.modalButton}
+                  onPress={shareApp}
+                >
+                  <Text style={styles.modalText}> Partager l'application</Text>
+                </TouchableOpacity>
+                
+                <TouchableOpacity
+                  style={styles.modalButton}
+                  onPress={() => setMenuVisible(false)}
+                >
+                  <Text style={styles.modalText}>Fermer</Text>
+                </TouchableOpacity>
+
+              </View>
+            </TouchableWithoutFeedback>
+          </View>
+
+        </TouchableWithoutFeedback>
+      </Modal>
     </SafeAreaView>
   );
 }
@@ -996,7 +1088,7 @@ const styles = StyleSheet.create({
     fontSize: responsiveModerateScale(14),
     backgroundColor: "transparent",
     minWidth: responsiveScale(250),
-    maxWidth: isLargeScreen ? responsiveScale(350) : '100%',
+    maxWidth:  responsiveScale(350),
     // Propriétés spécifiques pour Android
     ...(Platform.OS === 'android' && {
       borderStyle: 'solid',
@@ -1022,24 +1114,101 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-
   clearIcon: {
     color: "red",
   },
-
   bodyContainer: {
     flex: 1,
     paddingHorizontal: responsiveScale(15),
     paddingTop: responsiveVerticalScale(15),
     paddingBottom: responsiveVerticalScale(20),
   },
-
   gridContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "space-between",
     alignContent: "flex-start",
   },
+  searchWrapper: {
+    position: 'relative',
+    zIndex: 1000,
+  },
+  historyContainer: {
+    backgroundColor: "#1a2d52",
+    borderRadius: responsiveModerateScale(12),
+    marginHorizontal: responsiveScale(10),
+    marginTop: responsiveVerticalScale(5),
+    padding: responsiveScale(12),
+    maxHeight: responsiveVerticalScale(250),
+    shadowColor: "#000",
+    shadowOpacity: 0.3,
+    shadowOffset: { width: 0, height: 4 },
+    shadowRadius: 6,
+    elevation: 8,
+    width: '95%',
+    alignSelf: 'center',
+  },
+  historyHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: responsiveVerticalScale(10),
+    paddingBottom: responsiveVerticalScale(8),
+    borderBottomWidth: 1,
+    borderBottomColor: '#dfdedcf7',
+  },
+  historyTitle: {
+    color: '#dfdedcf7',
+    fontSize: responsiveModerateScale(14),
+    fontWeight: 'bold',
+  },
+  clearHistoryText: {
+    color: '#ff6b6b',
+    fontSize: responsiveModerateScale(12),
+    fontWeight: '600',
+  },
+  historyList: {
+    maxHeight: responsiveVerticalScale(180),
+  },
+  historyItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingVertical: responsiveVerticalScale(10),
+    borderBottomWidth: 0.5,
+    borderBottomColor: '#dfdedcf750',
+  },
+  historyItemButton: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  historyIcon: {
+    marginRight: responsiveScale(10),
+  },
+  historyItemText: {
+    color: '#dfdedcf7',
+    fontSize: responsiveModerateScale(13),
+    flex: 1,
+  },
+  removeButton: {
+    padding: responsiveScale(5),
+  },
+ /*
+  clearButton: {
+    position: "absolute",
+    right: responsiveScale(8),
+    backgroundColor: "#ddd",
+    borderRadius: responsiveScale(15),
+    width: responsiveScale(20),
+    height: responsiveScale(20),
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  clearIcon: {
+    color: "red",
+  },
+  */
 
   bookButton: {
     alignItems: "center",
@@ -1047,7 +1216,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#dfdedcf7",
     padding: responsiveVerticalScale(10),
     borderRadius: responsiveModerateScale(12),
-    width: isSmallScreen ? "45%" : isMediumScreen ? "46%" : "45%",
+    width: "45%",
     height: responsiveVerticalScale(100),
     marginBottom: responsiveVerticalScale(15),
     shadowColor: "#000",
@@ -1092,7 +1261,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#dfdedcf7",
     padding: responsiveVerticalScale(10),
     borderRadius: responsiveModerateScale(12),
-    width: isSmallScreen ? "48%" : isMediumScreen ? "47%" : "45%",
+    width: "45%",
     height: responsiveVerticalScale(110),
     shadowColor: "#000",
     shadowOpacity: 0.2,
@@ -1119,7 +1288,7 @@ const styles = StyleSheet.create({
 
   modalContent: {
     backgroundColor: "#0A1E42",
-    width: isSmallScreen ? responsiveScale(200) : responsiveScale(220),
+    width: responsiveScale(220),
     padding: responsiveVerticalScale(12),
     position: "absolute",
     top: responsiveVerticalScale(50),

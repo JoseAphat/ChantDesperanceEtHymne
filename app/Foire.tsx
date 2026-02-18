@@ -1,3 +1,4 @@
+import AdBanner from "@/components/AdBanner";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "expo-router";
 import React, { useLayoutEffect, useState } from "react";
@@ -179,6 +180,7 @@ useLayoutEffect(() => {
 };
   return (
     <ScrollView style={styles.container}>
+      <AdBanner />
       {faqs.map((faq, index) => (
         <View key={index} style={styles.faqContainer}>
           <Text style={styles.question} onPress={() => toggleExpand(index)}>

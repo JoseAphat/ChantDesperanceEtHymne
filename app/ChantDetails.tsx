@@ -21,6 +21,7 @@ import {
 import { moderateScale, scale, verticalScale } from "react-native-size-matters";
 import { FontProvider } from "../font/FontContext";
 import useFavorites from "./useFavorites";
+import AdBanner from "@/components/AdBanner";
 
 /* ---------- helpers tolérants ---------- */
 const normalize = (s?: string) =>
@@ -606,6 +607,7 @@ const ChantDetails: React.FC = () => {
             <Text style={{ color: "#fff", fontSize: 14 }}>{confirmationMessage}</Text>
           </View>
         )}
+        <AdBanner />
       </View>
     </FontProvider>
   );
@@ -701,10 +703,10 @@ const createStyles = (dark: boolean) =>
       flexDirection: "row",
       alignItems: "center",
       marginRight: moderateScale(10),
-      bottom: 15,
+      bottom: 30,
     },
     footerButtonText: {
-      color: dark ? "#bbb" : "white",
+      color: "white",
       fontSize: scale(15),
       marginLeft: moderateScale(10),
       fontWeight: "bold",

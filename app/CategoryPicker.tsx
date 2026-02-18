@@ -2,13 +2,13 @@ import { Ionicons } from "@expo/vector-icons";
 import { router, useLocalSearchParams, useNavigation } from "expo-router";
 import React, { useEffect, useMemo, useState } from "react";
 import {
-    FlatList,
-    Platform,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
+  FlatList,
+  Platform,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 import { moderateScale, scale, verticalScale } from "react-native-size-matters";
@@ -22,7 +22,7 @@ interface PickerParams {
 }
 
 const CategoryPicker: React.FC = () => {
-  const { serviceId, section } = useLocalSearchParams<PickerParams>();
+  const { serviceId, section } = useLocalSearchParams();
   const [query, setQuery] = useState("");
   const navigation = useNavigation();
   const insets = useSafeAreaInsets();
@@ -52,8 +52,8 @@ const CategoryPicker: React.FC = () => {
         fromNotes: "true",
         serviceId,
         section,
-      },
-    });
+      }, 
+    } as any);
   };
 
   return (
@@ -158,8 +158,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#f8f8f8",
-    paddingHorizontal: scale(12),
-    paddingTop: verticalScale(10),
+    paddingHorizontal: scale(15),
+    paddingBottom: verticalScale(20),
   },
 
   searchRow: {
