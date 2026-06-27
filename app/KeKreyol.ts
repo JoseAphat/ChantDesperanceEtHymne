@@ -6616,35 +6616,54 @@ _Julien Janvier_
     id: "232",
     title: "232- Restore m",
     lyrics: `1.
-Restore m repare m abite mwen Bondye
+Restore m, repare m
+Abite mwen Bondye
 Pou m ka viv yon lavi ou mande
-Pa kite mwen mache lwen prezans ou souple
+Pa kite mwen mache 
+Lwen prezans ou souple
 Vin nan mwen kontwole mwem souple
 
-Kè:
+Kè 1:
 Se pou ou m vle chante
 Wi pou ou m vle pale
 Tout kote mwen pase
 Ke prezans ou nan mwen
 
 2.
-Restore m abite m viv nan mwen o Bondye
-Pou m sèvi w ak tout sam posede
-Vin nan mwe repare m vin chanje mwen Senyè
-Wete tout sak pa bon ou nan mwen
-Vin nan mwen fè prezans ou chase vye lide
-Kite gras ou kouvrim wi Senyè
+Restore m abite m 
+Viv nan mwen o Bondye
+Pou m sèvi w ak tout sa m posede
+Vin nan mwen, repare m 
+Vin chanje mwen Senyè
+Wete tout sa k pa bon o nan mwen
+Vin nan mwen 
+Fè prezans ou chase vye lide
+Kite gras ou kouvri m wi Senyè
+
+Solo 1:
+Restore m abite m 
+Viv nan mwen o Bondye
+Pou m sèvi w ak tout sa m posede
 
 3.
-Restore m abite m netwaye mwen Senyè
-Wete tout sak pa bon ou nan mwen
-Se pou ou m vle chante wi pou ou mwen vle viv
+Restore m, abite m 
+Netwaye mwen Senyè
+Wete tout sa k pa bon o nan mwen
+Se pou ou m vle chante
+Wi, pou ou mwen vle viv
 Kite lespri w nan mwen pou gide m
 
-Tout kote ou mennenm wi Senyè fò male
-Pa kite mwen mache jan mwen vle chè Senyè
-Se pou ou m vle rete kote m ye a Bondye
-Vin touche m abite mwen souple 
+Kè 2:
+Tout kote ou mennen m 
+Wi Senyè, fòk m ale
+Pa kite mwen mache 
+Jan mwen vle chè Senyè
+
+Solo 2:
+Se pou ou m vle rete 
+Kote m ye a Bondye
+Vin touche m 
+Abite mwen souple 
 
 _Vilaire Pierre_
      `,

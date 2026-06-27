@@ -443,24 +443,24 @@ Qui coule nuit et jour.
     id: "17",
     title: "017- A de nouveau combats",
     lyrics: `1.
-A de nouveau combats,
-Jésus Tu nous appelles,
+A de nouveaux combats,
+Jésus, tu nous appelles,
 Et nous voici fidèles,
-Prêts à suivre Tes pas.
-Conduis-nous aux combats,
+Prêts à suivre tes pas.
+Conduits-nous aux combats,
 Nous sommes tes soldats.
 
-Choeur:
-Arme nos bras, arme nos coeurs,
-Et nous seront plus que vainqueurs (bis 2 lignes)
+Choeur
+Arme nos bras, arme nos coeurs
+Et nous serons plus que vainqueurs (bis)
 Arme nos bras, arme nos coeurs.
 
 2.
-Arme-nous, ô Seigneur,
+Arme-nous O Seigneur,
 De foi, de hardiesse!
 De force, de sagesse,
 D'amour et de ferveur;
-Embrase-nous, Seigneur,
+Embrasse-nous, Seigneur,
 D'une invincible ardeur.
 
 3.
@@ -468,14 +468,15 @@ Nous tiendrons ferme et haut
 La croix, notre bannière,
 Pour vaincre l'adversaire
 Par le sang de l'Agneau,
-Oui, nous tiendrons bien haut
-La croix, notre drapeau.
+Oui, Nous tiendrons bien haut
+Ta croix, notre drapeau.
 
 4.
 Luttons, prions, souffrons!
 Nous aurons la victoire;
 La couronne de gloire
-Un jour ceindra nos fronts.
+Un jour ceindra nos fronts,
+Luttons, prions, Souffrons,
 Bientôt nous règnerons!
 
 `,
@@ -495,15 +496,15 @@ Richesses de l'amour en Jésus
 Plus précieuses que l'or du monde,
 Ces richesses de l'amour en Jésus.
 
-2.
-Ces trésors terrestres sont vains
+2
+Ces trésors terrestres sont vains;
 L'honneur du monde est passager
 Mais les trésors infinis, divins
 La mort ne peut pas me les ôter.
 
-3.
-Donc, prends ces richesses de Dieu
-Gratuites, inépuisables
+3
+Donc, prends ces richesses de Dieu,
+Gratuites, inépuisables;
 Reçois Son Saint-Esprit glorieux
 Ce don du Père inexprimable.
 `,
@@ -518,9 +519,9 @@ Dans ses sentiers qu'Il affermisse
 Les pas de Son enfant!
 
 Choeur:
-Ah tiens-moi prêt pour Ton retour
+Ah! tiens-moi prêt pour Ton retour
 Gardé par Ton fidèle amour,
-Victorieux, jour après jour,
+Victorieux, jour après jour.
 Oui, tiens-moi prêt pour Ton retour.
 
 2.
@@ -1217,7 +1218,7 @@ Et tous par le Sang
 Mais dans l'affliction
 Dieu leur donne un chant.
 Son grand amour
-Entour Ses enfants.
+Entoure Ses enfants.
 
 2.
 Parfois sur la montagne

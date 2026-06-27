@@ -139,14 +139,14 @@ Chak pa mwen fè, kondwi m pi pre syèl la.
 
 2.
 Lè asirans mwen kòmanse fayi
-E devan m gen yon falèz infini
+E devan m gen yon falèz enfini
 Mwen vire je m, mwen gade bon Sovè mwen
 Li se fòs mwen, lè mwen mache avè L.
 
 3.
 Mwen konfye m nan Kris, malgre sikonstans yo
 Jezi genyen lavi an abondans.
-L ape kenbe kle a, louvri pòt la
+L ape kenbe kle a, pou louvri pòt la
 Pou Li mennen m nan peyi pwomès la.
 `,
   },

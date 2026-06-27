@@ -4,6 +4,7 @@ import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 export default function RootLayout() {
   useScreenOrientation();
@@ -14,18 +15,17 @@ export default function RootLayout() {
 
   if (!loaded) return null;
 
-  // Ne jamais définir de backgroundColor ici.
   const statusBarStyle = colorScheme === 'dark' ? 'light' : 'dark';
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-
-      {/* Edge-to-edge: style uniquement + translucide, aucune couleur */}
-      <StatusBar style={statusBarStyle} translucent />
-    </ThemeProvider>
+    <SafeAreaProvider>
+      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+        <Stack>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="+not-found" />
+        </Stack>
+        <StatusBar style={statusBarStyle} translucent />
+      </ThemeProvider>
+    </SafeAreaProvider>
   );
 }

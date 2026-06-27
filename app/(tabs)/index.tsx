@@ -978,7 +978,7 @@ export default function App() {
           <TouchableOpacity style={styles.notesButton} onPress={goToService}>
             <MaterialCommunityIcons
               name="church"
-              size={responsiveModerateScale(40)}
+              size={responsiveModerateScale(30)}
               color="#0A1E42"
             />
             <Text style={styles.notesButtonText}>Cultes & Notes</Text>
@@ -1217,7 +1217,7 @@ const styles = StyleSheet.create({
     padding: responsiveVerticalScale(10),
     borderRadius: responsiveModerateScale(12),
     width: "45%",
-    height: responsiveVerticalScale(100),
+    height: responsiveVerticalScale(110),
     marginBottom: responsiveVerticalScale(15),
     shadowColor: "#000",
     shadowOpacity: 0.2,
@@ -1253,6 +1253,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginTop: responsiveVerticalScale(0),
+    marginBottom: responsiveVerticalScale(10),
   },
 
   notesButton: {
@@ -1262,7 +1263,8 @@ const styles = StyleSheet.create({
     padding: responsiveVerticalScale(10),
     borderRadius: responsiveModerateScale(12),
     width: "45%",
-    height: responsiveVerticalScale(110),
+    height: responsiveVerticalScale(105),
+    marginBottom: responsiveVerticalScale(15),
     shadowColor: "#000",
     shadowOpacity: 0.2,
     shadowOffset: { width: 0, height: 3 },
@@ -1274,11 +1276,12 @@ const styles = StyleSheet.create({
   },
 
   notesButtonText: {
-    marginTop: responsiveVerticalScale(5),
-    fontSize: responsiveModerateScale(13),
+    fontSize: responsiveModerateScale(14),
     fontWeight: "bold",
     color: "#0A1E42",
     textAlign: "center",
+    lineHeight: responsiveModerateScale(16),
+    paddingHorizontal: responsiveScale(4),
   },
 
   modalOverlay: {

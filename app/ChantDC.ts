@@ -2507,9 +2507,7 @@ Tout vi m jiska lafen.`,
   {
     id: "73",
     title: "073- Kè nou pa bezwen twouble plis",
-    lyrics: `
-      
-	1.
+    lyrics: `1.
 Kè nou pa bezwen twouble plis,
 Bondye ban nou lapè nan Kris.
 Se sèlman pou nou kwè Bondye,
@@ -2545,9 +2543,7 @@ San krent ni twoub, kè nou kontan.
   {
     id: "74",
     title: "074- A la yon Zanmi se Jezi",
-    lyrics: `
-
-	1.
+    lyrics: `1.
 A la yon Zanmi se Jezi,
 Tout peche nou se chaj li!
 A la yon byenfè: pou pote
@@ -2583,9 +2579,7 @@ Jezi vle ba ou lavi.
   {
     id: "75",
     title: "075- Nan bonte li, Jezi vini",
-    lyrics: `
-
-	1.
+    lyrics: `1.
 Nan bonte li, Jezi vini
 Pou rachte nanm mwen pa lagras;
 Nan bafon peche ak lawont

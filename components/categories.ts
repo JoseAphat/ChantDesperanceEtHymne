@@ -23,6 +23,7 @@ export const categories: CategoryItem[] = [
 
   { label: "L’ombre du Réveil", route: "/LombreDuReveil", searchKeywords: ["ombre", "reveil"] },
   { label: "Haïti Chante Avec Radio Lumière", route: "/HaitiChante", searchKeywords: ["haiti", "radio", "lumiere"] },
+  { label: "Gloire à l'Agneau", route: "/GloireAGneau", searchKeywords: ["Gloire", "agneau"] },
   { label: "Écho des Élus", route: "/EchoDesElus", searchKeywords: ["echo", "elus"] },
 
   { label: "Chœurs Français", route: "/ChoeurFrancais", searchKeywords: ["choeurs", "fr"] },

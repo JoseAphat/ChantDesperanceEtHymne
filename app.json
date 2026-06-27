@@ -2,13 +2,12 @@
   "expo": {
     "name": "Chants d'Espérance & Hymne",
     "slug": "ChantDesperance",
-    "version": "1.2.2",
+    "version": "1.2.3",
     "orientation": "default",
     "icon": "./assets/images/ic_launcher_foreground.png",
     "scheme": "chantdesperance",
     "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
-    "runtimeVersion": "1.2.2",
+    "runtimeVersion": "1.2.3",
     "updates": {
       "fallbackToCacheTimeout": 0,
       "url": "https://u.expo.dev/9ae3d36e-5ae4-40ac-9248-732109eb33e3"
@@ -29,22 +28,21 @@
     },
     "android": {
       "package": "com.berly.ChantDesperance",
-      "versionCode": 43,
-      "jsEngine": "hermes",
+      "versionCode": 44,
       "allowBackup": true,
       "userInterfaceStyle": "automatic",
       "softwareKeyboardLayoutMode": "pan",
+      "googleServicesFile": "./android/app/google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/ic_launcher_foreground.png",
         "backgroundColor": "#03008E"
       },
       "permissions": [
-  "INTERNET",
-  "WAKE_LOCK",
-  "FOREGROUND_SERVICE",
-  "com.google.android.gms.permission.AD_ID"
-]
-
+        "INTERNET",
+        "WAKE_LOCK",
+        "FOREGROUND_SERVICE",
+        "com.google.android.gms.permission.AD_ID"
+      ]
     },
     "web": {
       "bundler": "metro",
@@ -82,9 +80,14 @@
               "reactNativeArchitectures": "armeabi-v7a,arm64-v8a,x86_64"
             },
             "enableProguardInReleaseBuilds": true,
-            "extraProguardRules": 
-            "-keep class com.facebook.hermes.** { *; }\n-keep class com.facebook.jni.** { *; }\n-keep class com.facebook.soloader.** { *; }\n-keep class com.facebook.proguard.annotations.DoNotStrip\n-keep @com.facebook.proguard.annotations.DoNotStrip class *\n-keepclassmembers class * {\n  @com.facebook.proguard.annotations.DoNotStrip *;\n}\n\n-keep class com.facebook.react.** { *; }\n-keep class com.facebook.react.turbomodule.** { *; }\n-keep class com.swmansion.** { *; }\n-keep class com.bumptech.glide.** { *; }\n-keep class com.google.gson.** { *; }\n-keep class okhttp3.** { *; }\n-keep class okio.** { *; }\n\n-keep class expo.modules.** { *; }"
+            "extraProguardRules": "-keep class com.facebook.hermes.** { *; }\n-keep class com.facebook.jni.** { *; }\n-keep class com.facebook.soloader.** { *; }\n-keep class com.facebook.proguard.annotations.DoNotStrip\n-keep @com.facebook.proguard.annotations.DoNotStrip class *\n-keepclassmembers class * {\n  @com.facebook.proguard.annotations.DoNotStrip *;\n}\n\n-keep class com.facebook.react.** { *; }\n-keep class com.facebook.react.turbomodule.** { *; }\n-keep class com.swmansion.** { *; }\n-keep class com.bumptech.glide.** { *; }\n-keep class com.google.gson.** { *; }\n-keep class okhttp3.** { *; }\n-keep class okio.** { *; }\n\n-keep class expo.modules.** { *; }"
           }
+        }
+      ],
+      [
+        "@react-native-google-signin/google-signin",
+        {
+          "iosUrlScheme": "com.googleusercontent.apps.TON_CLIENT_ID_IOS"
         }
       ]
     ],
