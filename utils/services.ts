@@ -1,7 +1,6 @@
 // utils/services.ts
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
-const STORAGE_KEY = "@notes_services";
+import { auth, db } from "@/services/firebaseConfig";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 
 export type SectionKey = "introduction" | "partie1" | "partie2" | "partie3";
 
@@ -33,20 +32,24 @@ export const addChantToService = async (
   chant: Chant
 ): Promise<{ ok: boolean; error?: string }> => {
   try {
-    const raw = await AsyncStorage.getItem(STORAGE_KEY);
-    const services: Service[] = raw ? JSON.parse(raw) : [];
+    const user = auth.currentUser;
+    if (!user) {
+      return { ok: false, error: "Utilisateur non connecté" };
+    }
 
-    const serviceIndex = services.findIndex(s => s.id === serviceId);
-    if (serviceIndex === -1) {
+    const serviceRef = doc(db, "users", user.uid, "cultes", serviceId);
+    const serviceSnap = await getDoc(serviceRef);
+
+    if (!serviceSnap.exists()) {
       return { ok: false, error: "Service non trouvé" };
     }
 
-    const service = services[serviceIndex];
-    
+    const service = serviceSnap.data() as Service;
+
     // CRITIQUE : Créer une NOUVELLE instance du chant avec une clé unique
     const newChant: Chant = {
       ...chant,
-      uniqueKey: generateUniqueKey() // Toujours générer une nouvelle clé unique
+      uniqueKey: generateUniqueKey(),
     };
 
     const updatedService: Service = {
@@ -55,13 +58,12 @@ export const addChantToService = async (
         ...service.sections,
         [section]: [
           ...(service.sections[section] || []),
-          newChant // Ajouter le NOUVEAU chant avec clé unique
-        ]
-      }
+          newChant,
+        ],
+      },
     };
 
-    services[serviceIndex] = updatedService;
-    await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(services));
+    await setDoc(serviceRef, updatedService);
 
     return { ok: true };
   } catch (error) {

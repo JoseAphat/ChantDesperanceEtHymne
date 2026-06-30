@@ -4880,7 +4880,7 @@ Alors entends nos cœurs.
 },
 {
     id: "162",
-    title: "162- Digne est l'Agneau",
+    title: "162- Personne n'est comme Toi",
     lyrics: `1.
 Lui seul est sur le trône
 Jésus, Dieu saint
@@ -4904,5 +4904,28 @@ Toi seul es digne de gloire
 Toi seul es digne de gloire
 Son nom est souverain
 `},
-];
+{
+    id: "163",
+    title: "163- Seigneur nul n’est comme Toi",
+    lyrics: `1.
+À celui sur le trône,
+Jésus, Le Saint
+Tu es digne de louange 
+D’honneur et gloire
+
+REFRAIN:
+Digne est l’agneau
+Crucifié et assis sur le trône 
+Seigneur, nul n’est comme Toi
+Les anciens, les être vivants
+Se prosternent pour T’adorer Toi seul 
+Seigneur nul n’est comme Toi
+
+PONT
+Roi de gloire nous Te couronnons x3 
+Nous Te couronnons Roi
+`
+},
+]
 export default frenchSongs;
+

@@ -28,11 +28,11 @@
     },
     "android": {
       "package": "com.berly.ChantDesperance",
-      "versionCode": 44,
+      "versionCode": 45,
       "allowBackup": true,
       "userInterfaceStyle": "automatic",
       "softwareKeyboardLayoutMode": "pan",
-      "googleServicesFile": "./android/app/google-services.json",
+      "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/ic_launcher_foreground.png",
         "backgroundColor": "#03008E"

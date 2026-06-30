@@ -22,6 +22,10 @@ import { moderateScale, scale, verticalScale } from "react-native-size-matters";
 import AddRewarded from '../components/AddRewarded';
 import RewardedButton from '../components/RewardedButton';
 import RewardedCreateButton from '../components/RewardedCreateButton';
+import { auth, db } from "@/services/firebaseConfig";
+import { 
+  collection, doc, setDoc, getDocs, deleteDoc, writeBatch 
+} from "firebase/firestore";
 
 // 🔹 Types
 type SectionKey = "introduction" | "partie1" | "partie2" | "partie3";
@@ -145,15 +149,21 @@ const Culte: React.FC = () => {
   }, []);
 
   const loadServices = async () => {
-    try {
-      const raw = await AsyncStorage.getItem(STORAGE_KEY);
-      setServices(raw ? JSON.parse(raw) : []);
-    } catch (e) {
-      console.log("Load services error:", e);
-    } finally {
-      setLoading(false);
-    }
-  };
+  try {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    const snapshot = await getDocs(
+      collection(db, "users", user.uid, "cultes")
+    );
+    const data = snapshot.docs.map(d => d.data() as Service);
+    setServices(data);
+  } catch (e) {
+    console.error("Erreur chargement cultes:", e);
+  } finally {
+    setLoading(false);
+  }
+};
 
   // Recharge quand l'écran reprend le focus
   useFocusEffect(
@@ -163,9 +173,32 @@ const Culte: React.FC = () => {
   );
 
   const save = async (next: Service[]) => {
+  try {
+    const user = auth.currentUser;
+    if (!user) return;
+
     setServices(next);
-    await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(next));
-  };
+
+    // Sauvegarder chaque service comme document Firestore
+    const batch = writeBatch(db);
+    
+    // Supprimer tous les anciens documents
+    const snapshot = await getDocs(
+      collection(db, "users", user.uid, "cultes")
+    );
+    snapshot.docs.forEach(d => batch.delete(d.ref));
+
+    // Réécrire tous les services
+    next.forEach(service => {
+      const ref = doc(db, "users", user.uid, "cultes", service.id);
+      batch.set(ref, service);
+    });
+
+    await batch.commit();
+  } catch (e) {
+    console.error("Erreur sauvegarde cultes:", e);
+  }
+};
 
   const createService = async () => {
     const name = newName.trim();

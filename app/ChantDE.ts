@@ -4141,5 +4141,31 @@ Narakele Mo
 _Tim Godfrey_
 `
 },
+{
+    id: "121",
+    title: "121- Nara",
+    lyrics: `There is One on the throne
+Jesus, holy
+He is worthy of praise
+Honor and glory
+
+Worthy is the Lamb
+Who was slain and seated on the throne
+There’s no one like the Lord
+Elders, creatures bow
+Giving praise to Him and Him alone
+There’s no one like the Lord
+
+We crown You King of glory
+We crown You King of glory
+We crown You King of glory
+We crown You Lord of all
+
+We crown You, You are worthy
+We crown You, You are worthy
+We crown You, You are worthy
+We crown You Lord of all
+    `
+}
 ];
 export default englishSongs;

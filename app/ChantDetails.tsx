@@ -2,7 +2,7 @@ import { categoryMap } from "@/components/data/categoryMap";
 import { MaterialIcons } from "@expo/vector-icons";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import useFavorites from "./useFavorites";
 import { router, useLocalSearchParams, useNavigation } from "expo-router";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
@@ -20,8 +20,10 @@ import {
 } from "react-native";
 import { moderateScale, scale, verticalScale } from "react-native-size-matters";
 import { FontProvider } from "../font/FontContext";
-import useFavorites from "./useFavorites";
 import AdBanner from "@/components/AdBanner";
+import { useCallback } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 
 /* ---------- helpers tolérants ---------- */
 const normalize = (s?: string) =>
@@ -63,9 +65,10 @@ const ChantDetails: React.FC = () => {
   };
 
   const navigation = useNavigation();
-  const { getFavorites } = useFavorites();
+  const { addFavorite, removeFavorite, getFavorites } = useFavorites();
 
   const [isFavorite, setIsFavorite] = useState(false);
+  
   const [theme, setTheme] = useState<"light" | "dark">("light");
 
   const [title, setTitle] = useState(paramTitle || "Titre Inconnu");
@@ -87,6 +90,7 @@ const ChantDetails: React.FC = () => {
   const ZOOM_STEP = 0.2;
   const [zoomLevel, setZoomLevel] = useState(1);
   const scrollViewRef = useRef<ScrollView>(null);
+  const stableFavorites = useCallback(getFavorites, []);
 
   // charger prefs
   useEffect(() => {
@@ -131,60 +135,55 @@ const ChantDetails: React.FC = () => {
   }, [zoomLevel, baseFontSize]);
 
   // charger chant depuis params / storage temporaire
-  useEffect(() => {
-    const loadChantData = async () => {
-      let finalTitle = paramTitle || "Titre Inconnu";
-      let finalLyrics = paramLyrics || "Aucune Parole Disponible";
-      let finalAuthor = paramAuthor || "";
 
-      if (useStorage === "true" && id) {
-        try {
-          const tempDataString = await AsyncStorage.getItem(`temp_chant_${id}`);
-          if (tempDataString) {
-            const tempData = JSON.parse(tempDataString);
-            const now = Date.now();
-            if (now - tempData.timestamp < 5 * 60 * 1000) {
-              finalTitle = tempData.title;
-              finalLyrics = tempData.lyrics;
-              finalAuthor = tempData.author || "";
-            }
-            await AsyncStorage.removeItem(`temp_chant_${id}`);
-          }
-        } catch (e) {
-          console.error("Erreur récupération données temporaires:", e);
-        }
-      }
+useEffect(() => {
+  const loadChantData = async () => {
+    let finalTitle = paramTitle || "Titre Inconnu";
+    let finalLyrics = paramLyrics || "Aucune Parole Disponible";
+    let finalAuthor = paramAuthor || "";
 
+    if (useStorage === "true" && id) {
       try {
-        if (typeof finalTitle === "string" && finalTitle.includes("%")) {
-          finalTitle = decodeURIComponent(finalTitle);
-        }
-        if (typeof finalLyrics === "string" && finalLyrics.includes("%")) {
-          finalLyrics = decodeURIComponent(finalLyrics);
-        }
-        if (typeof finalAuthor === "string" && finalAuthor.includes("%")) {
-          finalAuthor = decodeURIComponent(finalAuthor);
+        const tempDataString = await AsyncStorage.getItem(`temp_chant_${id}`);
+        if (tempDataString) {
+          const tempData = JSON.parse(tempDataString);
+          const now = Date.now();
+          if (now - tempData.timestamp < 5 * 60 * 1000) {
+            finalTitle = tempData.title;
+            finalLyrics = tempData.lyrics;
+            finalAuthor = tempData.author || "";
+          }
+          await AsyncStorage.removeItem(`temp_chant_${id}`);
         }
       } catch (e) {
-        console.error("Erreur décodage:", e);
+        console.error("Erreur récupération données temporaires:", e);
       }
+    }
 
-      setTitle(finalTitle);
-      setLyrics(finalLyrics);
-      setAuthor(finalAuthor);
-    };
+    try {
+      if (typeof finalTitle === "string" && finalTitle.includes("%")) finalTitle = decodeURIComponent(finalTitle);
+      if (typeof finalLyrics === "string" && finalLyrics.includes("%")) finalLyrics = decodeURIComponent(finalLyrics);
+      if (typeof finalAuthor === "string" && finalAuthor.includes("%")) finalAuthor = decodeURIComponent(finalAuthor);
+    } catch (e) {
+      console.error("Erreur décodage:", e);
+    }
 
-    const checkIfFavorite = async () => {
-      if (!id || !category) return;
-      const favorites = await getFavorites();
-      const uniqueId = `${category}-${id}`;
-      const favoriteExists = favorites.some((song: { id: string }) => song.id === uniqueId);
-      setIsFavorite(favoriteExists);
-    };
+    setTitle(finalTitle);
+    setLyrics(finalLyrics);
+    setAuthor(finalAuthor);
+  };
 
-    loadChantData();
-    checkIfFavorite();
-  }, [id, category, getFavorites, paramTitle, paramLyrics, paramAuthor, useStorage]);
+  const checkIfFavorite = async () => {
+    if (!id || !category) return;
+    const favorites = await stableFavorites();
+    const uniqueId = `${category}-${id}`;
+    const favoriteExists = favorites.some((song: { id: string }) => song.id === uniqueId);
+    setIsFavorite(favoriteExists);
+  };
+
+  loadChantData();
+  checkIfFavorite();
+}, [id, category, stableFavorites, paramTitle, paramLyrics, paramAuthor, useStorage]);
 
   // header dynamique
   useEffect(() => {
@@ -278,24 +277,27 @@ const ChantDetails: React.FC = () => {
   /* ---------- fin bloc tolérant ---------- */
 
   const handleFavoritePress = async () => {
-    const uniqueId = `${category}-${id}`;
-    const storedFavorites = await AsyncStorage.getItem("favorites");
-    const parsed = storedFavorites ? JSON.parse(storedFavorites) : [];
+  const uniqueId = `${category}-${id}`;
 
-    if (isFavorite) {
-      const updated = parsed.filter((fav: { id: string }) => fav.id !== uniqueId);
-      await AsyncStorage.setItem("favorites", JSON.stringify(updated));
-      setIsFavorite(false);
-      setConfirmationMessage("Chant retiré des favoris");
-    } else {
-      const newFavorite = { id: uniqueId, title, lyrics, category, originalId: id, author };
-      const updated = [...parsed, newFavorite];
-      await AsyncStorage.setItem("favorites", JSON.stringify(updated));
-      setIsFavorite(true);
-      setConfirmationMessage("Chant ajouté aux favoris");
-    }
-    setTimeout(() => setConfirmationMessage(null), 2000);
-  };
+  if (isFavorite) {
+    await removeFavorite(uniqueId);
+    setIsFavorite(false);
+    setConfirmationMessage("Chant retiré des favoris");
+  } else {
+    const newFavorite = { 
+      id: uniqueId, 
+      title, 
+      lyrics, 
+      category: (category as string) ?? "", 
+      originalId: String(id ?? ""),  
+      author 
+    };
+    await addFavorite(newFavorite);
+    setIsFavorite(true);
+    setConfirmationMessage("Chant ajouté aux favoris");
+  }
+  setTimeout(() => setConfirmationMessage(null), 2000);
+};
 
   const handleShare = async () => {
     const appLink = "https://play.google.com/store/apps/details?id=com.berly.ChantDesperance";

@@ -20,7 +20,6 @@ export default function TabLayout() {
     const unsubscribe = auth.onAuthStateChanged(async (firebaseUser) => {
       if (firebaseUser) {
         // Utilisateur connecté → synchroniser les données depuis le cloud
-        await syncFromCloud("@favorites");
         await syncFromCloud("@notes");
         await syncFromCloud("@cultes");
         setUser(firebaseUser);

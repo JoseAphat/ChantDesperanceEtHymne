@@ -1,6 +1,7 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getFirestore, collection, doc, setDoc, getDocs, deleteDoc } from "firebase/firestore";
+import { auth } from "../services/firebaseConfig";
+import app from "../services/firebaseConfig";
 
-// ✅ Interface pour typer les chansons favorites
 interface FavoriteSong {
   id: string;
   title: string;
@@ -10,20 +11,25 @@ interface FavoriteSong {
   originalId?: string;
 }
 
-// ✅ Interface pour le retour du hook
 interface UseFavoritesReturn {
   addFavorite: (song: FavoriteSong) => Promise<void>;
   getFavorites: () => Promise<FavoriteSong[]>;
   removeFavorite: (songId: string) => Promise<void>;
 }
 
+const db = getFirestore(app);
+
 const useFavorites = (): UseFavoritesReturn => {
+
   const addFavorite = async (song: FavoriteSong): Promise<void> => {
     try {
-      const existingFavorites = await AsyncStorage.getItem('favorites');
-      const favorites: FavoriteSong[] = existingFavorites ? JSON.parse(existingFavorites) : [];
-      favorites.push(song);
-      await AsyncStorage.setItem('favorites', JSON.stringify(favorites));
+      const user = auth.currentUser;
+      if (!user) throw new Error("Utilisateur non connecté");
+
+      await setDoc(
+        doc(db, "users", user.uid, "favorites", song.id),
+        song
+      );
     } catch (error) {
       console.error("Erreur lors de l'ajout aux favoris :", error);
     }
@@ -31,8 +37,14 @@ const useFavorites = (): UseFavoritesReturn => {
 
   const getFavorites = async (): Promise<FavoriteSong[]> => {
     try {
-      const existingFavorites = await AsyncStorage.getItem('favorites');
-      return existingFavorites ? JSON.parse(existingFavorites) : [];
+      const user = auth.currentUser;
+      if (!user) return [];
+
+      const snapshot = await getDocs(
+        collection(db, "users", user.uid, "favorites")
+      );
+
+      return snapshot.docs.map(doc => doc.data() as FavoriteSong);
     } catch (error) {
       console.error("Erreur lors de la récupération des favoris :", error);
       return [];
@@ -41,10 +53,12 @@ const useFavorites = (): UseFavoritesReturn => {
 
   const removeFavorite = async (songId: string): Promise<void> => {
     try {
-      const existingFavorites = await AsyncStorage.getItem('favorites');
-      let favorites: FavoriteSong[] = existingFavorites ? JSON.parse(existingFavorites) : [];
-      favorites = favorites.filter((song) => song.id !== songId);
-      await AsyncStorage.setItem('favorites', JSON.stringify(favorites));
+      const user = auth.currentUser;
+      if (!user) throw new Error("Utilisateur non connecté");
+
+      await deleteDoc(
+        doc(db, "users", user.uid, "favorites", songId)
+      );
     } catch (error) {
       console.error("Erreur lors de la suppression du favori :", error);
     }

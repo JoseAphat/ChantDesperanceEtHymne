@@ -1,6 +1,7 @@
 import { initializeApp, getApps } from "firebase/app";
 import { getDatabase } from "firebase/database";
 import { initializeAuth, getReactNativePersistence } from "firebase/auth";
+import { getFirestore } from "firebase/firestore"; // ← ajouter
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const firebaseConfig = {
@@ -13,15 +14,23 @@ const firebaseConfig = {
   appId: "1:625574981121:web:6248d70b142c3b4a385a00",
 };
 
-// Éviter la double initialisation
 const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
 
-// Auth avec persistance AsyncStorage
 export const auth = initializeAuth(app, {
   persistence: getReactNativePersistence(AsyncStorage),
 });
 
-// Realtime Database
-export const database = getDatabase(app);
+// ✅ Protection contre l'initialisation en double
+let database: any = null;
+try {
+  database = getDatabase(app);
+} catch (error) {
+  console.warn("Realtime Database non disponible:", error);
+}
+
+export { database };
+
+// ✅ Firestore pour les favoris
+export const db = getFirestore(app);
 
 export default app;

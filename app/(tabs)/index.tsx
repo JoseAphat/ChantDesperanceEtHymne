@@ -27,7 +27,7 @@ import { moderateScale, scale, verticalScale } from "react-native-size-matters";
 import chantsC from "../ChantDC";
 import englishSongs from "../ChantDE";
 import chantsF from "../ChantDF";
-import frenchSongs from "../ChoeurFr";
+//import frenchSongs from "../ChoeurFr";
 import echo from "../Echo";
 import GloA from "../Gloire";
 import HaitiC from "../Hait";

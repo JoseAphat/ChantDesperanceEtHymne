@@ -2,10 +2,19 @@ import { ref, set, get, onValue } from "firebase/database";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { database, auth } from "./firebaseConfig";
 
+// ✅ Vérification que database est disponible
+const checkDatabase = () => {
+  if (!database) {
+    console.warn("Realtime Database non disponible");
+    return false;
+  }
+  return true;
+};
+
 // Sauvegarde les données d'un utilisateur dans Firebase
 export const syncToCloud = async (key: string, data: any): Promise<void> => {
   const user = auth.currentUser;
-  if (!user) return;
+  if (!user || !checkDatabase()) return;
 
   try {
     const dbRef = ref(database, `users/${user.uid}/${key}`);
@@ -18,7 +27,7 @@ export const syncToCloud = async (key: string, data: any): Promise<void> => {
 // Charge les données depuis Firebase vers AsyncStorage
 export const syncFromCloud = async (key: string): Promise<any> => {
   const user = auth.currentUser;
-  if (!user) return null;
+  if (!user || !checkDatabase()) return null;
 
   try {
     const dbRef = ref(database, `users/${user.uid}/${key}`);
@@ -36,13 +45,13 @@ export const syncFromCloud = async (key: string): Promise<any> => {
 };
 
 // Migre les données locales existantes vers Firebase (premier login)
+// ✅ "@favorites" retiré car géré par Firestore maintenant
 export const migrateLocalDataToCloud = async (): Promise<void> => {
   const user = auth.currentUser;
-  if (!user) return;
+  if (!user || !checkDatabase()) return;
 
   try {
     const keys = [
-      "@favorites",
       "@search_history_main",
       "@notes",
       "@cultes",
@@ -68,7 +77,7 @@ export const listenToUserData = (
   callback: (data: any) => void
 ): (() => void) => {
   const user = auth.currentUser;
-  if (!user) return () => {};
+  if (!user || !checkDatabase()) return () => {};
 
   const dbRef = ref(database, `users/${user.uid}/${key}`);
   const unsubscribe = onValue(dbRef, (snapshot) => {

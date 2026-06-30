@@ -1,5 +1,8 @@
 import { Ionicons } from "@expo/vector-icons";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { auth, db } from "@/services/firebaseConfig";
+import { 
+  collection, doc, setDoc, getDocs, writeBatch 
+} from "firebase/firestore";
 import { router, useNavigation } from "expo-router";
 import React, { useEffect, useRef, useState } from "react";
 import {
@@ -79,27 +82,48 @@ const Notes: React.FC = () => {
   }, [navigation]);
 
   const loadNotes = async () => {
-    try {
-      const raw = await AsyncStorage.getItem(NOTES_STORAGE_KEY);
-      if (raw) {
-        setNotes(JSON.parse(raw));
-      }
-    } catch (error) {
-      console.log("Error loading notes:", error);
-      Alert.alert("Erreur", "Impossible de charger les notes");
-    }
-  };
+  try {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    const snapshot = await getDocs(
+      collection(db, "users", user.uid, "notes")
+    );
+    const data = snapshot.docs.map(d => d.data() as Note);
+    setNotes(data);
+  } catch (error) {
+    console.log("Error loading notes:", error);
+    Alert.alert("Erreur", "Impossible de charger les notes");
+  }
+};
 
   const saveNotes = async (notesList: Note[]) => {
-    try {
-      await AsyncStorage.setItem(NOTES_STORAGE_KEY, JSON.stringify(notesList));
-      setNotes(notesList);
-    } catch (error) {
-      console.log("Error saving notes:", error);
-      Alert.alert("Erreur", "Impossible de sauvegarder les notes");
-    }
-  };
+  try {
+    const user = auth.currentUser;
+    if (!user) return;
 
+    setNotes(notesList);
+
+    const batch = writeBatch(db);
+
+    // Supprimer tous les anciens documents
+    const snapshot = await getDocs(
+      collection(db, "users", user.uid, "notes")
+    );
+    snapshot.docs.forEach(d => batch.delete(d.ref));
+
+    // Réécrire toutes les notes
+    notesList.forEach(note => {
+      const ref = doc(db, "users", user.uid, "notes", note.id);
+      batch.set(ref, note);
+    });
+
+    await batch.commit();
+  } catch (error) {
+    console.log("Error saving notes:", error);
+    Alert.alert("Erreur", "Impossible de sauvegarder les notes");
+  }
+};
   const createNewNote = () => {
     setCurrentNote(null);
     setTitle("");

@@ -277,7 +277,7 @@ const styles = StyleSheet.create({
   },
   upButton: {
     position: "absolute",
-    bottom: verticalScale(80), // ← Ajusté pour éviter chevauchement
+    bottom: verticalScale(150), // ← Ajusté pour éviter chevauchement
     right: scale(20),
     backgroundColor: "#0A1E42",
     borderRadius: scale(25),
@@ -286,7 +286,7 @@ const styles = StyleSheet.create({
   },
   downButton: {
     position: "absolute",
-    bottom: verticalScale(30),
+    bottom: verticalScale(80),
     right: scale(20),
     backgroundColor: "#0A1E42",
     borderRadius: scale(25),

@@ -1,5 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { auth, db } from "@/services/firebaseConfig";
+import { collection, doc, setDoc, getDocs, writeBatch } from "firebase/firestore";
 import { useFocusEffect } from "@react-navigation/native";
 import { router, useLocalSearchParams, useNavigation } from "expo-router";
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -83,14 +84,21 @@ export default function ServiceDetails() {
   const navigation = useNavigation();
 
   const load = async () => {
-    try {
-      const raw = await AsyncStorage.getItem(STORAGE_KEY);
-      const loadedServices = raw ? JSON.parse(raw) : [];
-      setServices(loadedServices);
-    } finally {
-      setLoading(false);
-    }
-  };
+  try {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    const snapshot = await getDocs(
+      collection(db, "users", user.uid, "cultes")
+    );
+    const data = snapshot.docs.map(d => d.data() as Service);
+    setServices(data);
+  } catch (error) {
+    console.error("Erreur chargement service:", error);
+  } finally {
+    setLoading(false);
+  }
+};
 
   useEffect(() => {
     navigation.setOptions({ headerShown: false, headerTitle: "" });
@@ -113,10 +121,22 @@ export default function ServiceDetails() {
   );
 
   const saveService = async (next: Service) => {
+  try {
+    const user = auth.currentUser;
+    if (!user) return;
+
     const list = services.map((s) => (s.id === next.id ? next : s));
     setServices(list);
-    await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(list));
-  };
+
+    // Mettre à jour uniquement ce document (plus efficace qu'un batch complet)
+    await setDoc(
+      doc(db, "users", user.uid, "cultes", next.id),
+      next
+    );
+  } catch (error) {
+    console.error("Erreur sauvegarde service:", error);
+  }
+};
 
   const removeChant = (section: SectionKey, uniqueKey: string) => {
     if (!service) return;
