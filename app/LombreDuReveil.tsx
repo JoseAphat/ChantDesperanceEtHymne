@@ -1,6 +1,6 @@
 import React from "react";
 import SongListScreen from "../components/SongListScreen";
-import OmbreF from "./OmbreReveil";
+import OmbreF from "@/data/OmbreReveil";
 import AdBanner from "@/components/AdBanner";
 import { View } from "react-native";
 

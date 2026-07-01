@@ -1,6 +1,6 @@
 import React from "react";
 import SongListScreen from "../components/SongListScreen";
-import HaitiC from "./Hait";
+import HaitiC from "@/data/Hait";
 import AdBanner from "@/components/AdBanner";
 import { View } from "react-native";
 

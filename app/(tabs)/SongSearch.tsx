@@ -17,7 +17,7 @@ import { moderateScale, verticalScale } from "react-native-size-matters";
 import AdBanner from '@/components/AdBanner';
 
 // --- Données ---
-import chantsF from "../ChantDF";
+import chantsF from "@/data/ChantDF";
 
 
 // Harmonisation des champs (déduit type pour 1..33 sinon garde l’existant si présent)
@@ -171,7 +171,7 @@ export default function SongSearch() {
   const handleSongPress = useCallback(
     (chant: Chant) => {
       router.push({
-        pathname: "/ChantDetails",
+        pathname: "./ChantDetails",
         params: {
           id: String(chant.id),
           title: chant.title,

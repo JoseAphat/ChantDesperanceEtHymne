@@ -218,7 +218,7 @@ const Culte: React.FC = () => {
     await save([service, ...services]);
     setShowAdd(false);
     setNewName("");
-    router.push({ pathname: "/ServiceDetails", params: { serviceId: id } });
+    router.push({ pathname: "./ServiceDetails", params: { serviceId: id } });
   };
 
   const editServiceName = async () => {

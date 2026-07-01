@@ -1,6 +1,6 @@
 import React from "react";
 import SongListScreen from "../components/SongListScreen";
-import chantsC from "./ChantDC";
+import chantsC from "@/data/ChantDC";
 import { View } from "react-native";
 import AdBanner from "@/components/AdBanner";
 

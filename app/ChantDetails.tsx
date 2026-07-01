@@ -2,7 +2,7 @@ import { categoryMap } from "@/components/data/categoryMap";
 import { MaterialIcons } from "@expo/vector-icons";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import useFavorites from "./useFavorites";
+import useFavorites from "@/hooks/useFavorites";
 import { router, useLocalSearchParams, useNavigation } from "expo-router";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import {

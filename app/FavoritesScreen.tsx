@@ -13,7 +13,7 @@ import {
   View
 } from "react-native";
 import { moderateScale, scale } from "react-native-size-matters";
-import useFavorites from "./useFavorites";
+import useFavorites from "@/hooks/useFavorites";
 import AdBanner from '@/components/AdBanner';
 interface FavoriteSong {
   id: string;

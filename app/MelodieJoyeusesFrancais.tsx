@@ -1,7 +1,7 @@
 // app/MelodieJoyeusesFrancais.tsx
 import React from "react";
 import SongListScreen from "../components/SongListScreen";
-import MelodieF from "./MelF";
+import MelodieF from "@/data/MelF";
 import AdBanner from "@/components/AdBanner";
 import { View } from "react-native";
 

@@ -5,7 +5,7 @@ import { ActivityIndicator, View } from "react-native";
 import mobileAds from "react-native-google-mobile-ads";
 import { auth } from "@/services/firebaseConfig";
 import { syncFromCloud } from "@/services/syncService";
-import LoginScreen from "../LoginScreen";
+import LoginScreen from "@/app/LoginScreen";
 
 export default function TabLayout() {
   const [user, setUser] = useState<any>(null);

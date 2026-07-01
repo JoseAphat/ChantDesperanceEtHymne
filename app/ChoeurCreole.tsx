@@ -1,6 +1,6 @@
 import React from "react";
 import SongListScreen from "../components/SongListScreen";
-import CreoleSongs from "./KeKreyol";
+import CreoleSongs from "@/data/KeKreyol";
 import AdBanner from "@/components/AdBanner";
 import { View } from "react-native";
 

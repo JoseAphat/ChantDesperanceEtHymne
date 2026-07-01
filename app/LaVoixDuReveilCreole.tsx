@@ -1,6 +1,6 @@
 import React from "react";
 import SongListScreen from "../components/SongListScreen";
-import VoixC from "./LaVoixCreole";
+import VoixC from "@/data/LaVoixCreole";
 import { View } from "react-native";
 import AdBanner from "@/components/AdBanner";
 

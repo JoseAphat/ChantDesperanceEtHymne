@@ -1,6 +1,6 @@
 import React from "react";
 import SongListScreen from "../components/SongListScreen";
-import echo from "./Echo";
+import echo from "@/data/Echo";
 import AdBanner from "@/components/AdBanner";
 import { View } from "react-native";
 

@@ -187,7 +187,7 @@ useEffect(() => {
           );
 
           router.push({
-            pathname: "/ChantDetails",
+            pathname: "./ChantDetails",
             params: {
               id: idStr,
               category: item.category,
@@ -196,7 +196,7 @@ useEffect(() => {
           });
         } else {
           router.push({
-            pathname: "/ChantDetails",
+            pathname: "./ChantDetails",
             params: {
               id: idStr,
               title: item.title.slice(0, 500),
@@ -210,7 +210,7 @@ useEffect(() => {
       } catch (e) {
         console.error("Navigation error:", e);
         // dernier recours minimal
-        router.push(`/ChantDetails?id=${encodeURIComponent(idStr)}&category=${encodeURIComponent(item.category)}`);
+        router.push(`./ChantDetails?id=${encodeURIComponent(idStr)}&category=${encodeURIComponent(item.category)}`);
       }
     },
     []

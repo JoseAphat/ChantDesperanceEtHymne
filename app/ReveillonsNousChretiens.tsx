@@ -1,6 +1,6 @@
 import React from "react";
 import SongListScreen from "../components/SongListScreen";
-import RevNC from "./ReveillonsNous";
+import RevNC from "@/data/ReveillonsNous";
 import { View } from "react-native";
 import AdBanner from "@/components/AdBanner";
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { View } from "react-native";
 import SongListScreen from "../components/SongListScreen";
-import HymneEtLouangeSongs from "./Hymne";
+import HymneEtLouangeSongs from "@/data/Hymne";
 import AdBanner from '@/components/AdBanner';
 
 export default function HymneEtLouange() {

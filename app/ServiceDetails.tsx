@@ -193,7 +193,7 @@ export default function ServiceDetails() {
   const openPickerForSection = (section: SectionKey) => {
     setSheetOpen(false);
     router.push({
-      pathname: "/CategoryPicker",
+      pathname: "./CategoryPicker",
       params: { fromNotes: "true", section, serviceId: String(serviceId) },
     });
   };
@@ -284,7 +284,7 @@ export default function ServiceDetails() {
             style={styles.chantBody}
             onPress={() =>
               router.push({
-                pathname: "/ChantDetails",
+                pathname: "./ChantDetails",
                 params: {
                   id: String(chant.id),
                   title: chant.title,
@@ -331,7 +331,7 @@ export default function ServiceDetails() {
             style={styles.chantBody}
             onPress={() =>
               router.push({
-                pathname: "/ChantDetails",
+                pathname: "./ChantDetails",
                 params: {
                   id: String(chant.id),
                   title: chant.title,
@@ -513,7 +513,7 @@ export default function ServiceDetails() {
             style={styles.chantBody}
             onPress={() =>
               router.push({
-                pathname: "/ChantDetails",
+                pathname: "./ChantDetails",
                 params: {
                   id: String(chant.id),
                   title: chant.title,

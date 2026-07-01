@@ -17,7 +17,7 @@ import {
   View
 } from "react-native";
 import { moderateScale, scale, verticalScale } from "react-native-size-matters";
-import GloA from "./Gloire";
+import GloA from "@/data/Gloire";
 import AdBanner from "@/components/AdBanner";
 
 // Typage pour les chants
@@ -164,7 +164,7 @@ const GloireAGneau: React.FC = () => {
       return;
     }
     router.push({
-      pathname: '/ChantDetails',
+      pathname: './ChantDetails',
       params: {
         id: chant.id.toString(),
         title: chant.title,
