@@ -2,6 +2,14 @@
   "expo": {
     "name": "Chants d'Espérance & Hymne",
     "slug": "ChantDesperance",
+    "version": "1.2.5",
+    "android": {
+      "versionCode": 46,
+      "package": "com.berly.ChantDesperance"
+    },
+    "ios": {
+      "buildNumber": "46"
+    },
     "plugins": [
       [
         "react-native-google-mobile-ads",
