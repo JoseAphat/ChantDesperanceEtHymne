@@ -2,12 +2,12 @@
   "expo": {
     "name": "Chants d'Espérance & Hymne",
     "slug": "ChantDesperance",
-    "version": "1.2.3",
+    "version": "1.2.4",
     "orientation": "default",
     "icon": "./assets/images/ic_launcher_foreground.png",
     "scheme": "chantdesperance",
     "userInterfaceStyle": "automatic",
-    "runtimeVersion": "1.2.3",
+    "runtimeVersion": "1.2.4",
     "updates": {
       "fallbackToCacheTimeout": 0,
       "url": "https://u.expo.dev/9ae3d36e-5ae4-40ac-9248-732109eb33e3"
@@ -27,23 +27,23 @@
       }
     },
     "android": {
-      "package": "com.berly.ChantDesperance",
-      "versionCode": 45,
-      "allowBackup": true,
-      "userInterfaceStyle": "automatic",
-      "softwareKeyboardLayoutMode": "pan",
-      "googleServicesFile": "./google-services.json",
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/images/ic_launcher_foreground.png",
-        "backgroundColor": "#03008E"
-      },
-      "permissions": [
-        "INTERNET",
-        "WAKE_LOCK",
-        "FOREGROUND_SERVICE",
-        "com.google.android.gms.permission.AD_ID"
-      ]
-    },
+  "package": "com.berly.ChantDesperance",
+  "versionCode": 45,
+  "allowBackup": true,
+  "userInterfaceStyle": "automatic",
+  "softwareKeyboardLayoutMode": "pan",
+  "googleServicesFile": "./google-services.json",
+  "adaptiveIcon": {
+    "foregroundImage": "./assets/images/ic_launcher_foreground.png",
+    "backgroundColor": "#03008E"
+  },
+  "permissions": [
+    "INTERNET",
+    "WAKE_LOCK",
+    "FOREGROUND_SERVICE",
+    "com.google.android.gms.permission.AD_ID"
+  ]
+},
     "web": {
       "bundler": "metro",
       "output": "static",
