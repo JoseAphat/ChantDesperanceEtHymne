@@ -2,10 +2,16 @@
   "expo": {
     "name": "Chants d'Espérance & Hymne",
     "slug": "ChantDesperance",
+    "scheme": "chantdesperance",
     "version": "1.2.5",
+    "icon": "./assets/images/chant.png",
     "android": {
       "versionCode": 46,
-      "package": "com.berly.ChantDesperance"
+      "package": "com.berly.ChantDesperance",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/chant.png",
+        "backgroundColor": "#0A1E42"
+      }
     },
     "ios": {
       "buildNumber": "46"
@@ -17,7 +23,21 @@
           "androidAppId": "ca-app-pub-3940256099942544~3347511713",
           "iosAppId": "ca-app-pub-3940256099942544~1458002511"
         }
+      ],
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/images/chant.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#0A1E42"
+        }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "9ae3d36e-5ae4-40ac-9248-732109eb33e3"
+      }
+    }
   }
 }

@@ -4926,6 +4926,75 @@ Roi de gloire nous Te couronnons x3
 Nous Te couronnons Roi
 `
 },
+{
+    id: "164",
+    title: "164- Jésus, le Prince glorieux",
+    lyrics: `1.
+Que tous genoux fléchissent
+Que toutes langues confessent
+Que Jésus-Christ est Seigneur
+Que les nations proclament
+La gloire de notre Seigneur
+Car il est digne de gloire
+
+Refrain :
+Oui, levons tous nos mains vers Lui
+Et contemplons Sa Magnificence
+Jésus Le Prince Glorieux
+Oui, acclamons le Roi des rois
+Car tout pouvoir Lui a été donné
+Jésus Le Prince Glorieux
+
+2.
+Que tout comme un seul homme
+Chantons à l'unisson
+Le refrain de Sa Gloire
+Et que nos cœurs s'abreuvent
+De Sa Sublime Splendeur
+Et de Sa Divine Bonté
+`
+},
+{
+    id: "165",
+    title: "165- Tu es digne de louange",
+    lyrics: `1.
+Tous les anges et les saints
+Se tiennent à tes pieds
+Les anciens t'adorent
+Et ils jettent leur couronnes
+Devant l'agneau
+
+Refrain:
+Tu es digne de louange
+Tu es digne de louange
+De toi sont toutes choses
+Pour toi sont toutes choses
+Et À toi soit la gloire
+
+Pont
+Jour et nuit
+Nuit et jour
+Qu'un parfum s'élève
+Jour et nuit
+Nuit et jour
+Qu'un parfum s'élève
+`
+},
+{
+    id: "166",
+    title: "166- Merveilleux est notre Dieu",
+    lyrics: `1.
+Saint est le Seigneur
+La création déclare Ta gloire
+Digne d’être loué
+Nous adorons Ta majesté
+Merveilleux est notre Dieu
+Tu es Dieu
+Et Tu fais de grands prodiges
+Nous élevons Ton nom si grand
+Prosternés, nous T’adorons
+`
+},
 ]
 export default frenchSongs;
 

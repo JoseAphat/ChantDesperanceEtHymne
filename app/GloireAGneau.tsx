@@ -1,12 +1,10 @@
 /* eslint-disable react/display-name */
 import AntDesign from "@expo/vector-icons/AntDesign";
-// ✨ MODIF: + useLocalSearchParams pour lire fromNotes/section
 import { Ionicons } from "@expo/vector-icons";
-import AsyncStorage from "@react-native-async-storage/async-storage"; // 🔹 AJOUT
 import { router, useLocalSearchParams, useNavigation } from "expo-router";
-import React, { useLayoutEffect, useMemo, useRef, useState } from "react"; // ✨ MODIF
+import React, { useLayoutEffect, useMemo, useRef, useState } from "react";
 import {
-  Alert, // 🔹 AJOUT
+  Alert,
   FlatList,
   Platform,
   StatusBar,
@@ -19,6 +17,8 @@ import {
 import { moderateScale, scale, verticalScale } from "react-native-size-matters";
 import GloA from "@/data/Gloire";
 import AdBanner from "@/components/AdBanner";
+// ✨ Aligné sur SongListScreen.tsx : on utilise le même système de service Firestore
+import { addChantToService, SectionKey } from "@/utils/services";
 
 // Typage pour les chants
 interface Chant {
@@ -26,9 +26,6 @@ interface Chant {
   title: string;
   lyrics: string;
 }
-
-// 🔹 AJOUT: sections valides depuis Mes Notes
-type SectionKey = "introduction" | "partie1" | "partie2" | "partie3";
 
 // Props pour RenderItem
 interface RenderItemProps {
@@ -50,10 +47,11 @@ const GloireAGneau: React.FC = () => {
   const [searchInput, setSearchInput] = useState("");
   const isNumericInput = /^\d+$/.test(searchInput.trim());
 
-  // 🔹 AJOUT: lire les paramètres envoyés par Mes Notes
+  // Paramètres envoyés depuis le sélecteur de catégorie (Mes Notes / Cultes)
   const params = useLocalSearchParams();
   const fromNotes = params?.fromNotes === "true";
   const section = (params?.section as SectionKey) || undefined;
+  const serviceId = (params?.serviceId as string) || undefined;
 
   // ✨ MODIF: header sans flicker
   useLayoutEffect(() => {
@@ -118,43 +116,25 @@ const GloireAGneau: React.FC = () => {
     });
   }, [searchInput]);
 
-  // 🔹 AJOUT: ajout dans les notes si on vient de Mes Notes
+  // Ajout au culte en cours via Firestore — même logique que SongListScreen.tsx
   const addChantToNotes = async (chant: Chant) => {
-    if (!section) {
-      Alert.alert("Notes", "Section introuvable.");
+    if (!serviceId || !section) {
+      Alert.alert("Notes", "Service ou section manquant.");
       return;
     }
-    try {
-      const raw = await AsyncStorage.getItem("@notes_sections");
-      const parsed: Record<SectionKey, Chant[]> =
-        raw ? JSON.parse(raw) : { introduction: [], partie1: [], partie2: [], partie3: [] };
-
-      const exists = (parsed[section] || []).some(
-        (c) => c.id.toString() === chant.id.toString()
-      );
-      if (exists) {
-        Alert.alert("Notes", "Ce chant est déjà dans cette section.");
-        return;
-      }
-
-      // (optionnel) tu peux fixer une catégorie par défaut:
-      // category: "Gloire à l'Agneau"
-      const entry: Chant = {
-        id: chant.id,
-        title: chant.title,
-        lyrics: chant.lyrics,
-      };
-
-      parsed[section] = [...(parsed[section] || []), entry];
-      await AsyncStorage.setItem("@notes_sections", JSON.stringify(parsed));
-
-      Alert.alert("Notes", "Chant ajouté à la section ✅", [
-        { text: "OK", onPress: () => router.back() }, // retour vers Mes Notes
-      ]);
-    } catch (e) {
-      console.log("Erreur ajout notes:", e);
-      Alert.alert("Erreur", "Impossible d’ajouter ce chant.");
+    const res = await addChantToService(serviceId, section, {
+      id: chant.id,
+      title: chant.title,
+      lyrics: chant.lyrics,
+      category: "Gloire à l'Agneau",
+    });
+    if (!res.ok) {
+      Alert.alert("Erreur", res.error || "Impossible d'ajouter ce chant.");
+      return;
     }
+    Alert.alert("Ajouté", "Chant ajouté au service !", [
+      { text: "OK", onPress: () => router.back() },
+    ]);
   };
 
   // ✨ MODIF: si fromNotes => ajout; sinon => Détails

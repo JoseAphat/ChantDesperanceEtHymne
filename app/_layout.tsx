@@ -1,12 +1,14 @@
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { useScreenOrientation } from '@/hooks/useScreenOrientation';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import { useKeepAwake } from 'expo-keep-awake';        // ← AJOUTÉ
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 export default function RootLayout() {
+  useKeepAwake();                                        // ← AJOUTÉ
   useScreenOrientation();
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({

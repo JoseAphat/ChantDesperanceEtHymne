@@ -4166,6 +4166,57 @@ We crown You, You are worthy
 We crown You, You are worthy
 We crown You Lord of all
     `
-}
+},
+{
+    id: "122",
+    title: "122- Worthy of it all",
+    lyrics: `Verse 1
+All the saints and angels
+They bow before Your throne
+All the elders cast their crowns
+Before the Lamb of God and sing
+
+Chorus:
+You are worthy of it all
+You are worthy of it all
+For from You are all things
+And to You are all things
+You deserve the glory
+
+Bridge
+Day and night, night and day let incense arise
+Day and night, night and day let incense arise
+Day and night, night and day let incense arise
+Day and night, night and day let incense arise
+`
+},
+{
+    id: "123",
+    title: "123- Awesome God",
+    lyrics: `Verse 1
+Holy are You Lord
+All creation call You God
+Worthy is Your name
+We worship Your Majesty
+
+Chorus:
+Awesome God, how great Thou art
+You are God, mighty are Your miracles
+We stand in awe of Your holy name
+Lord we bow and worship You
+
+Bridge 1
+King of kings, Lord of lords, everlasting King
+Savior, Redeemer, soon coming King
+King of kings, Lord of lords, everlasting King
+Savior, Redeemer, soon coming King
+
+Bridge 2
+Awesome, awesome
+Awesome, awesome
+Awesome, awesome
+Awesome, awesome is your name
+`
+},
 ];
 export default englishSongs;
