@@ -60,28 +60,59 @@ const SearchResults: React.FC = () => {
   const navigation = useNavigation();
   const params = useLocalSearchParams();
 
-  // Récupération sûre du JSON une seule fois
-  const results: ResultItem[] = useMemo(() => {
-    try {
-      const raw = Array.isArray(params.results)
-        ? params.results[0]
-        : (params.results as string);
-      const parsed = JSON.parse(raw || "[]");
-      return Array.isArray(parsed)
-        ? parsed.map((r) => ({
-            id: r.id,
-            type: r.type ?? "",
-            title: r.title ?? "",
-            lyrics: r.lyrics ?? "",
-            category: r.category ?? "",
-            author: r.author ?? "",
-          }))
-        : [];
-    } catch (e) {
-      console.warn("results: JSON parse error", e);
-      return [];
-    }
-  }, [params.results]);
+  const SEARCH_RESULTS_TEMP_KEY = "@search_results_temp";
+
+  // ✅ Résultats chargés soit depuis AsyncStorage (nouveau chemin, rapide et
+  // sans blocage de la navigation), soit depuis les params d'URL (ancien
+  // chemin, gardé en repli pour compatibilité).
+  const [results, setResults] = useState<ResultItem[]>([]);
+  const [resultsLoading, setResultsLoading] = useState(true);
+
+  const mapResults = (parsed: unknown): ResultItem[] =>
+    Array.isArray(parsed)
+      ? parsed.map((r) => ({
+          id: r.id,
+          type: r.type ?? "",
+          title: r.title ?? "",
+          lyrics: r.lyrics ?? "",
+          category: r.category ?? "",
+          author: r.author ?? "",
+        }))
+      : [];
+
+  useEffect(() => {
+    let isActive = true;
+
+    const loadResults = async () => {
+      const fromStorage = Array.isArray(params.fromStorage)
+        ? params.fromStorage[0]
+        : (params.fromStorage as string | undefined);
+
+      try {
+        if (fromStorage === "true") {
+          const raw = await AsyncStorage.getItem(SEARCH_RESULTS_TEMP_KEY);
+          const parsed = JSON.parse(raw || "[]");
+          if (isActive) setResults(mapResults(parsed));
+        } else {
+          const raw = Array.isArray(params.results)
+            ? params.results[0]
+            : (params.results as string);
+          const parsed = JSON.parse(raw || "[]");
+          if (isActive) setResults(mapResults(parsed));
+        }
+      } catch (e) {
+        console.warn("results: chargement impossible", e);
+        if (isActive) setResults([]);
+      } finally {
+        if (isActive) setResultsLoading(false);
+      }
+    };
+
+    loadResults();
+    return () => {
+      isActive = false;
+    };
+  }, [params.results, params.fromStorage]);
 
   // Catégorie transmise (facultatif)
   const category = useMemo(() => {
@@ -258,7 +289,9 @@ useEffect(() => {
         style={styles.searchInput}
         returnKeyType="search"
       />
-      {loading && <ActivityIndicator size="small" color="#1C1362" style={{ marginBottom: 8 }} />}
+      {(loading || resultsLoading) && (
+        <ActivityIndicator size="small" color="#1C1362" style={{ marginBottom: 8 }} />
+      )}
 
       <FlatList
         data={filteredItems}

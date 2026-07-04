@@ -4,7 +4,7 @@ import MaterialCommunityIcons from "@expo/vector-icons/build/MaterialCommunityIc
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import MainMenu from "@/components/MainMenu";
-import { searchSongs } from "@/utils/searchSongs";
+import { searchSongs, warmupSearchCache } from "@/utils/searchSongs";
 import { router, useFocusEffect, useLocalSearchParams, useNavigation } from "expo-router";
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import {
@@ -38,11 +38,15 @@ export default function App() {
   const isFromNotes = fromNotes === "true";
 
   const SEARCH_HISTORY_KEY = '@search_history_main';
+  const SEARCH_RESULTS_TEMP_KEY = '@search_results_temp';
   const MAX_HISTORY_ITEMS = 10;
 
   // Charger l'historique au montage du composant
   useEffect(() => {
     loadSearchHistory();
+    // ✅ Préchauffe le cache de recherche en arrière-plan (petits paquets,
+    // ne bloque jamais l'UI), pour que la 1ère recherche ne freeze plus.
+    warmupSearchCache();
   }, []);
 
   const loadSearchHistory = async () => {
@@ -229,6 +233,22 @@ export default function App() {
 
   const performSearch = (searchTerm: string) => searchSongs(searchTerm);
 
+  const goToSearchResults = async (results: ReturnType<typeof performSearch>) => {
+    try {
+      // ✅ On stocke les résultats (potentiellement volumineux, paroles incluses)
+      // dans AsyncStorage plutôt que dans les params d'URL: évite de sérialiser/
+      // désérialiser un gros JSON pendant la transition de navigation (= freeze).
+      await AsyncStorage.setItem(SEARCH_RESULTS_TEMP_KEY, JSON.stringify(results));
+      router.push({
+        pathname: "./SearchResults",
+        params: { fromStorage: "true" },
+      });
+    } catch (error) {
+      console.error("Erreur lors du stockage des résultats de recherche:", error);
+      Alert.alert("Erreur", "Impossible d'afficher les résultats. Réessayez.");
+    }
+  };
+
   const handleSearch = async () => {
     if (!inputValue.trim()) return;
 
@@ -237,25 +257,19 @@ export default function App() {
     if (results.length > 0) {
       await saveToHistory(inputValue);
       setShowHistory(false);
-      router.push({
-        pathname: "./SearchResults",
-        params: { results: JSON.stringify(results) },
-      });
+      await goToSearchResults(results);
     } else {
       alert("Aucun résultat trouvé");
     }
   };
 
-  const handleHistoryItemPress = (item: string) => {
+  const handleHistoryItemPress = async (item: string) => {
     setInputValue(item);
     setShowHistory(false);
     const results = performSearch(item);
 
     if (results.length > 0) {
-      router.push({
-        pathname: "./SearchResults",
-        params: { results: JSON.stringify(results) },
-      });
+      await goToSearchResults(results);
     }
   };
 
