@@ -12,24 +12,3 @@
 -keep class com.facebook.react.turbomodule.** { *; }
 
 # Add any project specific keep options here:
-
-# @generated begin expo-build-properties - expo prebuild (DO NOT MODIFY)
--keep class com.facebook.hermes.** { *; }
--keep class com.facebook.jni.** { *; }
--keep class com.facebook.soloader.** { *; }
--keep class com.facebook.proguard.annotations.DoNotStrip
--keep @com.facebook.proguard.annotations.DoNotStrip class *
--keepclassmembers class * {
-  @com.facebook.proguard.annotations.DoNotStrip *;
-}
-
--keep class com.facebook.react.** { *; }
--keep class com.facebook.react.turbomodule.** { *; }
--keep class com.swmansion.** { *; }
--keep class com.bumptech.glide.** { *; }
--keep class com.google.gson.** { *; }
--keep class okhttp3.** { *; }
--keep class okio.** { *; }
-
--keep class expo.modules.** { *; }
-# @generated end expo-build-properties

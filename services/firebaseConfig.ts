@@ -1,7 +1,9 @@
 import { initializeApp, getApps } from "firebase/app";
 import { getDatabase } from "firebase/database";
-import { initializeAuth, getReactNativePersistence } from "firebase/auth";
-import { getFirestore } from "firebase/firestore"; // ← ajouter
+import { initializeAuth, getAuth } from "firebase/auth";
+// @ts-ignore
+import { getReactNativePersistence } from "@firebase/auth/dist/rn/index.js";
+import { getFirestore } from "firebase/firestore";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const firebaseConfig = {
@@ -14,23 +16,40 @@ const firebaseConfig = {
   appId: "1:625574981121:web:6248d70b142c3b4a385a00",
 };
 
-const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
-
-export const auth = initializeAuth(app, {
-  persistence: getReactNativePersistence(AsyncStorage),
-});
-
-// ✅ Protection contre l'initialisation en double
+let app: any = null;
+let auth: any = null;
+let db: any = null;
 let database: any = null;
+
+try {
+  app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
+} catch (error) {
+  console.error("Erreur initialisation Firebase app:", error);
+}
+
+try {
+  auth = initializeAuth(app, {
+    persistence: getReactNativePersistence(AsyncStorage),
+  });
+} catch (error) {
+  try {
+    auth = getAuth(app);
+  } catch (e) {
+    console.error("Erreur initialisation Firebase auth:", e);
+  }
+}
+
+try {
+  db = getFirestore(app);
+} catch (error) {
+  console.error("Erreur initialisation Firestore:", error);
+}
+
 try {
   database = getDatabase(app);
 } catch (error) {
   console.warn("Realtime Database non disponible:", error);
 }
 
-export { database };
-
-// ✅ Firestore pour les favoris
-export const db = getFirestore(app);
-
+export { auth, db, database };
 export default app;

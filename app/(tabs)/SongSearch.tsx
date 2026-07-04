@@ -169,20 +169,18 @@ export default function SongSearch() {
   }, [allSongs, selectedType, selectedCategory]);
 
   const handleSongPress = useCallback(
-    (chant: Chant) => {
-      router.push({
-        pathname: "./ChantDetails",
-        params: {
-          id: String(chant.id),
-          title: chant.title,
-          lyrics: chant.lyrics,
-          type: chant.type,
-          category: chant.category,
-        },
-      });
-    },
-    [router]
-  );
+  (chant: Chant) => {
+    router.push({
+      pathname: "./ChantDetails",
+      params: {
+        id: String(chant.id),
+        title: chant.title,
+        category: chant.category,
+      },
+    });
+  },
+  [router]
+);
 
   // Items des sélecteurs
   const categoryItems = useMemo(

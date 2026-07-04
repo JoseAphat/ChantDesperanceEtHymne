@@ -144,15 +144,14 @@ const GloireAGneau: React.FC = () => {
       return;
     }
     router.push({
-      pathname: './ChantDetails',
-      params: {
-        id: chant.id.toString(),
-        title: chant.title,
-        lyrics: chant.lyrics,
-        category: "Gloire à l'Agneau",
-        previousTitle: "Gloire à l'Agneau",
-      }
-    });
+  pathname: './ChantDetails',
+  params: {
+    id: chant.id.toString(),
+    title: chant.title,
+    category: "Gloire à l'Agneau",
+    previousTitle: "Gloire à l'Agneau",
+  }
+});
   };
 
   // ✨ MODIF: flèches basées sur mesures réelles (plus fiable)

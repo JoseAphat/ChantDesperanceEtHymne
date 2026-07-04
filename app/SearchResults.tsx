@@ -187,21 +187,19 @@ useEffect(() => {
           );
 
           router.push({
-            pathname: "./ChantDetails",
-            params: {
-              id: idStr,
-              category: item.category,
-              useStorage: "true",
-            },
-          });
+          pathname: "./ChantDetails",
+          params: {
+            id: idStr,
+            category: item.category,
+            useStorage: "true",
+          },
+        });
         } else {
           router.push({
             pathname: "./ChantDetails",
             params: {
               id: idStr,
-              title: item.title.slice(0, 500),
-              lyrics: (item.lyrics || "").slice(0, 10000),
-              author: item.author ?? "",
+              title: item.title,
               category: item.category,
               previousTitle: item.type || item.category,
             },

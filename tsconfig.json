@@ -11,6 +11,8 @@
   "include": [
     "**/*.ts",
     "**/*.tsx",
-    "plugins/with-optional-features.js"
+    "plugins/with-optional-features.js",
+    ".expo/types/**/*.ts",
+    "expo-env.d.ts"
   ]
 }

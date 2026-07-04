@@ -12,7 +12,6 @@ import { Ionicons } from "@expo/vector-icons";
 import Svg, { Path } from "react-native-svg";
 
 import { signInWithGoogle } from "@/services/authService";
-import { migrateLocalDataToCloud } from "@/services/syncService";
 
 interface LoginScreenProps {
   onLoginSuccess: () => void;
@@ -32,22 +31,22 @@ export default function LoginScreen({ onLoginSuccess }: LoginScreenProps) {
   const [loading, setLoading] = useState(false);
 
   const handleGoogleSignIn = async () => {
-    setLoading(true);
-    try {
-      const user = await signInWithGoogle();
-      if (user) {
-        await migrateLocalDataToCloud();
-        onLoginSuccess();
-      }
-    } catch (error) {
-      Alert.alert(
-        "Erreur de connexion",
-        "Impossible de se connecter avec Google. Veuillez réessayer."
-      );
-    } finally {
-      setLoading(false);
+  setLoading(true);
+  try {
+    const user = await signInWithGoogle();
+    if (user) {
+      // await migrateLocalDataToCloud(); ← retirer
+      onLoginSuccess();
     }
-  };
+  } catch (error) {
+    Alert.alert(
+      "Erreur de connexion",
+      "Impossible de se connecter avec Google. Veuillez réessayer."
+    );
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <View style={styles.container}>

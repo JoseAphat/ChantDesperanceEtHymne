@@ -280,7 +280,6 @@ const FavoritesScreen: React.FC = () => {
                         id: song.originalId || song.id,
                         category: song.category,
                         title: song.title,
-                        lyrics: song.lyrics,
                       },
                     });
                   }

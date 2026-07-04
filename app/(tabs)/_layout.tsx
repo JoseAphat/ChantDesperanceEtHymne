@@ -2,37 +2,54 @@ import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 import React, { useEffect, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
-import mobileAds from "react-native-google-mobile-ads";
 import { auth } from "@/services/firebaseConfig";
 import { syncFromCloud } from "@/services/syncService";
 import LoginScreen from "@/app/LoginScreen";
+import { User } from "firebase/auth";
 
 export default function TabLayout() {
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    mobileAds()
-      .initialize()
-      .catch((error: any) => console.error("Erreur AdMob:", error));
-
-    // Écouter l'état de connexion Firebase
-    const unsubscribe = auth.onAuthStateChanged(async (firebaseUser) => {
-      if (firebaseUser) {
-        // Utilisateur connecté → synchroniser les données depuis le cloud
-        await syncFromCloud("@notes");
-        await syncFromCloud("@cultes");
-        setUser(firebaseUser);
-      } else {
-        setUser(null);
+    // ✅ Initialisation AdMob séparée et non bloquante
+    const initAds = async () => {
+      try {
+        const mobileAds = (await import("react-native-google-mobile-ads")).default;
+        await mobileAds().initialize();
+      } catch (error) {
+        console.warn("AdMob non disponible:", error);
       }
-      setLoading(false);
-    });
+    };
+    initAds();
 
-    return unsubscribe;
+    // ✅ Écouter l'état de connexion Firebase
+    let unsubscribe: () => void = () => {};
+
+    try {
+const unsubscribe = auth.onAuthStateChanged(async (firebaseUser: User | null) => {        try {
+          if (firebaseUser) {
+            await syncFromCloud("@notes").catch(() => {});
+            await syncFromCloud("@cultes").catch(() => {});
+            setUser(firebaseUser);
+          } else {
+            setUser(null);
+          }
+        } catch (e) {
+          console.warn("Erreur sync:", e);
+          setUser(firebaseUser);
+        } finally {
+          setLoading(false);
+        }
+      });
+    } catch (e) {
+      console.warn("Erreur Firebase auth:", e);
+      setLoading(false);
+    }
+
+    return () => unsubscribe();
   }, []);
 
-  // Écran de chargement
   if (loading) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: "#0A1E42" }}>
@@ -41,12 +58,10 @@ export default function TabLayout() {
     );
   }
 
-  // Écran de connexion si non connecté
   if (!user) {
     return <LoginScreen onLoginSuccess={() => {}} />;
   }
 
-  // App principale si connecté
   return (
     <Tabs
       screenOptions={{

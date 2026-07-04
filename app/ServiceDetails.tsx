@@ -288,7 +288,6 @@ export default function ServiceDetails() {
                 params: {
                   id: String(chant.id),
                   title: chant.title,
-                  lyrics: chant.lyrics,
                   category: chant.category,
                 },
               })
@@ -335,7 +334,6 @@ export default function ServiceDetails() {
                 params: {
                   id: String(chant.id),
                   title: chant.title,
-                  lyrics: chant.lyrics,
                   category: chant.category,
                 },
               })
@@ -517,7 +515,6 @@ export default function ServiceDetails() {
                 params: {
                   id: String(chant.id),
                   title: chant.title,
-                  lyrics: chant.lyrics,
                   category: chant.category,
                 },
               })

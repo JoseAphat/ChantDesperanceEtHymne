@@ -24,8 +24,6 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { moderateScale, scale, verticalScale } from "react-native-size-matters";
 import {
   styles,
-  responsiveScale,
-  responsiveVerticalScale,
   responsiveModerateScale,
 } from "@/styles/index.styles";
 

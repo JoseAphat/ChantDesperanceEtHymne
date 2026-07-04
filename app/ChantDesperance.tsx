@@ -162,16 +162,13 @@ const ChantDesperance: React.FC = () => {
       headerTitle: () => (
         <View
           style={{
-            flexDirection: "row",
             alignItems: "center",
             justifyContent: "center",
-            marginTop: Platform.OS === "android" ? StatusBar.currentHeight ?? 40 : 30,
-            height: 80,
           }}
         >
           <Text style={{ 
             color: "#0A1E42", 
-            fontSize: responsiveModerateScale(17), 
+            fontSize: responsiveModerateScale(16), 
             textAlign: "center",
             paddingHorizontal: 20,
           }}>
@@ -180,18 +177,17 @@ const ChantDesperance: React.FC = () => {
         </View>
       ),
       headerStyle: {
-        height: Platform.OS === "android" ? 140 + (StatusBar.currentHeight ?? 0) : 140,
+        height: verticalScale(100),
         backgroundColor: "#dfdedcf7",
-        borderBottomWidth: 1,
-        borderBottomColor: "#0A1E42",
+        
       },
       headerTitleAlign: "center",
       headerLeft: () => (
         <View
           style={{
-            marginLeft: 10,
-            marginTop: Platform.OS === "android" ? StatusBar.currentHeight ?? 40 : 35,
-            height: 40,
+            width: scale(40),
+            height: verticalScale(40),
+            marginLeft: scale(20),
             justifyContent: "center",
           }}
         >

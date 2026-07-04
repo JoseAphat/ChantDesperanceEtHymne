@@ -153,7 +153,6 @@ const SongListScreen: React.FC<Props> = ({
       params: {
         id: String(chant.id),
         title: chant.title,
-        lyrics: chant.lyrics,
         author: chant.author || "", // ← Gère author optionnel
         category,
         previousTitle: previousTitle || headerTitle,

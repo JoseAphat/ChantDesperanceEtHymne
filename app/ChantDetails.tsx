@@ -130,14 +130,34 @@ const ChantDetails: React.FC = () => {
   }, []);
 
   // appliquer zoom
-  useEffect(() => {
-    setCurrentFontSize(baseFontSize * zoomLevel);
-  }, [zoomLevel, baseFontSize]);
-
-  // charger chant depuis params / storage temporaire
-
-useEffect(() => {
+ useEffect(() => {
   const loadChantData = async () => {
+    console.log("=== loadChantData ===");
+    console.log("id:", id);
+    console.log("category:", category);
+    
+    const key = resolveCategoryKey(category as string);
+    console.log("key trouvé:", key);
+    
+    if (key) {
+      const songsInCategory = (categoryMap as any)[key];
+      console.log("nb chants dans catégorie:", songsInCategory?.length);
+      
+      if (Array.isArray(songsInCategory)) {
+        const found = songsInCategory.find(
+          (s: any) => String(s.id) === String(id)
+        );
+        console.log("chant trouvé:", found?.title);
+        
+        if (found) {
+          setTitle(found.title || "Titre Inconnu");
+          setLyrics(found.lyrics || "Aucune Parole Disponible");
+          setAuthor(found.author || "");
+          return;
+        }
+      }
+    }
+
     let finalTitle = paramTitle || "Titre Inconnu";
     let finalLyrics = paramLyrics || "Aucune Parole Disponible";
     let finalAuthor = paramAuthor || "";
@@ -369,17 +389,15 @@ useEffect(() => {
               style={[styles.button, !previousSong && styles.disabledButton]}
               onPress={() =>
                 previousSong &&
-                router.replace({
-                  pathname: "./ChantDetails",
-                  params: {
-                    id: previousSong.id,
-                    title: previousSong.title,
-                    lyrics: previousSong.lyrics,
-                    author: previousSong.author,
-                    category,
-                    previousTitle,
-                  },
-                })
+               router.replace({
+                pathname: "./ChantDetails",
+                params: {
+                  id: previousSong.id,
+                  title: previousSong.title,
+                  category,
+                  previousTitle,
+                },
+              })
               }
               disabled={!previousSong}
             >
@@ -399,12 +417,10 @@ useEffect(() => {
                   params: {
                     id: nextSong.id,
                     title: nextSong.title,
-                    lyrics: nextSong.lyrics,
-                    author: nextSong.author,
                     category,
                     previousTitle,
                   },
-                })
+              })
               }
               disabled={!nextSong}
             >
